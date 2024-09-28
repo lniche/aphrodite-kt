@@ -54,6 +54,9 @@ dependencies {
     runtimeOnly("com.mysql:mysql-connector-j")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
+    implementation("com.github.xiaoymin:knife4j-openapi3-jakarta-spring-boot-starter:4.4.0")
+    implementation("org.redisson:redisson-spring-boot-starter:3.36.0")
+    testImplementation("cn.smallbun.screw:screw-core:1.0.5")
     implementation("com.google.guava:guava:33.3.1-jre")
     implementation("com.alibaba:transmittable-thread-local:2.14.5")
     implementation("cn.hutool:hutool-all:5.8.32")
@@ -61,7 +64,7 @@ dependencies {
     implementation("cn.dev33:sa-token-redis-jackson:1.39.0")
     implementation("org.apache.commons:commons-pool2")
     implementation("com.baomidou:mybatis-plus-spring-boot3-starter:3.5.7")
-    implementation("com.baomidou:mybatis-plus-generator:3.5.7")
+    testImplementation("com.baomidou:mybatis-plus-generator:3.5.7")
 }
 
 kotlin {

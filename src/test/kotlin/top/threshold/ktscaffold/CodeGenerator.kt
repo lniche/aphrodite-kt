@@ -1,4 +1,4 @@
-package top.threshold.ktscaffold.helper
+package top.threshold.ktscaffold
 
 import com.baomidou.mybatisplus.generator.FastAutoGenerator
 import com.baomidou.mybatisplus.generator.config.GlobalConfig
