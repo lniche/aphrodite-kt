@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: test
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 123123
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  app:
+    image: kt-scaffold:latest
+    ports:
+      - "9001:9001"
+    depends_on:
+      - db
+    environment:
+      SPRING_PROFILE: dev
+
+volumes:
+  db_data:
