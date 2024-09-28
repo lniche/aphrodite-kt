@@ -1,8 +1,16 @@
 server:
   port: 9001
-
+  compression:
+    enabled: true
+    mime-types: application/json, text/plain
+  servlet:
+    context-path: /api
+  shutdown: graceful
+  max-http-request-header-size: 102400
 
 spring:
+  lifecycle:
+    timeout-per-shutdown-phase: 30s #设置缓冲期，最大等待时间
   profiles:
     active: dev
   application:

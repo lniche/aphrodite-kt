@@ -16,3 +16,7 @@ spring:
       # password:
       # 连接超时时间
       timeout: 10s
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

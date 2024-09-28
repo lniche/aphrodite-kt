@@ -3,24 +3,23 @@ plugins {
     kotlin("plugin.spring") version "2.0.20"
     id("org.springframework.boot") version "3.3.4"
     id("io.spring.dependency-management") version "1.1.6"
-//    kotlin("kapt") version "2.0.20"
-//    kotlin("plugin.allopen") version "2.0.20"
-//    kotlin("plugin.noarg") version "2.0.20"
-//    id("com.mybatis-flex.kotlin") version "1.0.1"
+    kotlin("kapt") version "2.0.20"
+    kotlin("plugin.allopen") version "2.0.20"
+    kotlin("plugin.noarg") version "2.0.20"
     kotlin("plugin.lombok") version "2.0.20"
     id("io.freefair.lombok") version "8.10"
 }
 
 group = "top.threshold"
-version = "0.0.1-SNAPSHOT"
+version = "1.0.0"
 
-//noArg {
-//    annotation("com.mybatisflex.annotation.Table")
-//}
-//
-//allOpen {
-//    annotation("com.mybatisflex.annotation.Table")
-//}
+noArg {
+
+}
+
+allOpen {
+
+}
 
 java {
     toolchain {
@@ -55,6 +54,7 @@ dependencies {
     runtimeOnly("com.mysql:mysql-connector-j")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
+    implementation("com.google.guava:guava:33.3.1-jre")
     implementation("com.alibaba:transmittable-thread-local:2.14.5")
     implementation("cn.hutool:hutool-all:5.8.32")
     implementation("cn.dev33:sa-token-spring-boot3-starter:1.39.0")
