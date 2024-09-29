@@ -1,13 +1,13 @@
 package top.threshold.ktscaffold.aspect
 
-import RainbowException
+import KtException
 import cn.dev33.satoken.stp.StpUtil
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.stereotype.Component
 import org.springframework.web.servlet.HandlerInterceptor
 import top.threshold.ktscaffold.entity.Slf4j.Companion.log
-import top.threshold.ktscaffold.enums.RCode
+import top.threshold.ktscaffold.enums.KtCode
 import top.threshold.ktscaffold.util.HmacUtil
 import top.threshold.ktscaffold.util.RedisUtil
 
@@ -56,7 +56,7 @@ class HmacInterceptor(
                 ci,
                 cs
             )
-            throw RainbowException(RCode.FORBIDDEN)
+            throw KtException(KtCode.FORBIDDEN)
         }
         //每次请求3秒的记录，相同认为重复请求
         redisUtil.setStr("risk:$ci", "1", 3L)

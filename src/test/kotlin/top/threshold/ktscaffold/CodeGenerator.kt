@@ -35,7 +35,7 @@ object CodeGenerator {
             }
             .strategyConfig { builder: StrategyConfig.Builder ->
                 builder
-                    .addInclude("t_account")
+                    .addInclude("t_user")
                     .addTablePrefix("t_")
                     .entityBuilder()
                     .enableFileOverride()
@@ -54,10 +54,15 @@ object CodeGenerator {
                         "deleted",
                         "version",
                     )
+//                    .versionColumnName("version")
+//                    .logicDeleteColumnName("id_deleted")
                     .formatFileName("%sDO")
-                    .mapperBuilder().disableMapperXml().enableFileOverride()
-                    .controllerBuilder().enableFileOverride()
-                    .serviceBuilder().enableFileOverride()
+                    .mapperBuilder().disableMapperXml().enableFileOverride().disable()
+                    .controllerBuilder().enableFileOverride().disable()
+                    .serviceBuilder()
+                    .formatServiceFileName("%sRepository")
+                    .formatServiceImplFileName("%sRepositoryImpl")
+                    .enableFileOverride().disable()
             }
             .templateEngine(FreemarkerTemplateEngine())
             .execute()

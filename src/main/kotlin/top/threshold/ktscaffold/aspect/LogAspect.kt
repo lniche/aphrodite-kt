@@ -4,7 +4,6 @@ import cn.hutool.core.util.StrUtil
 import cn.hutool.json.JSONUtil
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import lombok.extern.slf4j.Slf4j
 import org.aspectj.lang.JoinPoint
 import org.aspectj.lang.ProceedingJoinPoint
 import org.aspectj.lang.annotation.Around
@@ -17,7 +16,6 @@ import org.springframework.web.context.request.ServletRequestAttributes
 import org.springframework.web.multipart.MultipartFile
 import top.threshold.ktscaffold.entity.Slf4j.Companion.log
 
-@Slf4j
 @Order(0)
 @Aspect
 @Component

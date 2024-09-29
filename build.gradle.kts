@@ -3,23 +3,12 @@ plugins {
     kotlin("plugin.spring") version "2.0.20"
     id("org.springframework.boot") version "3.3.4"
     id("io.spring.dependency-management") version "1.1.6"
-    kotlin("kapt") version "2.0.20"
-    kotlin("plugin.allopen") version "2.0.20"
-    kotlin("plugin.noarg") version "2.0.20"
     kotlin("plugin.lombok") version "2.0.20"
     id("io.freefair.lombok") version "8.10"
 }
 
 group = "top.threshold"
 version = "1.0.0"
-
-noArg {
-
-}
-
-allOpen {
-
-}
 
 java {
     toolchain {
@@ -48,15 +37,18 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
     implementation("org.springframework.boot:spring-boot-starter-freemarker")
     implementation("org.projectlombok:lombok")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+
     "developmentOnly"("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("com.mysql:mysql-connector-j")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+    testImplementation("cn.smallbun.screw:screw-core:1.0.5")
 
     implementation("com.github.xiaoymin:knife4j-openapi3-jakarta-spring-boot-starter:4.4.0")
     implementation("org.redisson:redisson-spring-boot-starter:3.36.0")
-    testImplementation("cn.smallbun.screw:screw-core:1.0.5")
     implementation("com.google.guava:guava:33.3.1-jre")
     implementation("com.alibaba:transmittable-thread-local:2.14.5")
     implementation("cn.hutool:hutool-all:5.8.32")

@@ -1,6 +1,6 @@
 package top.threshold.ktscaffold.exception
 
-import RainbowException
+import KtException
 
 /**
  *
@@ -22,7 +22,7 @@ interface Assert {
      * @param args 参数
      * @return 异常
      */
-    fun newException(vararg args: Any?): RainbowException?
+    fun newException(vararg args: Any?): KtException?
 
     /**
      * 创建异常
@@ -31,7 +31,7 @@ interface Assert {
      * @param args 参数
      * @return 异常
      */
-    fun newException(t: Throwable?, vararg args: Any?): RainbowException?
+    fun newException(t: Throwable?, vararg args: Any?): KtException?
 
     /**
      *

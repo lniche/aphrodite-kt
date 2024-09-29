@@ -1,15 +1,13 @@
 package top.threshold.ktscaffold.entity
 
-import lombok.Data
-import top.threshold.ktscaffold.enums.RCode
+import top.threshold.ktscaffold.enums.KtCode
 import java.io.Serializable
 
-@Data
 open class ResultKt<T> : Serializable {
     /**
      * 错误码
      */
-    var code: String = RCode.OK.code
+    var code: String = KtCode.OK.code
 
     /**
      * 错误消息
@@ -21,7 +19,7 @@ open class ResultKt<T> : Serializable {
      */
     var data: T? = null
     fun succeeded(): Boolean {
-        return this.code == RCode.OK.code
+        return this.code == KtCode.OK.code
     }
 
     companion object {
@@ -41,7 +39,7 @@ open class ResultKt<T> : Serializable {
         }
 
         fun <T> fail(msg: String?): ResultKt<T?> {
-            return fail(RCode.UNKNOW.code, msg)
+            return fail(KtCode.UNKNOW.code, msg)
         }
 
         fun <T> fail(code: String?, msg: String?): ResultKt<T> {
@@ -51,7 +49,7 @@ open class ResultKt<T> : Serializable {
             return result
         }
 
-        fun <T> fail(error: RCode, data: T): ResultKt<T> {
+        fun <T> fail(error: KtCode, data: T): ResultKt<T> {
             val result = ResultKt<T>()
             result.code = error.code
             result.msg = error.msg

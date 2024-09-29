@@ -5,7 +5,6 @@ import lombok.Data
 @Data
 open class BaseOprDO : BaseDO() {
 
-    var createUser: Long? = null
-
-    var updateUser: Long? = null
+    var createUser: String? = null
+    var updateUser: String? = null
 }

@@ -2,7 +2,10 @@ package top.threshold.ktscaffold.config
 
 import com.baomidou.mybatisplus.annotation.DbType
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor
-import com.baomidou.mybatisplus.extension.plugins.inner.*
+import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerInterceptor
+import com.baomidou.mybatisplus.extension.plugins.inner.DataChangeRecorderInnerInterceptor
+import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor
+import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor
 import org.mybatis.spring.annotation.MapperScan
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -28,7 +31,7 @@ class MybatisPlusConfig {
         // 乐观锁插件
         interceptor.addInnerInterceptor(OptimisticLockerInnerInterceptor())
         // 添加非法SQL拦截器
-        interceptor.addInnerInterceptor(IllegalSQLInnerInterceptor())
+//        interceptor.addInnerInterceptor(IllegalSQLInnerInterceptor())
         return interceptor
     }
 }

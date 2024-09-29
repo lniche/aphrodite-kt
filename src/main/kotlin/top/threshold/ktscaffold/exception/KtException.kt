@@ -1,7 +1,7 @@
-import top.threshold.ktscaffold.enums.RCode
+import top.threshold.ktscaffold.enums.KtCode
 import java.io.Serializable
 
-data class RainbowException(
+data class KtException(
     var code: String? = null,
     var msg: String? = null,
     var data: Any? = null
@@ -9,5 +9,5 @@ data class RainbowException(
 
     constructor(code: String?, message: String?) : this(code, message, null)
 
-    constructor(rCode: RCode) : this(rCode.code, rCode.msg, null)
+    constructor(ktCode: KtCode) : this(ktCode.code, ktCode.msg, null)
 }

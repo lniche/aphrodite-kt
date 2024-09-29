@@ -1,6 +1,6 @@
 package top.threshold.ktscaffold.enums
 
-import top.threshold.ktscaffold.exception.RainbowAssert
+import top.threshold.ktscaffold.exception.KtAssert
 
 
 /**
@@ -9,7 +9,7 @@ import top.threshold.ktscaffold.exception.RainbowAssert
  * 2 表示错误来源于当前系统，往往是业务逻辑出错，或程序健壮性差等问题；
  * 3 表示错误来源于第三方服务，比如 CDN 服务出错，消息投递超时等问题；四位数字编号从 0001 到 9999，大类之间的步长间距预留 100
  */
-enum class RCode(override val code: String, override val msg: String) : RainbowAssert {
+enum class KtCode(override val code: String, override val msg: String) : KtAssert {
     BAD_REQUEST("400", "非法的HTTP请求"),
     UNAUTHORIZED("401", "身份未认证"),
     FORBIDDEN("403", "拒绝执行此请求"),
