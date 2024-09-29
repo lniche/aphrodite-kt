@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   web:
-    image: my-spring-boot-app:latest
+    image: kt-scaffold:latest
     deploy:
       replicas: 2
       restart_policy:
@@ -17,7 +17,7 @@ services:
     ports:
       - "9001:9001"
     networks:
-      - my-network
+      - kt-scaffold-network
     environment:
       - SPRING_PROFILES_ACTIVE=dev
 
@@ -36,13 +36,13 @@ services:
           memory: 512M
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: mydb
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: test
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 123123
     volumes:
-      - db_data:/var/lib/mysql
+      - ./db:/var/lib/mysql
     networks:
-      - my-network
+      - kt-scaffold-network
 
   redis:
     image: redis:latest
@@ -58,11 +58,8 @@ services:
           cpus: '0.25'
           memory: 256M
     networks:
-      - my-network
-
-volumes:
-  db_data:
+      - kt-scaffold-network
 
 networks:
-  my-network:
-    driver: overlay
+  kt-scaffold-network:
+    driver: bridge
