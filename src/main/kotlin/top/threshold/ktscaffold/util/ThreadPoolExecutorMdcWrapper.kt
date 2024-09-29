@@ -1,4 +1,4 @@
-package com.yingwu.rainbow.infrastructure.utils
+package top.threshold.ktscaffold.util
 
 import org.slf4j.MDC
 import java.util.concurrent.*

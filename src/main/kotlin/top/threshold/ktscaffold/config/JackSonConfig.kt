@@ -13,11 +13,11 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer
-import com.yingwu.rainbow.infrastructure.config.TimestampLocalDateTimeDesSerializer
-import com.yingwu.rainbow.infrastructure.config.TimestampLocalDateTimeSerializer
 import lombok.SneakyThrows
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import top.threshold.ktscaffold.helper.TimestampLocalDateTimeDesSerializer
+import top.threshold.ktscaffold.helper.TimestampLocalDateTimeSerializer
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime

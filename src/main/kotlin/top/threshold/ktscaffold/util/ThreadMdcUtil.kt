@@ -1,4 +1,4 @@
-package com.yingwu.rainbow.infrastructure.utils
+package top.threshold.ktscaffold.util
 
 import cn.hutool.core.util.IdUtil
 import org.slf4j.MDC
@@ -6,7 +6,7 @@ import top.threshold.ktscaffold.constant.Const
 import java.util.concurrent.Callable
 
 object ThreadMdcUtil {
-    fun setTraceIdIfAbsent() {
+    private fun setTraceIdIfAbsent() {
         if (MDC.get(Const.TRACE_ID) == null) {
             MDC.put(Const.TRACE_ID, IdUtil.fastSimpleUUID())
         }

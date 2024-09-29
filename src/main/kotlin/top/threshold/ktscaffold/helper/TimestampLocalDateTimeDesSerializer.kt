@@ -1,4 +1,4 @@
-package com.yingwu.rainbow.infrastructure.config
+package top.threshold.ktscaffold.helper
 
 import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.core.JsonProcessingException

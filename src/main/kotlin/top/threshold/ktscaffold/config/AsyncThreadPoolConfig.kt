@@ -1,11 +1,11 @@
 package top.threshold.ktscaffold.config
 
-import com.yingwu.rainbow.infrastructure.utils.ThreadPoolExecutorMdcWrapper
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.scheduling.annotation.EnableAsync
 import org.springframework.scheduling.concurrent.CustomizableThreadFactory
+import top.threshold.ktscaffold.util.ThreadPoolExecutorMdcWrapper
 import java.util.concurrent.ArrayBlockingQueue
 import java.util.concurrent.Executor
 import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy
