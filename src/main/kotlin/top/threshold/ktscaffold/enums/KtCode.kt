@@ -41,22 +41,14 @@ enum class KtCode(override val code: String, override val msg: String) : KtAsser
     PARAMS_INVALID("20002", "参数格式错误"),
     USER_DATA_MISSING("20003", "用户数据缺失"),
     CONFIG_DATA_MISSING("20004", "配置数据缺失"),
-    PARAMS_ERROR("20005", "参数存在问题"),
-    BROWSER_DATA_MISSING("20006", "浏览数据缺失"),
-    BROWSER_DATA_ERROR("20007", "浏览数据有误"),
-    ORDER_DATA_MISSING("20008", "订单数据缺失"),
-    TRADE_ERROR("20009", "交易异常，请联系客服"),
+    ORDER_DATA_MISSING("20005", "订单数据缺失"),
+    TRADE_ERROR("20006", "交易异常，请联系客服"),
 
     /**
      * 3类错误码
      */
-    SHUMEI_REJECT_TXT("30001", "数美风控拒绝文本"),
-    SHUMEI_REJECT_IMG("30002", "数美风控拒绝图片"),
-    SHUMEI_REJECT_LOG_REG("30003", "数美登录注册事件拒绝"),
-    SHUMEI_EVENT_ERROR("30004", "数美事件异常"),
-    RONG_CLOUD_REMOTE_CALL_ERROR("30005", "调用IM异常"),
-    APPLE_NOTIFY_HANDLE_ERROR("30006", "苹果回调处理异常"),
-    GOOGLE_NOTIFY_HANDLE_ERROR("30007", "谷歌回调处理异常"),
+    APPLE_NOTIFY_HANDLE_ERROR("30001", "苹果回调处理异常"),
+    GOOGLE_NOTIFY_HANDLE_ERROR("30002", "谷歌回调处理异常"),
     ;
 
 }
