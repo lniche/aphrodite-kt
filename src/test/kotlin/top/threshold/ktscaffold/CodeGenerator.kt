@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.generator.config.GlobalConfig
 import com.baomidou.mybatisplus.generator.config.PackageConfig
 import com.baomidou.mybatisplus.generator.config.StrategyConfig
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine
-import top.threshold.ktscaffold.entity.BaseDO
+import top.threshold.ktscaffold.entity.BaseOprDO
 import java.nio.file.Paths
 
 
@@ -39,7 +39,7 @@ object CodeGenerator {
                     .addTablePrefix("t_")
                     .entityBuilder()
                     .enableFileOverride()
-                    .superClass(BaseDO::class.java)
+                    .superClass(BaseOprDO::class.java)
                     .disableSerialVersionUID()
                     .enableChainModel()
                     .enableLombok()
@@ -47,11 +47,12 @@ object CodeGenerator {
                     .enableTableFieldAnnotation()
                     .addIgnoreColumns(
                         "id",
-                        "create_by",
-                        "create_time",
-                        "update_by",
-                        "update_time",
-                        "deleted",
+                        "created_by",
+                        "created_at",
+                        "updated_by",
+                        "updated_at",
+                        "deleted_at",
+                        "is_deleted",
                         "version",
                     )
 //                    .versionColumnName("version")

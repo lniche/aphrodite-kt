@@ -3,7 +3,7 @@ package top.threshold.ktscaffold.entity.pojo
 import com.baomidou.mybatisplus.annotation.TableField
 import com.baomidou.mybatisplus.annotation.TableName
 import lombok.Data
-import top.threshold.ktscaffold.entity.BaseDO
+import top.threshold.ktscaffold.entity.BaseOprDO
 
 /**
  * <p>
@@ -15,7 +15,7 @@ import top.threshold.ktscaffold.entity.BaseDO
  */
 @Data
 @TableName("t_user")
-class UserDO : BaseDO() {
+class UserDO : BaseOprDO() {
 
     /**
      * 用户名

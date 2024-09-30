@@ -18,9 +18,11 @@ open class BaseDO {
     var deleted: Boolean? = null
 
     @TableField(fill = FieldFill.INSERT)
-    var createTime: LocalDateTime? = null
+    var createdAt: LocalDateTime? = null
 
     @TableField(fill = FieldFill.UPDATE)
-    var updateTime: LocalDateTime? = null
+    var updatedAt: LocalDateTime? = null
 
+    @TableField
+    var deletedAt: LocalDateTime? = null
 }
