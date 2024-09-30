@@ -34,7 +34,7 @@ object DocumentGenerator {
 
         //生成配置
         val engineConfig = EngineConfig.builder() //生成文件路径
-            .fileOutputDir("./doc") //打开目录
+            .fileOutputDir("./docs") //打开目录
             .openOutputDir(false) //文件类型
             .fileType(EngineFileType.HTML) //生成模板实现
             .produceType(EngineTemplateType.freemarker) //自定义文件名称
