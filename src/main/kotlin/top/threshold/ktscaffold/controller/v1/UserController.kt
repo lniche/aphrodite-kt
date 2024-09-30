@@ -8,7 +8,7 @@ import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.Parameters
 import io.swagger.v3.oas.annotations.enums.ParameterIn
-import jakarta.validation.Valid
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import top.threshold.ktscaffold.constant.CacheKey
 import top.threshold.ktscaffold.entity.ResultKt
@@ -58,7 +58,7 @@ class UserController(
 
     @Operation(summary = "更新用户信息")
     @PostMapping("/update")
-    fun update(@Valid @RequestBody userVO: UserVO): ResultKt<Void> {
+    fun update(@Validated @RequestBody userVO: UserVO): ResultKt<Void> {
         KtCode.PARAMS_MISSING.assertNotNull(userVO)
         if (StrUtil.isBlank(userVO.userCode)) {
             val userDO = UserDO()
