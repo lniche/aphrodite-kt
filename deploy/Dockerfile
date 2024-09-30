@@ -4,7 +4,7 @@ MAINTAINER qingshan<qingshan@example.com>
 #镜像内部创建一个app目录 用来存放jar包
 WORKDIR /app
 #复制jar包 到app目录下
-COPY build/libs/kt-scaffold-1.0.0-plain.jar  /app/api.jar
+COPY ../build/libs/kt-scaffold-1.0.0-plain.jar  /app/api.jar
 #暴露端口
 EXPOSE 9001
 #默认启动程序
