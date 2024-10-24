@@ -17,7 +17,7 @@ class MDCInterceptor : HandlerInterceptor {
         if (traceId == null) {
             traceId = IdUtil.randomUUID()
         }
-
+        response.setHeader(Const.TRACE_ID, traceId)
         MDC.put(Const.TRACE_ID, traceId)
         return true
     }
@@ -37,7 +37,6 @@ class MDCInterceptor : HandlerInterceptor {
         handler: Any,
         ex: Exception?
     ) {
-        response.setHeader(Const.TRACE_ID, MDC.get(Const.TRACE_ID))
         //调用结束后删除
         MDC.remove(Const.TRACE_ID)
     }
