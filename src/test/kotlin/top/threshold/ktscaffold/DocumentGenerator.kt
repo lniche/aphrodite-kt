@@ -10,10 +10,6 @@ import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import javax.sql.DataSource
 
-
-/**
- * @link https://baomidou.com/pages/981406/
- */
 object DocumentGenerator {
 
     @JvmStatic
@@ -21,9 +17,9 @@ object DocumentGenerator {
 
         //数据源
         val hikariConfig = HikariConfig()
-        hikariConfig.driverClassName = "com.mysql.cj.jdbc.Driver"
-        hikariConfig.jdbcUrl = "jdbc:mysql://127.0.0.1:3306/test"
-        hikariConfig.username = "root"
+        hikariConfig.driverClassName = "org.postgresql.Driver"
+        hikariConfig.jdbcUrl = "jdbc:postgresql://127.0.0.1:5432/test"
+        hikariConfig.username = "postgres"
         hikariConfig.password = "123123"
 
         //设置可以获取tables remarks信息
@@ -38,17 +34,16 @@ object DocumentGenerator {
             .openOutputDir(false) //文件类型
             .fileType(EngineFileType.HTML) //生成模板实现
             .produceType(EngineTemplateType.freemarker) //自定义文件名称
-            .fileName("kt-scaffold-database").build()
+            .fileName("db").build()
 
 
         //忽略表
         val ignoreTableName = ArrayList<String>()
         ignoreTableName.add("test_user")
-        ignoreTableName.add("test_group")
 
         //忽略表前缀
         val ignorePrefix = ArrayList<String>()
-        ignorePrefix.add("test_")
+        ignorePrefix.add("t_")
 
         //忽略表后缀
         val ignoreSuffix = ArrayList<String>()

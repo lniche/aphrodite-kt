@@ -16,7 +16,7 @@ object CodeGenerator {
 
     @JvmStatic
     fun main(args: Array<String>) {
-        FastAutoGenerator.create("jdbc:mysql://127.0.0.1:3306/test", "root", "123123")
+        FastAutoGenerator.create("jdbc:postgresql://127.0.0.1:5432/test", "postgres", "123123")
             .globalConfig { builder: GlobalConfig.Builder ->
                 builder
                     .outputDir(Paths.get(System.getProperty("user.dir")).toString() + "/src/main/kotlin")
