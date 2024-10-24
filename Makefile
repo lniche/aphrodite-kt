@@ -1,5 +1,5 @@
 # 项目名称
-PROJECT_NAME := kt-scaffold
+PROJECT_NAME := aphrodite-kt
 
 # Docker 镜像名称
 IMAGE_NAME := $(PROJECT_NAME):latest

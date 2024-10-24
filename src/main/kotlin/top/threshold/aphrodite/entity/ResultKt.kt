@@ -7,12 +7,12 @@ open class ResultKt<T> : Serializable {
     /**
      * 错误码
      */
-    var code: String = KtCode.OK.code
+    var code: Int = KtCode.OK.code
 
     /**
      * 错误消息
      */
-    var msg: String? = null
+    var message: String = "fail"
 
     /**
      * 返回的实体类
@@ -28,31 +28,31 @@ open class ResultKt<T> : Serializable {
         }
 
         fun <T> success(data: T): ResultKt<T> {
-            return success(data, null)
+            return success(data, "ok")
         }
 
-        fun <T> success(data: T, msg: String?): ResultKt<T> {
+        fun <T> success(data: T, message: String): ResultKt<T> {
             val result = ResultKt<T>()
             result.data = data
-            result.msg = msg
+            result.message = message
             return result
         }
 
-        fun <T> fail(msg: String?): ResultKt<T?> {
-            return fail(KtCode.UNKNOW.code, msg)
+        fun <T> fail(message: String): ResultKt<T?> {
+            return fail(KtCode.FAIL.code, message)
         }
 
-        fun <T> fail(code: String?, msg: String?): ResultKt<T> {
+        fun <T> fail(code: Int, message: String): ResultKt<T> {
             val result = ResultKt<T>()
-            result.code = code!!
-            result.msg = msg
+            result.code = code
+            result.message = message
             return result
         }
 
         fun <T> fail(error: KtCode, data: T): ResultKt<T> {
             val result = ResultKt<T>()
             result.code = error.code
-            result.msg = error.msg
+            result.message = error.message
             result.data = data
             return result
         }

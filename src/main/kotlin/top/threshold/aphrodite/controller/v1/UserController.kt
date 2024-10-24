@@ -21,7 +21,7 @@ import top.threshold.aphrodite.util.RedisUtil
 
 /**
  * <p>
- *  前端控制器
+ *  用户控制器
  * </p>
  *
  * @author qingshan
@@ -57,7 +57,7 @@ class UserController(
     }
 
     @Operation(summary = "更新用户信息")
-    @PostMapping("/update")
+    @PutMapping("/update")
     fun update(@Validated @RequestBody userVO: UserVO): ResultKt<Void> {
         KtCode.PARAMS_MISSING.assertNotNull(userVO)
         if (StrUtil.isBlank(userVO.userCode)) {

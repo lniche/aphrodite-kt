@@ -1,10 +1,8 @@
 server:
-  port: 17813
+  port: 8000
   compression:
     enabled: true
     mime-types: application/json, text/plain
-  servlet:
-    context-path: /api
   shutdown: graceful
   max-http-request-header-size: 102400
 
@@ -14,7 +12,7 @@ spring:
   profiles:
     active: dev
   application:
-    name: kt-scaffold-api
+    name: aphrodite-kt
   datasource:
     # 指定为HikariDataSource
     type: com.zaxxer.hikari.HikariDataSource

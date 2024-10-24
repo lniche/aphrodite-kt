@@ -11,7 +11,7 @@ services:
       - ./html:/usr/share/nginx/html:ro
       - ./certs:/etc/nginx/certs:ro
     networks:
-      - kt-scaffold-network
+      - aphrodite-network
 
   db:
     image: mysql:8.0
@@ -27,7 +27,7 @@ services:
     volumes:
       - ./db:/var/lib/mysql
     networks:
-      - kt-scaffold-network
+      - aphrodite-network
 
   redis:
     image: redis:latest
@@ -38,9 +38,9 @@ services:
     volumes:
       - ./redis:/data
     networks:
-      - kt-scaffold-network
+      - aphrodite-network
   app:
-    image: kt-scaffold:latest
+    image: aphrodite-kt:latest
     ports:
       - "9001:9001"
     depends_on:
@@ -69,8 +69,8 @@ services:
       - ./logs:/logs
       - ./storage:/storage
     networks:
-      - kt-scaffold-network
+      - aphrodite-network
 
 networks:
-  kt-scaffold-network:
+  aphrodite-network:
     driver: bridge

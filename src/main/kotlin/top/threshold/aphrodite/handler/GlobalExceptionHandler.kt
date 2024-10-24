@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import top.threshold.aphrodite.entity.ResultKt
+import top.threshold.aphrodite.entity.Slf4j
 import top.threshold.aphrodite.entity.Slf4j.Companion.log
 import top.threshold.aphrodite.enums.KtCode
-import java.util.*
 
-
+@Slf4j
 @RestControllerAdvice
 class GlobalExceptionHandler(
 ) {
@@ -22,31 +22,31 @@ class GlobalExceptionHandler(
     @ExceptionHandler(MethodArgumentNotValidException::class)
     @ResponseBody
     fun notValidException(e: MethodArgumentNotValidException): ResultKt<*> {
-        val msg = Objects.requireNonNull(e.bindingResult.fieldError)?.defaultMessage
+        val message = e.bindingResult.fieldError?.defaultMessage!!
         log.error("参数校验未通过", e)
-        return ResultKt.fail<Any>(KtCode.PARAMS_MISSING.code, msg)
+        return ResultKt.fail<Any>(KtCode.PARAMS_MISSING.code, message)
     }
 
     @ExceptionHandler(HttpMessageNotReadableException::class)
     @ResponseBody
-    fun msgNotReadable(req: HttpServletRequest, e: HttpMessageNotReadableException): ResultKt<*> {
-        log.warn("msgNotReadable , {}, {}", req.requestURI, e.message)
-        return ResultKt.fail<Any>(KtCode.PARAMS_INVALID.code, KtCode.PARAMS_INVALID.msg)
+    fun messageNotReadable(req: HttpServletRequest, e: HttpMessageNotReadableException): ResultKt<*> {
+        log.warn("messageNotReadable , {}, {}", req.requestURI, e.message)
+        return ResultKt.fail<Any>(KtCode.PARAMS_INVALID.code, KtCode.PARAMS_INVALID.message)
     }
 
     @ExceptionHandler(NotLoginException::class)
     @ResponseBody
     fun notLoginExceptionHandler(req: HttpServletRequest, e: NotLoginException): ResultKt<String?> {
         log.error("notLoginException , {}, {}", req.requestURI, e.loginType)
-        var msg = KtCode.LOGIN_EXPIRED.msg
+        var message = KtCode.LOGIN_EXPIRED.message
         if (e.type == NotLoginException.TOKEN_TIMEOUT) {
-            msg = KtCode.LOGIN_EXPIRED.msg
+            message = KtCode.LOGIN_EXPIRED.message
         } else if (e.type == NotLoginException.BE_REPLACED) {
-            msg = NotLoginException.BE_REPLACED_MESSAGE
+            message = NotLoginException.BE_REPLACED_MESSAGE
         } else if (e.type == NotLoginException.KICK_OUT) {
-            msg = NotLoginException.KICK_OUT_MESSAGE
+            message = NotLoginException.KICK_OUT_MESSAGE
         }
-        return ResultKt.fail(KtCode.UNAUTHORIZED.code, msg)
+        return ResultKt.fail(KtCode.UNAUTHORIZED.code, message)
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException::class)
@@ -54,7 +54,7 @@ class GlobalExceptionHandler(
     fun badMethodHandler(req: HttpServletRequest, e: HttpRequestMethodNotSupportedException): ResultKt<String?> {
         log.warn("HttpRequestMethodNotSupportedException , {}, {}", req.requestURI, e.message)
         return ResultKt.fail(
-            KtCode.METHOD_NOT_SUPPORT.code, KtCode.METHOD_NOT_SUPPORT.msg
+            KtCode.METHOD_NOT_SUPPORT.code, KtCode.METHOD_NOT_SUPPORT.message
         )
     }
 
@@ -62,14 +62,14 @@ class GlobalExceptionHandler(
     @ResponseBody
     fun RainbowExceptionHandler(req: HttpServletRequest, e: KtException): ResultKt<*> {
         printStackTrace(e)
-        return ResultKt.fail<Any>(e.code, e.msg)
+        return ResultKt.fail<Any>(e.code, e.message!!)
     }
 
     @ExceptionHandler(Exception::class)
     @ResponseBody
     fun ExceptionHandler(e: Exception?): ResultKt<String?> {
         log.error("Exception:", e)
-        return ResultKt.fail(KtCode.HTTP_FAILURE.code, KtCode.HTTP_FAILURE.msg)
+        return ResultKt.fail(KtCode.HTTP_FAILURE.code, KtCode.HTTP_FAILURE.message)
     }
 
     /**

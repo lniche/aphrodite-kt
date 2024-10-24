@@ -16,7 +16,7 @@ open class BaseException : RuntimeException {
     @Transient
     val args: Array<out Any?>?
 
-    constructor(responseEnum: IResponseEnum) : super(responseEnum.msg) {
+    constructor(responseEnum: IResponseEnum) : super(responseEnum.message) {
         this.responseEnum = responseEnum
         args = null
     }
@@ -26,7 +26,7 @@ open class BaseException : RuntimeException {
         args = null
     }
 
-    constructor(responseEnum: IResponseEnum, args: Array<out Any?>) : super(responseEnum.msg) {
+    constructor(responseEnum: IResponseEnum, args: Array<out Any?>) : super(responseEnum.message) {
         this.responseEnum = responseEnum
         this.args = args
     }
