@@ -1,4 +1,4 @@
-rootProject.name = "kt-scaffold"
+rootProject.name = "aphrodite-kt"
 pluginManagement {
     repositories {
         gradlePluginPortal()
