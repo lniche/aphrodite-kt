@@ -37,7 +37,7 @@ class UserController(
     @Parameters(
         Parameter(name = "userCode", description = "用户编号", `in` = ParameterIn.PATH)
     )
-    @GetMapping("/get/{userCode}")
+    @GetMapping("/{userCode}")
     fun get(@PathVariable userCode: String): ResultKt<UserVO?> {
         KtCode.PARAMS_MISSING.assertNotEmpty(userCode)
 
@@ -57,7 +57,7 @@ class UserController(
     }
 
     @Operation(summary = "更新用户信息")
-    @PutMapping("/update")
+    @PutMapping("/")
     fun update(@Validated @RequestBody userVO: UserVO): ResultKt<Void> {
         KtCode.PARAMS_MISSING.assertNotNull(userVO)
         if (StrUtil.isBlank(userVO.userCode)) {

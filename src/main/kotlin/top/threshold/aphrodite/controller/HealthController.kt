@@ -8,7 +8,7 @@ import top.threshold.aphrodite.entity.ResultKt
 class HealthController {
     @RequestMapping(value = ["/"])
     fun home(): ResultKt<String> {
-        return ResultKt.success("Thank you for using aphrodite!")
+        return ResultKt.success("Thank you for using Aphrodite!")
     }
 
     @RequestMapping(value = ["/ping"])
