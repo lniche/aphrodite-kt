@@ -1,8 +1,11 @@
 package top.threshold.aphrodite.controller.v1;
 
+import cn.dev33.satoken.stp.StpUtil
+import cn.hutool.core.util.IdUtil
 import cn.hutool.core.util.RandomUtil
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.media.Schema
+import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Pattern
@@ -15,10 +18,12 @@ import org.springframework.web.bind.annotation.RestController
 import top.threshold.aphrodite.constant.CacheKey
 import top.threshold.aphrodite.controller.BaseController
 import top.threshold.aphrodite.entity.ResultKt
+import top.threshold.aphrodite.entity.pojo.UserDO
 import top.threshold.aphrodite.repository.IUserRepository
 import top.threshold.aphrodite.utils.RedisUtil
 import java.time.LocalDate
 import java.time.OffsetDateTime
+import java.util.*
 
 
 /**
@@ -31,7 +36,7 @@ import java.time.OffsetDateTime
  */
 @RestController
 @RequestMapping("/auth")
-@Tag(name = "认证管理", description = "提供用户的短信发送，登录等操作")
+@Tag(name = "认证管理")
 class AuthController(
     val redisUtil: RedisUtil,
     val userRepository: IUserRepository,
@@ -41,7 +46,7 @@ class AuthController(
     private val codeValidityInSeconds = 60L
 
     @Data
-    class SmsSendQeq {
+    class SmsSendRequest {
         /**
          * 手机号
          */
@@ -50,13 +55,12 @@ class AuthController(
         @Pattern(regexp = "^\\+?[1-9]\\d{1,14}\$", message = "手机号格式不正确")
         var phone: String? = null
     }
-
     @Operation(
         summary = "发送验证码",
         description = "发送验证码",
     )
     @PostMapping("/send-code")
-    fun sendCode(@Validated @RequestBody smsSendQeq: SmsSendQeq): ResultKt<String> {
+    fun sendCode(@Validated @RequestBody smsSendQeq: SmsSendRequest): ResultKt<String> {
         val phone = smsSendQeq.phone
         // 检查当天发送次数
         val today = LocalDate.now()
@@ -89,7 +93,7 @@ class AuthController(
     }
 
     @Data
-    class LoginReq {
+    class LoginRequest {
         /**
          * 手机号
          */
@@ -106,22 +110,31 @@ class AuthController(
     }
 
     @Operation(
-        summary = "用户登录",
-        description = "用户登录",
+        summary = "用户注册登录",
+        description = "用户注册登录",
     )
     @PostMapping("/login")
-    fun login(@Validated @RequestBody loginReq: LoginReq): ResultKt<String> {
-        val userDO = userRepository.getByPhone(loginReq.phone!!) ?: return ResultKt.fail("用户不合法")
-
+    fun login(@Validated @RequestBody loginReq: LoginRequest): ResultKt<String> {
         val today = LocalDate.now()
         val dailyKey = CacheKey.SMS_CODE_NUM + "${loginReq.phone}:$today"
         if (!redisUtil.hasKey(dailyKey)) return ResultKt.fail("验证码失效，请重新获取")
         if (loginReq.code.equals(redisUtil.getStr(dailyKey))) return ResultKt.fail("验证码错误，请重新输入")
 
-        userDO.clientIp = realIpAddress
-        userDO.loginAt = OffsetDateTime.now()
-        userDO.loginToken = login(userDO.userCode)
-        userRepository.updateById(userDO)
+        var userDO = userRepository.getByPhone(loginReq.phone!!)
+        if (Objects.isNull(userDO)) {
+            userDO = UserDO()
+            userDO.userNo = redisUtil.nextId(CacheKey.NEXTID_UNO)
+            userDO.userCode = IdUtil.getSnowflakeNextIdStr()
+            userDO.clientIp = realIpAddress
+            userDO.loginAt = OffsetDateTime.now()
+            userDO.loginToken = login(userDO.userCode)
+            userRepository.save(userDO)
+        } else {
+            userDO!!.clientIp = realIpAddress
+            userDO.loginAt = OffsetDateTime.now()
+            userDO.loginToken = login(userDO.userCode)
+            userRepository.updateById(userDO)
+        }
 
         redisUtil.del(dailyKey)
         return ResultKt.success(userDO.loginToken!!)
@@ -130,9 +143,14 @@ class AuthController(
     @Operation(
         summary = "用户注销",
         description = "用户注销",
+        security = [SecurityRequirement(name = "Authorization")]
     )
     @PostMapping("/logout")
-    fun logout(@Validated @RequestBody smsSendQeq: SmsSendQeq): ResultKt<Void> {
+    fun logout(): ResultKt<Void> {
+        val userDO = userRepository.getByCode(loginUid()) ?: return ResultKt.fail("用户不合法")
+        userDO.loginToken = ""
+        userRepository.updateById(userDO)
+        StpUtil.logout()
         return ResultKt.success()
     }
 }
