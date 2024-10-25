@@ -33,7 +33,7 @@ import java.time.OffsetDateTime
  * @since 2024-09-29
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/v1/user")
 @Tag(name = "用户管理")
 class UserController(
     val userRepository: IUserRepository,

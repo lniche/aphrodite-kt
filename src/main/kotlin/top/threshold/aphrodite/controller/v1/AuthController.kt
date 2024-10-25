@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController
 import top.threshold.aphrodite.constant.CacheKey
 import top.threshold.aphrodite.controller.BaseController
 import top.threshold.aphrodite.entity.ResultKt
+import top.threshold.aphrodite.entity.Slf4j
+import top.threshold.aphrodite.entity.Slf4j.Companion.log
 import top.threshold.aphrodite.entity.pojo.UserDO
 import top.threshold.aphrodite.repository.IUserRepository
 import top.threshold.aphrodite.utils.RedisUtil
@@ -34,8 +36,9 @@ import java.util.*
  * @author qingshan
  * @since 2024-09-29
  */
+@Slf4j
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/v1")
 @Tag(name = "认证管理")
 class AuthController(
     val redisUtil: RedisUtil,
@@ -60,7 +63,7 @@ class AuthController(
         description = "发送验证码",
     )
     @PostMapping("/send-code")
-    fun sendCode(@Validated @RequestBody smsSendQeq: SmsSendRequest): ResultKt<String> {
+    fun sendCode(@Validated @RequestBody smsSendQeq: SmsSendRequest): ResultKt<Void> {
         val phone = smsSendQeq.phone
         // 检查当天发送次数
         val today = LocalDate.now()
@@ -79,7 +82,7 @@ class AuthController(
 
         // 生成随机验证码
         val code = RandomUtil.randomInt(1000, 9999).toString()
-
+        log.debug("$phone send verify code:$code")
         // 存储验证码到 Redis
         redisUtil.setStr(codeKey, code, codeValidityInSeconds)
 
@@ -89,7 +92,7 @@ class AuthController(
 
         // 发送验证码的逻辑（调用短信服务等）
 //        sendSms(phone, code)
-        return ResultKt.success(code)
+        return ResultKt.success()
     }
 
     @Data

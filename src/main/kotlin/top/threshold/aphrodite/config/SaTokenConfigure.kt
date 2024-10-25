@@ -30,9 +30,8 @@ class SaTokenConfigure(
             listOf(
                 "/",
                 "/ping",
-                "/auth/login",
-                "/user/register",
-                "/auth/send-code",
+                "/v1/login",
+                "/v1/send-code",
             )
         private val static =
             listOf(
