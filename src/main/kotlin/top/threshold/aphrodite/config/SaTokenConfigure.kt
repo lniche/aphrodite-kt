@@ -17,19 +17,30 @@ class SaTokenConfigure(
     override fun addInterceptors(registry: InterceptorRegistry) {
         // Sa-Token的登录状态拦截
         registry.addInterceptor(SaInterceptor())
-            .addPathPatterns("/**").excludePathPatterns(common)
+            .addPathPatterns("/**").excludePathPatterns(common).excludePathPatterns(static)
         // 检查请求来源合法的hmac拦截
-//        registry.addInterceptor(hmacInterceptor)
-        registry.addInterceptor(mdcInterceptor)
+//        registry.addInterceptor(hmacInterceptor).excludePathPatterns(common)
+        registry.addInterceptor(mdcInterceptor).excludePathPatterns(common).excludePathPatterns(static)
         // 自定义拦截器
-//        registry.addInterceptor(myInterceptor).excludePathPatterns(common)
+        registry.addInterceptor(myInterceptor).excludePathPatterns(common).excludePathPatterns(static)
     }
 
     companion object {
         private val common =
             listOf(
-                "/health.do",
-                "/v1/login/**",
+                "/",
+                "/ping",
+                "/auth/login",
+                "/user/register",
+                "/auth/send-code",
+            )
+        private val static =
+            listOf(
+                "/swagger-ui/**",
+                "/swagger-resources/**",
+                "/v3/api-docs/**",
+                "/doc.html",
+                "/webjars/**",
             )
     }
 }

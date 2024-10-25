@@ -21,5 +21,7 @@ open class UserRepositoryImpl : ServiceImpl<UserMapper, UserDO>(), IUserReposito
     override fun getByCode(userCode: String): UserDO? {
         return KtQueryChainWrapper(UserDO::class.java).eq(UserDO::userCode, userCode).one()
     }
-
+    override fun getByPhone(phone: String): UserDO? {
+        return KtQueryChainWrapper(UserDO::class.java).eq(UserDO::phone, phone).one()
+    }
 }

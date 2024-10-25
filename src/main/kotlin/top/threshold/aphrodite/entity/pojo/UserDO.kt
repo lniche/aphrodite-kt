@@ -3,7 +3,7 @@ package top.threshold.aphrodite.entity.pojo
 import com.baomidou.mybatisplus.annotation.TableField
 import com.baomidou.mybatisplus.annotation.TableName
 import top.threshold.aphrodite.entity.BaseOprDO
-import java.time.LocalDateTime
+import java.time.OffsetDateTime
 
 /**
  * <p>
@@ -80,7 +80,7 @@ class UserDO : BaseOprDO() {
      * 登录时间
      */
     @TableField("login_at")
-    var loginAt: LocalDateTime? = null
+    var loginAt: OffsetDateTime? = null
 
     /**
      * 登录令牌

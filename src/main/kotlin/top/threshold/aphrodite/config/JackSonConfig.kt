@@ -16,11 +16,8 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer
 import lombok.SneakyThrows
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import top.threshold.aphrodite.helper.TimestampLocalDateTimeDesSerializer
-import top.threshold.aphrodite.helper.TimestampLocalDateTimeSerializer
 import java.text.SimpleDateFormat
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -38,10 +35,6 @@ class JackSonConfig {
             ToStringSerializer.instance
         )
         javaTimeModule.addSerializer(
-            LocalDateTime::class.java,
-            TimestampLocalDateTimeSerializer()
-        )
-        javaTimeModule.addSerializer(
             LocalDate::class.java,
             LocalDateSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
         )
@@ -55,10 +48,6 @@ class JackSonConfig {
         )
 
         // 反序列化
-        javaTimeModule.addDeserializer(
-            LocalDateTime::class.java,
-            TimestampLocalDateTimeDesSerializer()
-        )
         javaTimeModule.addDeserializer(
             LocalDate::class.java,
             LocalDateDeserializer(DateTimeFormatter.ofPattern("yyyy-MM-dd"))

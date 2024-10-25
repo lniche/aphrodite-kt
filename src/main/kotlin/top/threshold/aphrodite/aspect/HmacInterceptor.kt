@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component
 import org.springframework.web.servlet.HandlerInterceptor
 import top.threshold.aphrodite.entity.Slf4j.Companion.log
 import top.threshold.aphrodite.enums.KtCode
-import top.threshold.aphrodite.util.HmacUtil
-import top.threshold.aphrodite.util.RedisUtil
+import top.threshold.aphrodite.utils.HmacUtil
+import top.threshold.aphrodite.utils.RedisUtil
 
 @Component
 class HmacInterceptor(

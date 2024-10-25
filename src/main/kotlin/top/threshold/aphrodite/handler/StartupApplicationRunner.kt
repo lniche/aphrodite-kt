@@ -4,7 +4,7 @@ import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
 import org.springframework.stereotype.Component
 import top.threshold.aphrodite.constant.CacheKey
-import top.threshold.aphrodite.util.RedisUtil
+import top.threshold.aphrodite.utils.RedisUtil
 
 @Component
 class StartupApplicationRunner(

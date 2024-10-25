@@ -9,13 +9,13 @@ abstract class BaseController {
     private val isLogin: Boolean
         get() = StpUtil.isLogin()
 
-    protected fun login(uid: Long?): String {
+    protected fun login(uid: String?): String {
         StpUtil.login(uid)
         return StpUtil.getTokenValue()
     }
 
-    protected fun loginUid(): Long {
-        return StpUtil.getLoginIdAsLong()
+    protected fun loginUid(): String {
+        return StpUtil.getLoginIdAsString()
     }
 
     protected val realIpAddress: String

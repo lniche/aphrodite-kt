@@ -2,15 +2,23 @@ package top.threshold.aphrodite.controller.v1;
 
 import cn.hutool.core.util.RandomUtil
 import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.media.Schema
+import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.Pattern
 import lombok.Data
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import top.threshold.aphrodite.constant.CacheKey
+import top.threshold.aphrodite.controller.BaseController
 import top.threshold.aphrodite.entity.ResultKt
-import top.threshold.aphrodite.util.RedisUtil
+import top.threshold.aphrodite.repository.IUserRepository
+import top.threshold.aphrodite.utils.RedisUtil
+import java.time.LocalDate
+import java.time.OffsetDateTime
 
 
 /**
@@ -23,21 +31,108 @@ import top.threshold.aphrodite.util.RedisUtil
  */
 @RestController
 @RequestMapping("/auth")
+@Tag(name = "认证管理", description = "提供用户的短信发送，登录等操作")
 class AuthController(
-    val redisUtil: RedisUtil
-) {
+    val redisUtil: RedisUtil,
+    val userRepository: IUserRepository,
+) : BaseController() {
+
+    private val dailyLimit = 30
+    private val codeValidityInSeconds = 60L
+
     @Data
     class SmsSendQeq {
         /**
          * 手机号
          */
-        @NotBlank(message = "手机号不能为空")
+        @field:NotBlank(message = "手机号不能为空")
+        @field:Schema(description = "用户手机号", example = "13800138000", required = true)
+        @Pattern(regexp = "^\\+?[1-9]\\d{1,14}\$", message = "手机号格式不正确")
         var phone: String? = null
     }
 
-    @Operation(summary = "发送验证码")
+    @Operation(
+        summary = "发送验证码",
+        description = "发送验证码",
+    )
     @PostMapping("/send-code")
-    fun sendCode(@Validated @RequestBody smsSendQeq: SmsSendQeq): ResultKt<Int> {
-        return ResultKt.success(RandomUtil.randomInt(1000, 9999))
+    fun sendCode(@Validated @RequestBody smsSendQeq: SmsSendQeq): ResultKt<String> {
+        val phone = smsSendQeq.phone
+        // 检查当天发送次数
+        val today = LocalDate.now()
+        val dailyKey = CacheKey.SMS_CODE_NUM + "$phone:$today"
+        val count = redisUtil.getInt(dailyKey)
+
+        if (count >= dailyLimit) {
+            return ResultKt.fail("当天短信发送次数已达上限")
+        }
+
+        // 检查是否已发送验证码
+        val codeKey = CacheKey.SMS_CODE + phone
+        if (redisUtil.hasKey(codeKey)) {
+            return ResultKt.fail("一分钟内已发送验证码，请稍后再试")
+        }
+
+        // 生成随机验证码
+        val code = RandomUtil.randomInt(1000, 9999).toString()
+
+        // 存储验证码到 Redis
+        redisUtil.setStr(codeKey, code, codeValidityInSeconds)
+
+        // 更新发送次数
+        redisUtil.incr(dailyKey, 1)
+        redisUtil.expire(dailyKey, 3600 * 24L) // 设置过期时间为1天
+
+        // 发送验证码的逻辑（调用短信服务等）
+//        sendSms(phone, code)
+        return ResultKt.success(code)
+    }
+
+    @Data
+    class LoginReq {
+        /**
+         * 手机号
+         */
+        @field:NotBlank(message = "手机号不能为空")
+        @field:Schema(description = "用户手机号", example = "13800138000", required = true)
+        var phone: String? = null
+
+        /**
+         * 验证码
+         */
+        @field:NotBlank(message = "验证码不能为空")
+        @field:Schema(description = "用户注册时的验证码", example = "1234", required = true)
+        var code: String? = null
+    }
+
+    @Operation(
+        summary = "用户登录",
+        description = "用户登录",
+    )
+    @PostMapping("/login")
+    fun login(@Validated @RequestBody loginReq: LoginReq): ResultKt<String> {
+        val userDO = userRepository.getByPhone(loginReq.phone!!) ?: return ResultKt.fail("用户不合法")
+
+        val today = LocalDate.now()
+        val dailyKey = CacheKey.SMS_CODE_NUM + "${loginReq.phone}:$today"
+        if (!redisUtil.hasKey(dailyKey)) return ResultKt.fail("验证码失效，请重新获取")
+        if (loginReq.code.equals(redisUtil.getStr(dailyKey))) return ResultKt.fail("验证码错误，请重新输入")
+
+        userDO.clientIp = realIpAddress
+        userDO.loginAt = OffsetDateTime.now()
+        userDO.loginToken = login(userDO.userCode)
+        userRepository.updateById(userDO)
+
+        redisUtil.del(dailyKey)
+        return ResultKt.success(userDO.loginToken!!)
+    }
+
+    @Operation(
+        summary = "用户注销",
+        description = "用户注销",
+    )
+    @PostMapping("/logout")
+    fun logout(@Validated @RequestBody smsSendQeq: SmsSendQeq): ResultKt<Void> {
+        return ResultKt.success()
     }
 }

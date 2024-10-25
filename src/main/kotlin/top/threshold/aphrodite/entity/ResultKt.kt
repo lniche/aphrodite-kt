@@ -12,7 +12,7 @@ open class ResultKt<T> : Serializable {
     /**
      * 错误消息
      */
-    var message: String = "fail"
+    var message: String = "ok"
 
     /**
      * 返回的实体类
@@ -38,7 +38,7 @@ open class ResultKt<T> : Serializable {
             return result
         }
 
-        fun <T> fail(message: String): ResultKt<T?> {
+        fun <T> fail(message: String): ResultKt<T> {
             return fail(KtCode.FAIL.code, message)
         }
 

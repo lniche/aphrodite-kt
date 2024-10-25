@@ -2,7 +2,7 @@ package top.threshold.aphrodite.entity
 
 import com.baomidou.mybatisplus.annotation.*
 import lombok.Data
-import java.time.LocalDateTime
+import java.time.OffsetDateTime
 
 @Data
 open class BaseDO {
@@ -18,11 +18,11 @@ open class BaseDO {
     var deleted: Boolean? = null
 
     @TableField(fill = FieldFill.INSERT)
-    var createdAt: LocalDateTime? = null
+    var createdAt: OffsetDateTime? = null
 
     @TableField(fill = FieldFill.UPDATE)
-    var updatedAt: LocalDateTime? = null
+    var updatedAt: OffsetDateTime? = null
 
     @TableField
-    var deletedAt: LocalDateTime? = null
+    var deletedAt: OffsetDateTime? = null
 }

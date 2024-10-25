@@ -1,4 +1,4 @@
-package top.threshold.aphrodite.util
+package top.threshold.aphrodite.utils
 
 import org.slf4j.MDC
 import java.util.concurrent.*

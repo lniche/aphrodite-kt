@@ -1,6 +1,5 @@
 package top.threshold.aphrodite.entity.vo
 
-import jakarta.validation.constraints.NotBlank
 import lombok.Data
 
 @Data
@@ -8,7 +7,6 @@ class UserVO {
     /**
      * 用户名
      */
-    @NotBlank(message = "用户名不能为空")
     var username: String? = null
 
     /**
