@@ -20,15 +20,3 @@ spring:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-
-# knife4j的增强配置，不需要增强可以不配
-knife4j:
-  # 开启Swagger的Basic认证功能,默认是false
-  basic:
-    enable: true
-    # Basic认证用户名
-    username: test
-    # Basic认证密码
-    password: 123123
-  # 开启生产环境屏蔽
-  production: true

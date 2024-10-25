@@ -34,7 +34,7 @@ import java.time.OffsetDateTime
  */
 @RestController
 @RequestMapping("/v1/user")
-@Tag(name = "用户管理")
+@Tag(name = "用户模块")
 class UserController(
     val userRepository: IUserRepository,
     val redisUtil: RedisUtil

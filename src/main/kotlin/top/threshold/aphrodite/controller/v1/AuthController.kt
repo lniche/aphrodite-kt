@@ -39,7 +39,7 @@ import java.util.*
 @Slf4j
 @RestController
 @RequestMapping("/v1")
-@Tag(name = "认证管理")
+@Tag(name = "认证模块")
 class AuthController(
     val redisUtil: RedisUtil,
     val userRepository: IUserRepository,
