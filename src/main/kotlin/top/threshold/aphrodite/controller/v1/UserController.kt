@@ -103,10 +103,10 @@ class UserController(
     @PutMapping("")
     fun updateUser(
         @Parameter(description = "更新用户信息", required = true)
-        @Validated @RequestBody updateUserVO: UpdateUserReq
+        @Validated @RequestBody updateUserReq: UpdateUserReq
     ): ResultKt<Void> {
         val userDO = userRepository.getByCode(loginUid()) ?: return ResultKt.fail("用户不存在")
-        BeanUtil.copyProperties(updateUserVO, userDO, "userCode")
+        BeanUtil.copyProperties(updateUserReq, userDO, "userCode")
         userRepository.updateById(userDO)
         return ResultKt.success()
     }

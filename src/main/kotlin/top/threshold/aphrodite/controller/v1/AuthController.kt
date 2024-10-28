@@ -49,7 +49,7 @@ class AuthController(
     private val codeValidityInSeconds = 60L
 
     @Data
-    class SmsSendRequest {
+    class SendVerifyCodeReq {
         /**
          * 手机号
          */
@@ -63,8 +63,8 @@ class AuthController(
         description = "发送验证码",
     )
     @PostMapping("/send-code")
-    fun sendCode(@Validated @RequestBody smsSendQeq: SmsSendRequest): ResultKt<Void> {
-        val phone = smsSendQeq.phone
+    fun sendVerifyCode(@Validated @RequestBody sendVerifyCodeReq: SendVerifyCodeReq): ResultKt<Void> {
+        val phone = sendVerifyCodeReq.phone
         // 检查当天发送次数
         val today = LocalDate.now()
         val dailyKey = CacheKey.SMS_CODE_NUM + "$phone:$today"
@@ -96,7 +96,7 @@ class AuthController(
     }
 
     @Data
-    class LoginRequest {
+    class LoginReq {
         /**
          * 手机号
          */
@@ -117,7 +117,7 @@ class AuthController(
         description = "用户注册登录",
     )
     @PostMapping("/login")
-    fun login(@Validated @RequestBody loginReq: LoginRequest): ResultKt<String> {
+    fun login(@Validated @RequestBody loginReq: LoginReq): ResultKt<String> {
         val today = LocalDate.now()
         val dailyKey = CacheKey.SMS_CODE_NUM + "${loginReq.phone}:$today"
         if (!redisUtil.hasKey(dailyKey)) return ResultKt.fail("验证码失效，请重新获取")
