@@ -58,6 +58,7 @@ class AuthController(
         @Pattern(regexp = "^\\+?[1-9]\\d{1,14}\$", message = "手机号格式不正确")
         var phone: String? = null
     }
+
     @Operation(
         summary = "发送验证码",
         description = "发送验证码",
@@ -112,12 +113,21 @@ class AuthController(
         var code: String? = null
     }
 
+    @Data
+    class LoginResp {
+        /**
+         * 用于验证身份的 JWT token
+         */
+        @field:Schema(description = "用于验证身份的 JWT token", example = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9")
+        var accessToken: String? = null
+    }
+
     @Operation(
         summary = "用户注册登录",
         description = "用户注册登录",
     )
     @PostMapping("/login")
-    fun login(@Validated @RequestBody loginReq: LoginReq): ResultKt<String> {
+    fun login(@Validated @RequestBody loginReq: LoginReq): ResultKt<LoginResp> {
         val today = LocalDate.now()
         val dailyKey = CacheKey.SMS_CODE_NUM + "${loginReq.phone}:$today"
         if (!redisUtil.hasKey(dailyKey)) return ResultKt.fail("验证码失效，请重新获取")
@@ -140,7 +150,9 @@ class AuthController(
         }
 
         redisUtil.del(dailyKey)
-        return ResultKt.success(userDO.loginToken!!)
+        val loginResp = LoginResp()
+        loginResp.accessToken = userDO.loginToken
+        return ResultKt.success(loginResp)
     }
 
     @Operation(
