@@ -100,7 +100,7 @@ class UserController(
 
     @Data
     @Schema(description = "更新用户信息的请求对象")
-    open class UpdateUserReq {
+    class UpdateUserReq {
         /**
          * 昵称
          */
