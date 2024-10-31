@@ -116,9 +116,9 @@ class AuthController(
     @Data
     class LoginResp {
         /**
-         * 用于验证身份的 JWT token
+         * 访问令牌
          */
-        @field:Schema(description = "用于验证身份的 JWT token", example = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9")
+        @field:Schema(description = "访问令牌", example = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9")
         var accessToken: String? = null
     }
 
@@ -139,6 +139,8 @@ class AuthController(
             userDO.userNo = redisUtil.nextId(CacheKey.NEXTID_UNO)
             userDO.userCode = IdUtil.getSnowflakeNextIdStr()
             userDO.clientIp = realIpAddress
+            userDO.nickname = "A" + loginReq.phone!!.takeLast(4)
+            userDO.phone = loginReq.phone
             userDO.loginAt = OffsetDateTime.now()
             userDO.loginToken = login(userDO.userCode)
             userRepository.save(userDO)
