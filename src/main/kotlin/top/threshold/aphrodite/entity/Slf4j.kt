@@ -3,9 +3,6 @@ package top.threshold.aphrodite.entity
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-/**
- * @link https://segmentfault.com/a/1190000039649271
- */
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)
 annotation class Slf4j {

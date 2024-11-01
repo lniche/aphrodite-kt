@@ -29,7 +29,6 @@ class JackSonConfig {
         val objectMapper = com.fasterxml.jackson.databind.ObjectMapper()
         val javaTimeModule = JavaTimeModule()
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-        // 序列化
         javaTimeModule.addSerializer(
             Long::class.javaObjectType,
             ToStringSerializer.instance
@@ -47,7 +46,6 @@ class JackSonConfig {
             DateSerializer(false, SimpleDateFormat("yyyy-MM-dd HH:mm:ss"))
         )
 
-        // 反序列化
         javaTimeModule.addDeserializer(
             LocalDate::class.java,
             LocalDateDeserializer(DateTimeFormatter.ofPattern("yyyy-MM-dd"))

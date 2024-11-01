@@ -19,7 +19,6 @@ class StartupApplicationRunner(
 ) : ApplicationRunner {
 
     override fun run(args: ApplicationArguments?) {
-        // 初始化序列号
         if (!redisUtil.hasKey(CacheKey.NEXTID_UNO)) {
             redisUtil.setLong(CacheKey.NEXTID_UNO, 100000)
         }

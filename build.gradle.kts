@@ -28,17 +28,25 @@ configurations {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.springframework.boot:spring-boot-configuration-processor")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-undertow")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-aop")
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
-    testImplementation("org.springframework.boot:spring-boot-starter-freemarker")
     implementation("org.projectlombok:lombok")
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+
+//    implementation("org.redisson:redisson-spring-boot-starter:3.36.0")
+    implementation("com.alibaba:transmittable-thread-local:2.14.5")
+    implementation("cn.hutool:hutool-all:5.8.32")
+    implementation("cn.dev33:sa-token-spring-boot3-starter:1.39.0")
+    implementation("cn.dev33:sa-token-redis-jackson:1.39.0")
+    implementation("org.apache.commons:commons-pool2")
+    implementation("com.baomidou:mybatis-plus-spring-boot3-starter:3.5.7")
+    implementation("com.github.xiaoymin:knife4j-openapi3-jakarta-spring-boot-starter:4.4.0")
 
     "developmentOnly"("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("org.postgresql:postgresql")
@@ -46,16 +54,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testImplementation("cn.smallbun.screw:screw-core:1.0.5")
-
-    implementation("com.github.xiaoymin:knife4j-openapi3-jakarta-spring-boot-starter:4.4.0")
-    implementation("org.redisson:redisson-spring-boot-starter:3.36.0")
-    implementation("com.google.guava:guava:33.3.1-jre")
-    implementation("com.alibaba:transmittable-thread-local:2.14.5")
-    implementation("cn.hutool:hutool-all:5.8.32")
-    implementation("cn.dev33:sa-token-spring-boot3-starter:1.39.0")
-    implementation("cn.dev33:sa-token-redis-jackson:1.39.0")
-    implementation("org.apache.commons:commons-pool2")
-    implementation("com.baomidou:mybatis-plus-spring-boot3-starter:3.5.7")
+    testImplementation("org.springframework.boot:spring-boot-starter-freemarker")
     testImplementation("com.baomidou:mybatis-plus-generator:3.5.7")
 }
 

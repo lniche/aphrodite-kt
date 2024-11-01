@@ -25,7 +25,6 @@ object HmacUtil {
             return false
         }
         val infos = ciMap(info)
-        // 未正确包含 nonce
         if (!infos.containsKey("n")) {
             return false
         }

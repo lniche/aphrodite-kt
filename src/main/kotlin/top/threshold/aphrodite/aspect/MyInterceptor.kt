@@ -15,7 +15,6 @@ import top.threshold.aphrodite.helper.RequestDataHelper.setRequestData
 class MyInterceptor : HandlerInterceptor {
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
         val userCode = StpUtil.getLoginIdAsString()
-        // 确保全局能拿到userCode
         setRequestData(MapUtil.of(Const.CODE, userCode))
         return true
     }

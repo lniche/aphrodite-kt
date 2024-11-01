@@ -30,22 +30,16 @@ class HmacInterceptor(
 
     private fun checkHmac(req: HttpServletRequest) {
         var valid = true
-        //当前请求的 uid
         val uid = StpUtil.getLoginIdAsString()
-        //请求头里的client info
         val ci = req.getHeader("ci")
-        //请求头里的client sign
         val cs = req.getHeader("cs")
         if (null == ci || null == cs) {
-            // 未包含 ci 和 cs 时不允许
             valid = false
         }
         if (redisUtil.hasKey("risk:$ci")) {
-            //重复请求
             valid = false
         }
         if (!HmacUtil.checkReqHmac(ci, cs, StpUtil.getLoginIdAsString())) {
-            // 签名错误
             valid = false
         }
         if (!valid) {
@@ -58,7 +52,6 @@ class HmacInterceptor(
             )
             throw KtException(KtCode.FORBIDDEN)
         }
-        //每次请求3秒的记录，相同认为重复请求
         redisUtil.setStr("risk:$ci", "1", 3L)
     }
 }

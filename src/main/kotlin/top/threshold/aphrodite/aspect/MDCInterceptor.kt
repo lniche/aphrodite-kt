@@ -12,7 +12,6 @@ import top.threshold.aphrodite.constant.Const
 @Component
 class MDCInterceptor : HandlerInterceptor {
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
-        //如果有上层调用就用上层的ID
         var traceId = request.getHeader(Const.TRACE_ID)
         if (traceId == null) {
             traceId = IdUtil.randomUUID()
@@ -37,7 +36,6 @@ class MDCInterceptor : HandlerInterceptor {
         handler: Any,
         ex: Exception?
     ) {
-        //调用结束后删除
         MDC.remove(Const.TRACE_ID)
     }
 }

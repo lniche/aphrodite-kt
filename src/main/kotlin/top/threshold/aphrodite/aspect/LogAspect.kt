@@ -37,31 +37,22 @@ class LogAspect {
         if (request.requestURL.toString().endsWith("health.do")) {
             return proceedingJoinPoint.proceed()
         }
-        // 打印请求相关参数
         log.info("========================================== Start ==========================================")
-        // 打印请求 url
         log.info("URL            : {}", request.requestURL.toString())
-        // 打印 Http method
         log.info("HTTP Method    : {}", request.method)
-        // 打印调用 controller 的全路径以及执行方法
         log.info(
             "Class Method   : {}.{}",
             proceedingJoinPoint.signature.declaringTypeName,
             proceedingJoinPoint.signature.name
         )
-        // 打印请求的 IP
         log.info("IP             : {}", request.remoteAddr)
-        // 打印请求入参
         log.info("Request Args   : {}", getParams(proceedingJoinPoint))
 
         val startTime = System.currentTimeMillis()
         val proceed = proceedingJoinPoint.proceed()
 
-        // 打印出参
         log.info("Response Args   : {}", StrUtil.sub(JSONUtil.toJsonStr(proceed), 0, 1024))
-        // 执行耗时
         log.info("Time-Consuming  : {} ms", System.currentTimeMillis() - startTime)
-        // 接口结束后换行，方便分割查看
         log.info("=========================================== End ===========================================$LINE_SEPARATOR")
         return proceed
     }

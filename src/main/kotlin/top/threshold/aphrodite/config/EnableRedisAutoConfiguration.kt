@@ -18,15 +18,10 @@ class EnableRedisAutoConfiguration {
         val redisTemplate = RedisTemplate<String, Any>()
         redisTemplate.connectionFactory = factory
         val stringRedisSerializer = StringRedisSerializer()
-        // key采用String的序列化方式
         redisTemplate.keySerializer = stringRedisSerializer
-        // hash的key也采用String的序列化方式
         redisTemplate.hashKeySerializer = stringRedisSerializer
-        // value序列化方式采用hutool
         redisTemplate.valueSerializer = huJsonRedisSerializer
-        // hash的value序列化方式采用hutool
         redisTemplate.hashValueSerializer = huJsonRedisSerializer
-        // 初始化 RedisTemplate 序列化完成
         redisTemplate.afterPropertiesSet()
         return redisTemplate
     }

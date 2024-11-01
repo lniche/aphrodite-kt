@@ -66,32 +66,21 @@ class AuthController(
     @PostMapping("/send-code")
     fun sendVerifyCode(@Validated @RequestBody sendVerifyCodeReq: SendVerifyCodeReq): ResultKt<Void> {
         val phone = sendVerifyCodeReq.phone
-        // 检查当天发送次数
         val today = LocalDate.now()
         val dailyKey = CacheKey.SMS_CODE_NUM + "$phone:$today"
         val count = redisUtil.getInt(dailyKey)
-
         if (count >= dailyLimit) {
             return ResultKt.fail("当天短信发送次数已达上限")
         }
-
-        // 检查是否已发送验证码
         val codeKey = CacheKey.SMS_CODE + phone
         if (redisUtil.hasKey(codeKey)) {
             return ResultKt.fail("一分钟内已发送验证码，请稍后再试")
         }
-
-        // 生成随机验证码
         val code = RandomUtil.randomInt(1000, 9999).toString()
         log.debug("$phone send verify code:$code")
-        // 存储验证码到 Redis
         redisUtil.setStr(codeKey, code, codeValidityInSeconds)
-
-        // 更新发送次数
         redisUtil.incr(dailyKey, 1)
-        redisUtil.expire(dailyKey, 3600 * 24L) // 设置过期时间为1天
-
-        // 发送验证码的逻辑（调用短信服务等）
+        redisUtil.expire(dailyKey, 3600 * 24L)
 //        sendSms(phone, code)
         return ResultKt.success()
     }
