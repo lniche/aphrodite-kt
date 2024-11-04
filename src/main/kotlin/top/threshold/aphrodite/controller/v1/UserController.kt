@@ -15,7 +15,7 @@ import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import top.threshold.aphrodite.constant.CacheKey
 import top.threshold.aphrodite.controller.BaseController
-import top.threshold.aphrodite.entity.ResultKt
+import top.threshold.aphrodite.entity.Result
 import top.threshold.aphrodite.repository.IUserRepository
 import top.threshold.aphrodite.utils.RedisUtil
 import java.time.OffsetDateTime
@@ -23,7 +23,7 @@ import java.time.OffsetDateTime
 
 /**
  * <p>
- *  用户控制器
+ *  User Controller
  * </p>
  *
  * @author qingshan
@@ -31,49 +31,50 @@ import java.time.OffsetDateTime
  */
 @RestController
 @RequestMapping("/v1/user")
-@Tag(name = "用户模块")
+@Tag(name = "User Module")
 class UserController(
     val userRepository: IUserRepository,
     val redisUtil: RedisUtil
 ) : BaseController() {
+
     @Data
     class GetUserResp {
         /**
-         * 昵称
+         * Nickname
          */
         var nickname: String? = null
 
         /**
-         * 用户编号
+         * User Number
          */
         var userNo: Long? = null
 
         /**
-         * 用户编码
+         * User Code
          */
         var userCode: String? = null
 
         /**
-         * 电子邮件
+         * Email
          */
         var email: String? = null
 
         /**
-         * 电话号码
+         * Phone Number
          */
         var phone: String? = null
     }
 
     @Operation(
-        summary = "获取用户",
-        description = "获取用户",
+        summary = "Get User",
+        description = "Retrieve user information",
         security = [SecurityRequirement(name = "Authorization")]
     )
     @Parameters(
-        Parameter(name = "userCode", description = "用户编号", `in` = ParameterIn.PATH)
+        Parameter(name = "userCode", description = "User Number", `in` = ParameterIn.PATH)
     )
     @GetMapping("/{userCode}")
-    fun getUser(@PathVariable userCode: String): ResultKt<GetUserResp?> {
+    fun getUser(@PathVariable userCode: String): Result<GetUserResp?> {
         val actualUserCode = if (StrUtil.isBlank(userCode)) {
             loginUid()
         } else {
@@ -86,7 +87,7 @@ class UserController(
             val userDO = userRepository.getByCode(actualUserCode)
             userDO?.let {
                 redisUtil[redisKey, it] = 60
-                return ResultKt.success(GetUserResp().apply { BeanUtil.copyProperties(it, this) })
+                return Result.ok(GetUserResp().apply { BeanUtil.copyProperties(it, this) })
             }
         }
 
@@ -95,52 +96,52 @@ class UserController(
             phone = DesensitizedUtil.mobilePhone(phone)
         }
 
-        return ResultKt.success(getUserResp)
+        return Result.ok(getUserResp)
     }
 
     @Data
-    @Schema(description = "更新用户信息的请求对象")
+    @Schema(description = "Request object for updating user information")
     class UpdateUserReq {
         /**
-         * 昵称
+         * Nickname
          */
-        @field:Schema(description = "用户昵称", example = "John", required = false)
+        @field:Schema(description = "User nickname", example = "John", required = false)
         var nickname: String? = null
 
         /**
-         * 电子邮件
+         * Email
          */
-        @field:Schema(description = "用户电子邮件", example = "john@example.com", required = false)
+        @field:Schema(description = "User email", example = "john@example.com", required = false)
         var email: String? = null
     }
 
     @Operation(
-        summary = "更新用户",
-        description = "根据用户信息更新用户",
+        summary = "Update User",
+        description = "Update user information based on user details",
         security = [SecurityRequirement(name = "Authorization")]
     )
     @PutMapping("")
     fun updateUser(
-        @Parameter(description = "更新用户信息", required = true)
+        @Parameter(description = "Update user information", required = true)
         @Validated @RequestBody updateUserReq: UpdateUserReq
-    ): ResultKt<Void> {
-        val userDO = userRepository.getByCode(loginUid()) ?: return ResultKt.fail("用户不存在")
+    ): Result<Void> {
+        val userDO = userRepository.getByCode(loginUid()) ?: return Result.err("User does not exist")
         BeanUtil.copyProperties(updateUserReq, userDO, "userCode")
         userRepository.updateById(userDO)
-        return ResultKt.success()
+        return Result.ok()
     }
 
     @Operation(
-        summary = "删除用户",
-        description = "根据token获取到用户则删除",
+        summary = "Delete User",
+        description = "Delete user if obtained through token",
         security = [SecurityRequirement(name = "Authorization")]
     )
     @DeleteMapping("")
-    fun deleteUser(): ResultKt<Void> {
-        val userDO = userRepository.getByCode(loginUid()) ?: return ResultKt.fail("用户不合法")
+    fun deleteUser(): Result<Void> {
+        val userDO = userRepository.getByCode(loginUid()) ?: return Result.err("User is not valid")
         userDO.deleted = true
         userDO.deletedAt = OffsetDateTime.now()
         userRepository.updateById(userDO)
-        return ResultKt.success()
+        return Result.ok()
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.RestControllerAdvice
-import top.threshold.aphrodite.entity.ResultKt
+import top.threshold.aphrodite.entity.Result
 import top.threshold.aphrodite.entity.Slf4j
 import top.threshold.aphrodite.entity.Slf4j.Companion.log
 import top.threshold.aphrodite.enums.Errors
@@ -21,52 +21,47 @@ class GlobalExceptionHandler(
 
     @ExceptionHandler(MethodArgumentNotValidException::class)
     @ResponseBody
-    fun notValidException(e: MethodArgumentNotValidException): ResultKt<*> {
+    fun notValidException(e: MethodArgumentNotValidException): Result<*> {
         val message = e.bindingResult.fieldError?.defaultMessage!!
         log.error("Parameter verification failed", e)
-        return ResultKt.fail<Any>(Errors.ERR_BAD_REQUEST.code, message)
+        return Result.err<Any>(Errors.ERR_BAD_REQUEST.code, message)
     }
 
     @ExceptionHandler(HttpMessageNotReadableException::class)
     @ResponseBody
-    fun messageNotReadable(req: HttpServletRequest, e: HttpMessageNotReadableException): ResultKt<*> {
+    fun messageNotReadable(req: HttpServletRequest, e: HttpMessageNotReadableException): Result<*> {
         log.warn("messageNotReadable , {}, {}", req.requestURI, e.message)
-        return ResultKt.fail<Any>(Errors.ERR_BAD_REQUEST)
+        return Result.err<Any>(Errors.ERR_BAD_REQUEST)
     }
 
     @ExceptionHandler(NotLoginException::class)
     @ResponseBody
-    fun notLoginExceptionHandler(req: HttpServletRequest, e: NotLoginException): ResultKt<String?> {
+    fun notLoginExceptionHandler(req: HttpServletRequest, e: NotLoginException): Result<String?> {
         log.error("notLoginException , {}, {}", req.requestURI, e.loginType)
-        return ResultKt.fail(Errors.ERR_UNAUTHORIZED)
+        return Result.err(Errors.ERR_UNAUTHORIZED)
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException::class)
     @ResponseBody
-    fun badMethodHandler(req: HttpServletRequest, e: HttpRequestMethodNotSupportedException): ResultKt<String?> {
+    fun badMethodHandler(req: HttpServletRequest, e: HttpRequestMethodNotSupportedException): Result<String?> {
         log.warn("HttpRequestMethodNotSupportedException , {}, {}", req.requestURI, e.message)
-        return ResultKt.fail(Errors.ERR_METHOD_NOT_ALLOWED)
+        return Result.err(Errors.ERR_METHOD_NOT_ALLOWED)
     }
 
     @ExceptionHandler(KtException::class)
     @ResponseBody
-    fun RainbowExceptionHandler(req: HttpServletRequest, e: KtException): ResultKt<*> {
+    fun RainbowExceptionHandler(req: HttpServletRequest, e: KtException): Result<*> {
         printStackTrace(e)
-        return ResultKt.fail<Any>(e.code, e.message!!)
+        return Result.err<Any>(e.code, e.message!!)
     }
 
     @ExceptionHandler(Exception::class)
     @ResponseBody
-    fun ExceptionHandler(e: Exception?): ResultKt<String?> {
+    fun ExceptionHandler(e: Exception?): Result<String?> {
         log.error("Exception:", e)
-        return ResultKt.fail(Errors.ERR_INTERNAL_SERVER_ERROR.code, Errors.ERR_INTERNAL_SERVER_ERROR.message)
+        return Result.err(Errors.ERR_INTERNAL_SERVER_ERROR.code, Errors.ERR_INTERNAL_SERVER_ERROR.message)
     }
 
-    /**
-     * 打印异常堆栈
-     *
-     * @param t 异常
-     */
     private fun printStackTrace(t: Throwable) {
         val stack = t.stackTrace
         val sb = StringBuilder()

@@ -5,9 +5,6 @@ import org.springframework.data.redis.serializer.RedisSerializer
 import org.springframework.data.redis.serializer.SerializationException
 import java.nio.charset.StandardCharsets
 
-/**
- * 使用hutool自定义实现redis序列化
- */
 class HuJsonRedisSerializer : RedisSerializer<Any?> {
     @Throws(SerializationException::class)
     override fun serialize(t: Any?): ByteArray? {

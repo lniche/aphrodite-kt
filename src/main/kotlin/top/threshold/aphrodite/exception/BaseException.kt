@@ -1,18 +1,9 @@
 package top.threshold.aphrodite.exception
 
-/**
- * @author Edward Guo
- * @date 2019/10/4 11:17 上午
- */
 open class BaseException : RuntimeException {
-    /**
-     * 返回码
-     */
+
     val responseEnum: IResponseEnum
 
-    /**
-     * 异常消息参数
-     */
     @Transient
     val args: Array<out Any?>?
 

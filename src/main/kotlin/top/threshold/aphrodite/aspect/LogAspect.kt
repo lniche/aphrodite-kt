@@ -21,9 +21,6 @@ import top.threshold.aphrodite.entity.Slf4j.Companion.log
 @Component
 class LogAspect {
 
-    /**
-     * 换行符
-     */
     private val LINE_SEPARATOR = System.lineSeparator()
 
     @Pointcut("execution(public * top.threshold.aphrodite.controller..*.*(..))")

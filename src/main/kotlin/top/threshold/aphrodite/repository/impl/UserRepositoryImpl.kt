@@ -7,14 +7,6 @@ import top.threshold.aphrodite.entity.pojo.UserDO
 import top.threshold.aphrodite.mapper.UserMapper
 import top.threshold.aphrodite.repository.IUserRepository
 
-/**
- * <p>
- *  服务实现类
- * </p>
- *
- * @author qingshan
- * @since 2024-09-29
- */
 @Service
 open class UserRepositoryImpl : ServiceImpl<UserMapper, UserDO>(), IUserRepository {
 

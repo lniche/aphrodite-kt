@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import top.threshold.aphrodite.constant.CacheKey
 import top.threshold.aphrodite.controller.BaseController
-import top.threshold.aphrodite.entity.ResultKt
+import top.threshold.aphrodite.entity.Result
 import top.threshold.aphrodite.entity.Slf4j
 import top.threshold.aphrodite.entity.Slf4j.Companion.log
 import top.threshold.aphrodite.entity.pojo.UserDO
@@ -30,7 +30,7 @@ import java.util.*
 
 /**
  * <p>
- *  认证控制器
+ *  Authentication Controller
  * </p>
  *
  * @author qingshan
@@ -39,7 +39,7 @@ import java.util.*
 @Slf4j
 @RestController
 @RequestMapping("/v1")
-@Tag(name = "认证模块")
+@Tag(name = "Authentication Module")
 class AuthController(
     val redisUtil: RedisUtil,
     val userRepository: IUserRepository,
@@ -51,76 +51,76 @@ class AuthController(
     @Data
     class SendVerifyCodeReq {
         /**
-         * 手机号
+         * Phone number
          */
-        @field:NotBlank(message = "手机号不能为空")
-        @field:Schema(description = "用户手机号", example = "13800138000", required = true)
-        @Pattern(regexp = "^\\+?[1-9]\\d{1,14}\$", message = "手机号格式不正确")
+        @field:NotBlank(message = "Phone number cannot be empty")
+        @field:Schema(description = "User phone number", example = "13800138000", required = true)
+        @Pattern(regexp = "^\\+?[1-9]\\d{1,14}\$", message = "Phone number format is incorrect")
         var phone: String? = null
     }
 
     @Operation(
-        summary = "发送验证码",
-        description = "发送验证码",
+        summary = "Send Verification Code",
+        description = "Send verification code",
     )
     @PostMapping("/send-code")
-    fun sendVerifyCode(@Validated @RequestBody sendVerifyCodeReq: SendVerifyCodeReq): ResultKt<Void> {
+    fun sendVerifyCode(@Validated @RequestBody sendVerifyCodeReq: SendVerifyCodeReq): Result<Void> {
         val phone = sendVerifyCodeReq.phone
         val today = LocalDate.now()
         val dailyKey = CacheKey.SMS_CODE_NUM + "$phone:$today"
         val count = redisUtil.getInt(dailyKey)
         if (count >= dailyLimit) {
-            return ResultKt.fail("当天短信发送次数已达上限")
+            return Result.err("The daily limit for SMS has been reached")
         }
         val codeKey = CacheKey.SMS_CODE + phone
         if (redisUtil.hasKey(codeKey)) {
-            return ResultKt.fail("一分钟内已发送验证码，请稍后再试")
+            return Result.err("A verification code has already been sent within a minute, please try again later")
         }
         val code = RandomUtil.randomInt(1000, 9999).toString()
-        log.debug("$phone send verify code:$code")
+        log.debug("$phone send verify code: $code")
         redisUtil.setStr(codeKey, code, codeValidityInSeconds)
         redisUtil.incr(dailyKey, 1)
         redisUtil.expire(dailyKey, 3600 * 24L)
 //        sendSms(phone, code)
-        return ResultKt.success()
+        return Result.ok()
     }
 
     @Data
     class LoginReq {
         /**
-         * 手机号
+         * Phone number
          */
-        @field:NotBlank(message = "手机号不能为空")
-        @field:Schema(description = "用户手机号", example = "13800138000", required = true)
+        @field:NotBlank(message = "Phone number cannot be empty")
+        @field:Schema(description = "User phone number", example = "13800138000", required = true)
         var phone: String? = null
 
         /**
-         * 验证码
+         * Verification code
          */
-        @field:NotBlank(message = "验证码不能为空")
-        @field:Schema(description = "用户注册时的验证码", example = "1234", required = true)
+        @field:NotBlank(message = "Verification code cannot be empty")
+        @field:Schema(description = "Verification code for user registration", example = "1234", required = true)
         var code: String? = null
     }
 
     @Data
     class LoginResp {
         /**
-         * 访问令牌
+         * Access token
          */
-        @field:Schema(description = "访问令牌", example = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9")
+        @field:Schema(description = "Access token", example = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9")
         var accessToken: String? = null
     }
 
     @Operation(
-        summary = "用户注册登录",
-        description = "用户注册登录",
+        summary = "User Registration/Login",
+        description = "User registration and login",
     )
     @PostMapping("/login")
-    fun login(@Validated @RequestBody loginReq: LoginReq): ResultKt<LoginResp> {
+    fun login(@Validated @RequestBody loginReq: LoginReq): Result<LoginResp> {
         val today = LocalDate.now()
         val dailyKey = CacheKey.SMS_CODE_NUM + "${loginReq.phone}:$today"
-        if (!redisUtil.hasKey(dailyKey)) return ResultKt.fail("验证码失效，请重新获取")
-        if (loginReq.code.equals(redisUtil.getStr(dailyKey))) return ResultKt.fail("验证码错误，请重新输入")
+        if (!redisUtil.hasKey(dailyKey)) return Result.err("Verification code has expired, please retrieve it again")
+        if (loginReq.code.equals(redisUtil.getStr(dailyKey))) return Result.err("Verification code is incorrect, please re-enter")
 
         var userDO = userRepository.getByPhone(loginReq.phone!!)
         if (Objects.isNull(userDO)) {
@@ -143,20 +143,21 @@ class AuthController(
         redisUtil.del(dailyKey)
         val loginResp = LoginResp()
         loginResp.accessToken = userDO.loginToken
-        return ResultKt.success(loginResp)
+        return Result.ok(loginResp)
     }
 
     @Operation(
-        summary = "用户注销",
-        description = "用户注销",
+        summary = "User Logout",
+        description = "User logout",
         security = [SecurityRequirement(name = "Authorization")]
     )
     @PostMapping("/logout")
-    fun logout(): ResultKt<Void> {
-        val userDO = userRepository.getByCode(loginUid()) ?: return ResultKt.fail("用户不合法")
+    fun logout(): Result<Void> {
+        val userDO = userRepository.getByCode(loginUid()) ?: return Result.err("User is not valid")
         userDO.loginToken = ""
         userRepository.updateById(userDO)
         StpUtil.logout()
-        return ResultKt.success()
+        return Result.ok()
     }
 }
+

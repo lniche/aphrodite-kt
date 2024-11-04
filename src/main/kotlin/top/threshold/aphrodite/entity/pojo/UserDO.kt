@@ -5,85 +5,77 @@ import com.baomidou.mybatisplus.annotation.TableName
 import top.threshold.aphrodite.entity.BaseOprDO
 import java.time.OffsetDateTime
 
-/**
- * <p>
- * 
- * </p>
- *
- * @author qingshan
- * @since 2024-10-24
- */
 @TableName("t_user")
 class UserDO : BaseOprDO() {
 
     /**
-     * 用户编码
+     * User Code
      */
     @TableField("user_code")
     var userCode: String? = null
 
     /**
-     * 用户编号
+     * User Number
      */
     @TableField("user_no")
     var userNo: Long? = null
 
     /**
-     * 用户名
+     * Username
      */
     @TableField("username")
     var username: String? = null
 
     /**
-     * 昵称
+     * Nickname
      */
     @TableField("nickname")
     var nickname: String? = null
 
     /**
-     * 密码
+     * Password
      */
     @TableField("password")
     var password: String? = null
 
     /**
-     * 盐值
+     * Salt
      */
     @TableField("salt")
     var salt: String? = null
 
     /**
-     * 邮箱
+     * Email
      */
     @TableField("email")
     var email: String? = null
 
     /**
-     * 电话
+     * Phone
      */
     @TableField("phone")
     var phone: String? = null
 
     /**
-     * 微信OpenID
+     * WeChat OpenID
      */
     @TableField("open_id")
     var openId: String? = null
 
     /**
-     * 客户端IP
+     * Client IP
      */
     @TableField("client_ip")
     var clientIp: String? = null
 
     /**
-     * 登录时间
+     * Login Time
      */
     @TableField("login_at")
     var loginAt: OffsetDateTime? = null
 
     /**
-     * 登录令牌
+     * Login Token
      */
     @TableField("login_token")
     var loginToken: String? = null

@@ -26,9 +26,6 @@ class AsyncThreadPoolConfig {
     @Value("\${threadpool.keep-alive-seconds:3000}")
     private val keepAliveSeconds = 0
 
-    /**
-     * 公平队列
-     */
     @Bean("asyncFairExecutor")
     fun asyncFairExecutor(): Executor {
         return ThreadPoolExecutorMdcWrapper(
@@ -42,9 +39,6 @@ class AsyncThreadPoolConfig {
         )
     }
 
-    /**
-     * 非公平队列
-     */
     @Bean("asyncNoFairExecutor")
     fun asyncNoFairExecutor(): Executor {
         return ThreadPoolExecutorMdcWrapper(

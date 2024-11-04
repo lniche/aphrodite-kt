@@ -58,4 +58,4 @@ springdoc:
 knife4j:
   enable: true
   setting:
-    language: en-US
+    language: EN

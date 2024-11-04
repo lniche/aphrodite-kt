@@ -16,11 +16,6 @@ class HmacInterceptor(
     val redisUtil: RedisUtil,
 ) : HandlerInterceptor {
 
-    /**
-     * 当hmac拦截打开，且请求包含登录用户信息是，检查请求头中的 client info（ci） 和 sign（cs）
-     * @param request
-     * @return
-     */
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
         if (StpUtil.isLogin()) {
             checkHmac(request)
