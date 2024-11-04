@@ -39,7 +39,7 @@ open class ResultKt<T> : Serializable {
         }
 
         fun <T> fail(message: String): ResultKt<T> {
-            return fail(KtCode.FAIL.code, message)
+            return fail(KtCode.ERR.code, message)
         }
 
         fun <T> fail(code: Int, message: String): ResultKt<T> {
@@ -49,10 +49,17 @@ open class ResultKt<T> : Serializable {
             return result
         }
 
-        fun <T> fail(error: KtCode, data: T): ResultKt<T> {
+        fun <T> fail(ktCode: KtCode): ResultKt<T> {
             val result = ResultKt<T>()
-            result.code = error.code
-            result.message = error.message
+            result.code = ktCode.code
+            result.message = ktCode.message
+            return result
+        }
+
+        fun <T> fail(ktCode: KtCode, data: T): ResultKt<T> {
+            val result = ResultKt<T>()
+            result.code = ktCode.code
+            result.message = ktCode.message
             result.data = data
             return result
         }

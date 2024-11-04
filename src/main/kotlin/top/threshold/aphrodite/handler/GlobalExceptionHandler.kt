@@ -23,39 +23,29 @@ class GlobalExceptionHandler(
     @ResponseBody
     fun notValidException(e: MethodArgumentNotValidException): ResultKt<*> {
         val message = e.bindingResult.fieldError?.defaultMessage!!
-        log.error("参数校验未通过", e)
-        return ResultKt.fail<Any>(KtCode.PARAMS_MISSING.code, message)
+        log.error("Parameter verification failed", e)
+        return ResultKt.fail<Any>(KtCode.BAD_REQUEST.code, message)
     }
 
     @ExceptionHandler(HttpMessageNotReadableException::class)
     @ResponseBody
     fun messageNotReadable(req: HttpServletRequest, e: HttpMessageNotReadableException): ResultKt<*> {
         log.warn("messageNotReadable , {}, {}", req.requestURI, e.message)
-        return ResultKt.fail<Any>(KtCode.PARAMS_INVALID.code, KtCode.PARAMS_INVALID.message)
+        return ResultKt.fail<Any>(KtCode.BAD_REQUEST)
     }
 
     @ExceptionHandler(NotLoginException::class)
     @ResponseBody
     fun notLoginExceptionHandler(req: HttpServletRequest, e: NotLoginException): ResultKt<String?> {
         log.error("notLoginException , {}, {}", req.requestURI, e.loginType)
-        var message = KtCode.LOGIN_EXPIRED.message
-        if (e.type == NotLoginException.TOKEN_TIMEOUT) {
-            message = KtCode.LOGIN_EXPIRED.message
-        } else if (e.type == NotLoginException.BE_REPLACED) {
-            message = NotLoginException.BE_REPLACED_MESSAGE
-        } else if (e.type == NotLoginException.KICK_OUT) {
-            message = NotLoginException.KICK_OUT_MESSAGE
-        }
-        return ResultKt.fail(KtCode.UNAUTHORIZED.code, message)
+        return ResultKt.fail(KtCode.UNAUTHORIZED)
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException::class)
     @ResponseBody
     fun badMethodHandler(req: HttpServletRequest, e: HttpRequestMethodNotSupportedException): ResultKt<String?> {
         log.warn("HttpRequestMethodNotSupportedException , {}, {}", req.requestURI, e.message)
-        return ResultKt.fail(
-            KtCode.METHOD_NOT_SUPPORT.code, KtCode.METHOD_NOT_SUPPORT.message
-        )
+        return ResultKt.fail(KtCode.METHOD_NOT_ALLOWED)
     }
 
     @ExceptionHandler(KtException::class)
