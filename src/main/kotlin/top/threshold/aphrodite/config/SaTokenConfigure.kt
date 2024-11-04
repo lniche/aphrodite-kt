@@ -34,7 +34,7 @@ class SaTokenConfigure(
             listOf(
                 "/swagger-ui/**",
                 "/swagger-resources/**",
-                "/v3/api-docs/**",
+                "/api-docs/**",
                 "/doc.html",
                 "/webjars/**",
             )

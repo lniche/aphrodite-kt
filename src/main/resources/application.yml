@@ -69,7 +69,7 @@ springdoc:
     tags-sorter: alpha
     operations-sorter: alpha
   api-docs:
-    path: /v3/api-docs
+    path: /api-docs/openapi.json
 # knife4j的增强配置，不需要增强可以不配
 knife4j:
   # 开启增强配置
