@@ -4,13 +4,13 @@ import top.threshold.aphrodite.exception.KtAssert
 
 enum class KtCode(override val code: Int, override val message: String) : KtAssert {
     // common errors
-    BAD_REQUEST(400, "Bad Request"),
-    UNAUTHORIZED(401, "Unauthorized"),
-    FORBIDDEN(403, "Forbidden"),
-    NOT_FOUND(404, "Not Found"),
-    METHOD_NOT_ALLOWED(405, "Method Not Allowed"),
-    CONFLICT(409, "Conflict"),
-    HTTP_FAILURE(500, "Internal Server Error"),
+    ERR_BAD_REQUEST(400, "Bad Request"),
+    ERR_UNAUTHORIZED(401, "Unauthorized"),
+    ERR_FORBIDDEN(403, "Forbidden"),
+    ERR_NOT_FOUND(404, "Not Found"),
+    ERR_METHOD_NOT_ALLOWED(405, "Method Not Allowed"),
+    ERR_CONFLICT(409, "Conflict"),
+    ERR_INTERNAL_SERVER_ERROR(500, "Internal Server Error"),
 
     OK(0, "ok"),
     ERR(-1, "err"),

@@ -50,7 +50,7 @@ class HmacInterceptor(
                 ci,
                 cs
             )
-            throw KtException(KtCode.FORBIDDEN)
+            throw KtException(KtCode.ERR_FORBIDDEN)
         }
         redisUtil.setStr("risk:$ci", "1", 3L)
     }

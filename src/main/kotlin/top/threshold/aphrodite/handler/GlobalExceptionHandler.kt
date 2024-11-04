@@ -24,28 +24,28 @@ class GlobalExceptionHandler(
     fun notValidException(e: MethodArgumentNotValidException): ResultKt<*> {
         val message = e.bindingResult.fieldError?.defaultMessage!!
         log.error("Parameter verification failed", e)
-        return ResultKt.fail<Any>(KtCode.BAD_REQUEST.code, message)
+        return ResultKt.fail<Any>(KtCode.ERR_BAD_REQUEST.code, message)
     }
 
     @ExceptionHandler(HttpMessageNotReadableException::class)
     @ResponseBody
     fun messageNotReadable(req: HttpServletRequest, e: HttpMessageNotReadableException): ResultKt<*> {
         log.warn("messageNotReadable , {}, {}", req.requestURI, e.message)
-        return ResultKt.fail<Any>(KtCode.BAD_REQUEST)
+        return ResultKt.fail<Any>(KtCode.ERR_BAD_REQUEST)
     }
 
     @ExceptionHandler(NotLoginException::class)
     @ResponseBody
     fun notLoginExceptionHandler(req: HttpServletRequest, e: NotLoginException): ResultKt<String?> {
         log.error("notLoginException , {}, {}", req.requestURI, e.loginType)
-        return ResultKt.fail(KtCode.UNAUTHORIZED)
+        return ResultKt.fail(KtCode.ERR_UNAUTHORIZED)
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException::class)
     @ResponseBody
     fun badMethodHandler(req: HttpServletRequest, e: HttpRequestMethodNotSupportedException): ResultKt<String?> {
         log.warn("HttpRequestMethodNotSupportedException , {}, {}", req.requestURI, e.message)
-        return ResultKt.fail(KtCode.METHOD_NOT_ALLOWED)
+        return ResultKt.fail(KtCode.ERR_METHOD_NOT_ALLOWED)
     }
 
     @ExceptionHandler(KtException::class)
@@ -59,7 +59,7 @@ class GlobalExceptionHandler(
     @ResponseBody
     fun ExceptionHandler(e: Exception?): ResultKt<String?> {
         log.error("Exception:", e)
-        return ResultKt.fail(KtCode.HTTP_FAILURE.code, KtCode.HTTP_FAILURE.message)
+        return ResultKt.fail(KtCode.ERR_INTERNAL_SERVER_ERROR.code, KtCode.ERR_INTERNAL_SERVER_ERROR.message)
     }
 
     /**
