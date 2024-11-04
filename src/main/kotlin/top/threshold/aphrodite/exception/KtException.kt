@@ -1,4 +1,4 @@
-import top.threshold.aphrodite.enums.KtCode
+import top.threshold.aphrodite.enums.Errors
 import java.io.Serializable
 
 data class KtException(
@@ -9,5 +9,5 @@ data class KtException(
 
     constructor(code: Int, message: String) : this(code, message, null)
 
-    constructor(ktCode: KtCode) : this(ktCode.code, ktCode.message, null)
+    constructor(errors: Errors) : this(errors.code, errors.message, null)
 }

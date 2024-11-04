@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletResponse
 import org.springframework.stereotype.Component
 import org.springframework.web.servlet.HandlerInterceptor
 import top.threshold.aphrodite.entity.Slf4j.Companion.log
-import top.threshold.aphrodite.enums.KtCode
+import top.threshold.aphrodite.enums.Errors
 import top.threshold.aphrodite.utils.HmacUtil
 import top.threshold.aphrodite.utils.RedisUtil
 
@@ -50,7 +50,7 @@ class HmacInterceptor(
                 ci,
                 cs
             )
-            throw KtException(KtCode.ERR_FORBIDDEN)
+            throw KtException(Errors.ERR_FORBIDDEN)
         }
         redisUtil.setStr("risk:$ci", "1", 3L)
     }

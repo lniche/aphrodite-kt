@@ -1,13 +1,13 @@
 package top.threshold.aphrodite.entity
 
-import top.threshold.aphrodite.enums.KtCode
+import top.threshold.aphrodite.enums.Errors
 import java.io.Serializable
 
 open class ResultKt<T> : Serializable {
     /**
      * 错误码
      */
-    var code: Int = KtCode.OK.code
+    var code: Int = 0
 
     /**
      * 错误消息
@@ -18,9 +18,6 @@ open class ResultKt<T> : Serializable {
      * 返回的实体类
      */
     var data: T? = null
-    fun succeeded(): Boolean {
-        return this.code == KtCode.OK.code
-    }
 
     companion object {
         fun <T> success(): ResultKt<T> {
@@ -38,8 +35,12 @@ open class ResultKt<T> : Serializable {
             return result
         }
 
+        fun <T> fail(): ResultKt<T> {
+            return fail(Errors.ERR)
+        }
+
         fun <T> fail(message: String): ResultKt<T> {
-            return fail(KtCode.ERR.code, message)
+            return fail(Errors.ERR.code, message)
         }
 
         fun <T> fail(code: Int, message: String): ResultKt<T> {
@@ -49,17 +50,17 @@ open class ResultKt<T> : Serializable {
             return result
         }
 
-        fun <T> fail(ktCode: KtCode): ResultKt<T> {
+        fun <T> fail(errors: Errors): ResultKt<T> {
             val result = ResultKt<T>()
-            result.code = ktCode.code
-            result.message = ktCode.message
+            result.code = errors.code
+            result.message = errors.message
             return result
         }
 
-        fun <T> fail(ktCode: KtCode, data: T): ResultKt<T> {
+        fun <T> fail(errors: Errors, data: T): ResultKt<T> {
             val result = ResultKt<T>()
-            result.code = ktCode.code
-            result.message = ktCode.message
+            result.code = errors.code
+            result.message = errors.message
             result.data = data
             return result
         }
