@@ -34,7 +34,7 @@ pom.xml.lastUpdated
 *.ear
 
 # Log files
-*.log
+*.log*
 logs/
 log/
 

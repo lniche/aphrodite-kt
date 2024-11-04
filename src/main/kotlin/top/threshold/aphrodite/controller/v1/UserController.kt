@@ -42,26 +42,31 @@ class UserController(
         /**
          * Nickname
          */
+        @field:Schema(description = "User nickname", example = "john")
         var nickname: String? = null
 
         /**
          * User Number
          */
+        @field:Schema(description = "User Number", example = "A8000")
         var userNo: Long? = null
 
         /**
          * User Code
          */
+        @field:Schema(description = "User Code", example = "100000")
         var userCode: String? = null
 
         /**
          * Email
          */
+        @field:Schema(description = "User email", example = "john@example.com")
         var email: String? = null
 
         /**
          * Phone Number
          */
+        @field:Schema(description = "User phone number", example = "13800138000")
         var phone: String? = null
     }
 
@@ -105,7 +110,7 @@ class UserController(
         /**
          * Nickname
          */
-        @field:Schema(description = "User nickname", example = "John", required = false)
+        @field:Schema(description = "User nickname", example = "john", required = false)
         var nickname: String? = null
 
         /**
@@ -139,7 +144,7 @@ class UserController(
     @DeleteMapping("")
     fun deleteUser(): Result<Void> {
         val userDO = userRepository.getByCode(loginUid()) ?: return Result.err("User is not valid")
-        userDO.deleted = true
+        userDO.status = 3
         userDO.deletedAt = OffsetDateTime.now()
         userRepository.updateById(userDO)
         return Result.ok()

@@ -81,7 +81,7 @@ class AuthController(
         redisUtil.setStr(codeKey, code, codeValidityInSeconds)
         redisUtil.incr(dailyKey, 1)
         redisUtil.expire(dailyKey, 3600 * 24L)
-//        sendSms(phone, code)
+        // TODO fake send
         return Result.ok()
     }
 
@@ -107,7 +107,7 @@ class AuthController(
         /**
          * Access token
          */
-        @field:Schema(description = "Access token", example = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9")
+        @field:Schema(description = "Access token", example = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...")
         var accessToken: String? = null
     }
 
@@ -128,7 +128,7 @@ class AuthController(
             userDO.userNo = redisUtil.nextId(CacheKey.NEXTID_UNO)
             userDO.userCode = IdUtil.getSnowflakeNextIdStr()
             userDO.clientIp = realIpAddress
-            userDO.nickname = "A" + loginReq.phone!!.takeLast(4)
+            userDO.nickname = "SUGAR_" + loginReq.phone!!.takeLast(4)
             userDO.phone = loginReq.phone
             userDO.loginAt = OffsetDateTime.now()
             userDO.loginToken = login(userDO.userCode)

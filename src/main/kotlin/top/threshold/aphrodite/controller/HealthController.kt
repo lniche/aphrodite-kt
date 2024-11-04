@@ -8,7 +8,7 @@ import top.threshold.aphrodite.entity.Result
 class HealthController {
 
     @RequestMapping("/")
-    fun home(): Result<String> {
+    fun root(): Result<String> {
         return Result.ok("Thank you for using Aphrodite!")
     }
 

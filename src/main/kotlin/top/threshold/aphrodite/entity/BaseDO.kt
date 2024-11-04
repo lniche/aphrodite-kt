@@ -13,10 +13,6 @@ open class BaseDO {
     @Version
     var version: Int? = null
 
-    @TableField(value = "is_deleted")
-    @TableLogic(value = "false", delval = "true")
-    var deleted: Boolean? = null
-
     @TableField(fill = FieldFill.INSERT)
     var createdAt: OffsetDateTime? = null
 

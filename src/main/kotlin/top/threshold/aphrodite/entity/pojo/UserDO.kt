@@ -80,6 +80,18 @@ class UserDO : BaseOprDO() {
     @TableField("login_token")
     var loginToken: String? = null
 
+    /**
+     * Avatar
+     */
+    @TableField("avatar")
+    var avatar: String? = null
+
+    /**
+     * 0: Unactivated, 1: Active, 2: Frozen, 3: Deleted
+     */
+    @TableField("avatar")
+    var status: Short? = null
+
     override fun toString(): String {
         return "UserDO{" +
                 "userCode=" + userCode +
