@@ -39,7 +39,7 @@ import java.util.*
 @Slf4j
 @RestController
 @RequestMapping("/v1")
-@Tag(name = "Authentication Module")
+@Tag(name = "Auth Module")
 class AuthController(
     val redisUtil: RedisUtil,
     val userRepository: IUserRepository,
@@ -61,7 +61,7 @@ class AuthController(
 
     @Operation(
         summary = "Send Verification Code",
-        description = "Send verification code",
+        description = "",
     )
     @PostMapping("/send-code")
     fun sendVerifyCode(@Validated @RequestBody sendVerifyCodeReq: SendVerifyCodeReq): Result<Void> {
@@ -113,7 +113,7 @@ class AuthController(
 
     @Operation(
         summary = "User Registration/Login",
-        description = "User registration and login",
+        description = "",
     )
     @PostMapping("/login")
     fun login(@Validated @RequestBody loginReq: LoginReq): Result<LoginResp> {
@@ -125,7 +125,7 @@ class AuthController(
         var userDO = userRepository.getByPhone(loginReq.phone!!)
         if (Objects.isNull(userDO)) {
             userDO = UserDO()
-            userDO.userNo = redisUtil.nextId(CacheKey.NEXTID_UNO)
+            userDO.userNo = redisUtil.nextId(CacheKey.NEXT_UNO)
             userDO.userCode = IdUtil.getSnowflakeNextIdStr()
             userDO.clientIp = realIpAddress
             userDO.nickname = "SUGAR_" + loginReq.phone!!.takeLast(4)
@@ -148,7 +148,7 @@ class AuthController(
 
     @Operation(
         summary = "User Logout",
-        description = "User logout",
+        description = "",
         security = [SecurityRequirement(name = "Authorization")]
     )
     @PostMapping("/logout")

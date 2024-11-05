@@ -71,8 +71,8 @@ class UserController(
     }
 
     @Operation(
-        summary = "Get User",
-        description = "Retrieve user information",
+        summary = "User Info",
+        description = "",
         security = [SecurityRequirement(name = "Authorization")]
     )
     @Parameters(
@@ -121,15 +121,12 @@ class UserController(
     }
 
     @Operation(
-        summary = "Update User",
-        description = "Update user information based on user details",
+        summary = "User Update",
+        description = "",
         security = [SecurityRequirement(name = "Authorization")]
     )
     @PutMapping("")
-    fun updateUser(
-        @Parameter(description = "Update user information", required = true)
-        @Validated @RequestBody updateUserReq: UpdateUserReq
-    ): Result<Void> {
+    fun updateUser(@Validated @RequestBody updateUserReq: UpdateUserReq): Result<Void> {
         val userDO = userRepository.getByCode(loginUid()) ?: return Result.err("User does not exist")
         BeanUtil.copyProperties(updateUserReq, userDO, "userCode")
         userRepository.updateById(userDO)
@@ -137,8 +134,8 @@ class UserController(
     }
 
     @Operation(
-        summary = "Delete User",
-        description = "Delete user if obtained through token",
+        summary = "User Delete",
+        description = "",
         security = [SecurityRequirement(name = "Authorization")]
     )
     @DeleteMapping("")

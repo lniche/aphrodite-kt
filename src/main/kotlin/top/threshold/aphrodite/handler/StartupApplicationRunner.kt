@@ -19,8 +19,8 @@ class StartupApplicationRunner(
 ) : ApplicationRunner {
 
     override fun run(args: ApplicationArguments?) {
-        if (!redisUtil.hasKey(CacheKey.NEXTID_UNO)) {
-            redisUtil.setLong(CacheKey.NEXTID_UNO, 100000)
+        if (!redisUtil.hasKey(CacheKey.NEXT_UNO)) {
+            redisUtil.setLong(CacheKey.NEXT_UNO, 100000)
         }
         if ("dev" == active) {
             log.info("server start {\"host\": \"http://127.0.0.1:8000\"}")
