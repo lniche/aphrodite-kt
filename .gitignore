@@ -35,8 +35,6 @@ pom.xml.lastUpdated
 
 # Log files
 *.log*
-logs/
-log/
 
 # Temporary files
 *.tmp
