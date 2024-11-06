@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.generator.config.GlobalConfig
 import com.baomidou.mybatisplus.generator.config.PackageConfig
 import com.baomidou.mybatisplus.generator.config.StrategyConfig
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine
-import top.threshold.aphrodite.entity.BaseOprDO
+import top.threshold.aphrodite.pkg.entity.BaseOprDO
 import java.nio.file.Paths
 
 
@@ -26,7 +26,7 @@ object CodeGenerator {
             }
             .packageConfig { builder: PackageConfig.Builder ->
                 builder
-                    .parent("top.threshold.aphrodite")
+                    .parent("top.threshold.aphrodite.app")
                     .entity("entity.pojo")
                     .mapper("mapper")
                     .service("repository")
