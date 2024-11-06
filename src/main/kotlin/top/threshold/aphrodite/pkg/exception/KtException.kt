@@ -1,4 +1,4 @@
-import top.threshold.aphrodite.pkg.enums.Errors
+import top.threshold.aphrodite.pkg.enum.Errors
 import java.io.Serializable
 
 data class KtException(

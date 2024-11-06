@@ -6,8 +6,8 @@ import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.stereotype.Component
 import org.springframework.web.servlet.HandlerInterceptor
-import top.threshold.aphrodite.app.entity.Slf4j.Companion.log
-import top.threshold.aphrodite.pkg.enums.Errors
+import top.threshold.aphrodite.pkg.entity.Slf4j.Companion.log
+import top.threshold.aphrodite.pkg.enum.Errors
 import top.threshold.aphrodite.pkg.util.HmacUtil
 import top.threshold.aphrodite.pkg.util.RedisUtil
 

@@ -9,10 +9,10 @@ import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.RestControllerAdvice
-import top.threshold.aphrodite.app.entity.Result
-import top.threshold.aphrodite.app.entity.Slf4j
-import top.threshold.aphrodite.app.entity.Slf4j.Companion.log
-import top.threshold.aphrodite.pkg.enums.Errors
+import top.threshold.aphrodite.pkg.entity.Result
+import top.threshold.aphrodite.pkg.entity.Slf4j
+import top.threshold.aphrodite.pkg.entity.Slf4j.Companion.log
+import top.threshold.aphrodite.pkg.enum.Errors
 
 @Slf4j
 @RestControllerAdvice

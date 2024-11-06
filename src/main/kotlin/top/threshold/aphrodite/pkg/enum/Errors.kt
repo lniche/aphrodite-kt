@@ -1,4 +1,4 @@
-package top.threshold.aphrodite.pkg.enums
+package top.threshold.aphrodite.pkg.enum
 
 import top.threshold.aphrodite.pkg.exception.KtAssert
 

@@ -2,7 +2,7 @@ package top.threshold.aphrodite.app.controller
 
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import top.threshold.aphrodite.app.entity.Result
+import top.threshold.aphrodite.pkg.entity.Result
 
 @RestController
 class HealthController {

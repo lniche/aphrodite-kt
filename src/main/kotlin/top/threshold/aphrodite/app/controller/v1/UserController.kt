@@ -14,9 +14,9 @@ import lombok.Data
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import top.threshold.aphrodite.app.controller.BaseController
-import top.threshold.aphrodite.app.entity.Result
 import top.threshold.aphrodite.app.repository.IUserRepository
 import top.threshold.aphrodite.pkg.constant.CacheKey
+import top.threshold.aphrodite.pkg.entity.Result
 import top.threshold.aphrodite.pkg.util.RedisUtil
 import java.time.OffsetDateTime
 

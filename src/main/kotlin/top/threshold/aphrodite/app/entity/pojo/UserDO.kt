@@ -2,7 +2,7 @@ package top.threshold.aphrodite.app.entity.pojo
 
 import com.baomidou.mybatisplus.annotation.TableField
 import com.baomidou.mybatisplus.annotation.TableName
-import top.threshold.aphrodite.app.entity.BaseOprDO
+import top.threshold.aphrodite.pkg.entity.BaseOprDO
 import java.time.OffsetDateTime
 
 @TableName("t_user")

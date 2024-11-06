@@ -1,4 +1,4 @@
-package top.threshold.aphrodite.app.entity
+package top.threshold.aphrodite.pkg.entity
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
