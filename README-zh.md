@@ -82,7 +82,7 @@ mv application-dev.yml application-test.yml/application-prod.yml
 ./gradlew build
 
 # 4. 初始化数据库
-database/db.sql
+db/init.sql
 
 # 5. 启动服务
 ./gradlew run
