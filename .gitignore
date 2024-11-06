@@ -19,6 +19,7 @@ pom.xml.lastUpdated
 *.iml
 *.ipr
 *.iws
+.kotlin
 
 # Eclipse files
 .classpath
