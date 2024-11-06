@@ -52,7 +52,6 @@ object CodeGenerator {
                         "updated_by",
                         "updated_at",
                         "deleted_at",
-                        "is_deleted",
                         "version",
                     )
 //                    .versionColumnName("version")
