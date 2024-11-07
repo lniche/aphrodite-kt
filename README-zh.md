@@ -1,4 +1,4 @@
-# Aphrodite Kotlin API 快速开发脚手架
+# Aphrodite Kotlin API Scaffold
 
 Aphrodite 是一个基于 Kotlin、Spring Boot 3 和 Gradle
 开发的模板项目，旨在帮助开发者快速上手，深入理解框架的使用流程。该项目提供了全面的示例代码和配置，涵盖了常见的开发场景，以便于学习和实践。此外，Aphrodite
@@ -28,7 +28,6 @@ Aphrodite 是一个基于 Kotlin、Spring Boot 3 和 Gradle
 | [screw-core](https://github.com/ban-jie/screw)                                                                                                   | 数据库文档生成工具                       |
 | [knife4j-openapi3-jakarta-spring-boot-starter](https://knife4j.github.io/knife4j/)                                                               | OpenAPI 3 支持的文档生成工具             |
 | [redisson-spring-boot-starter](https://github.com/redisson/redisson)                                                                             | Redis 的 Spring Boot 启动器         |
-| [guava](https://github.com/google/guava)                                                                                                         | Google 提供的核心库，包含集合和缓存等工具        |
 | [transmittable-thread-local](https://github.com/alibaba/transmittable-thread-local)                                                              | 支持跨线程传递的线程本地变量                  |
 | [hutool-all](https://github.com/dromara/hutool)                                                                                                  | Java 工具库，提供多种常用功能               |
 | [sa-token-spring-boot3-starter](https://github.com/dromara/sa-token)                                                                             | 权限认证框架的 Spring Boot 启动器         |
@@ -49,20 +48,16 @@ Aphrodite 是一个基于 Kotlin、Spring Boot 3 和 Gradle
 ## 目录结构
 
 ```
-├── aspect/               # 切面模块，处理横切关注点，如日志、事务管理
-├── config/               # 配置模块，存储应用程序的配置和环境设置
-├── constant/             # 常量模块，定义应用中使用的常量
-├── controller/           # 控制器模块，处理请求和响应的逻辑
-├── entity/               # 实体模块，定义与数据库表对应的实体类
-├── enums/                # 枚举模块，定义常用的枚举类型
-├── exception/            # 异常模块，自定义异常处理和错误管理
-├── handler/              # 处理器模块，处理特定请求或事件的逻辑
-├── helper/               # 辅助模块，提供一些通用的辅助方法
-├── mapper/               # 映射模块，用于对象与数据库之间的映射
-├── repository/           # 数据访问层模块，处理数据存取操作，通常与数据库交互
-├── service/              # 服务层模块，包含业务逻辑处理，协调不同模块
-├── utils/                # 工具类模块，常用工具方法和功能的集合
-└── README.md             # 项目说明文件，包含项目简介、安装和使用说明等
+.
+├── bin/                  # 可执行脚本
+├── database/             # 数据库相关
+├── deploy/               # 部署相关文件
+├── docs/                 # 项目文档
+├── src/                  # 核心目录
+│   ├── app/              # 应用核心代码
+│   ├── pkg/              # 公共模块
+├── storage/              # 文件存储
+└── README.md             # 项目说明
 
 ```
 
