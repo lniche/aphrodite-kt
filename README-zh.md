@@ -83,6 +83,10 @@ db/init.sql
 ./gradlew run
 ```
 
+## Repo Activity
+
+![Alt](https://repobeats.axiom.co/api/embed/8c4c3c37cf3d00a71bc527b1a0eee18d2f20f7b5.svg "Repobeats analytics image")
+
 ## 贡献
 
 如果你有任何建议或想法，欢迎创建 Issue 或直接提交 Pull Request。
