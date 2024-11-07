@@ -6,7 +6,7 @@ and configuration, covering common development scenarios for easy learning and p
 includes a container deployment template, which makes the project easy to deploy and manage in a modern cloud
 environment, helping developers to efficiently build and release applications.
 
-## 技术栈
+## Tech Stack
 
 | Technology                                                                                                                                       | Description                                                    |
 |--------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
