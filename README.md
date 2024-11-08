@@ -49,7 +49,7 @@ environment, helping developers to efficiently build and release applications.
 - **API modular design**: Supports modular API design, which is easy to expand and maintain.
 - **Swagger document integration**: Automatically generates API documents for front-end development and testing.
 
-## Directory structure
+## Structure
 
 ```
 .
@@ -65,7 +65,7 @@ environment, helping developers to efficiently build and release applications.
 
 ```
 
-## Run locally
+## Run Local
 
 ```bash
 # 1. Clone the project code base

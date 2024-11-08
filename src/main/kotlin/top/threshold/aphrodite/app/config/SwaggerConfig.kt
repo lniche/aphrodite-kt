@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration
 @OpenAPIDefinition(
     servers = [
         Server(description = "Development Environment", url = "http://localhost:8000"),
-        Server(description = "Test Environment", url = "https://test.aphrodite.com")
+        Server(description = "Test Environment", url = "http://test.aphrodite.com")
     ]
 )
 @Configuration
@@ -41,9 +41,9 @@ class SwaggerConfig {
             )
     }
 
-    @Bean("appGroupApi")
-    fun appGroupApi(): GroupedOpenApi {
-        return GroupedOpenApi.builder().group("App Module Group")
+    @Bean("appV1GroupApi")
+    fun appV1GroupApi(): GroupedOpenApi {
+        return GroupedOpenApi.builder().group("API V1 Docs")
             .pathsToMatch("/v1/**")
             .build()
     }

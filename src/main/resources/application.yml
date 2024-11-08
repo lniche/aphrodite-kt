@@ -50,8 +50,6 @@ sa-token:
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
-    tags-sorter: alpha
-    operations-sorter: alpha
   api-docs:
     path: /api-docs/openapi.json
 
