@@ -27,14 +27,6 @@ import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.util.*
 
-/**
- * <p>
- *  Authentication Controller
- * </p>
- *
- * @author qingshan
- * @since 2024-09-29
- */
 @Slf4j
 @RestController
 @RequestMapping("/v1")
@@ -53,14 +45,13 @@ class AuthController(
          * Phone number
          */
         @field:NotBlank(message = "Phone number cannot be empty")
-        @field:Schema(description = "User phone number", example = "13800138000", required = true)
+        @field:Schema(description = "User Phone", example = "13800138000", required = true)
         @Pattern(regexp = "^\\+?[1-9]\\d{1,14}\$", message = "Phone number format is incorrect")
         var phone: String? = null
     }
 
     @Operation(
         summary = "Send Verification Code",
-        description = "",
     )
     @PostMapping("/send-code")
     fun sendVerifyCode(@Validated @RequestBody sendVerifyCodeReq: SendVerifyCodeReq): Result<Void> {
@@ -112,7 +103,6 @@ class AuthController(
 
     @Operation(
         summary = "User Registration/Login",
-        description = "",
     )
     @PostMapping("/login")
     fun login(@Validated @RequestBody loginReq: LoginReq): Result<LoginResp> {

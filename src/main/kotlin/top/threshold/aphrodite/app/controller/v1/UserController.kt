@@ -20,15 +20,6 @@ import top.threshold.aphrodite.pkg.entity.Result
 import top.threshold.aphrodite.pkg.util.RedisUtil
 import java.time.OffsetDateTime
 
-
-/**
- * <p>
- *  User Controller
- * </p>
- *
- * @author qingshan
- * @since 2024-09-29
- */
 @RestController
 @RequestMapping("/v1/user")
 @Tag(name = "User Module")
@@ -42,7 +33,7 @@ class UserController(
         /**
          * Nickname
          */
-        @field:Schema(description = "User nickname", example = "john")
+        @field:Schema(description = "User Nickname", example = "john")
         var nickname: String? = null
 
         /**
@@ -60,23 +51,22 @@ class UserController(
         /**
          * Email
          */
-        @field:Schema(description = "User email", example = "john@example.com")
+        @field:Schema(description = "User Email", example = "john@example.com")
         var email: String? = null
 
         /**
          * Phone Number
          */
-        @field:Schema(description = "User phone number", example = "13800138000")
+        @field:Schema(description = "User Phone", example = "13800138000")
         var phone: String? = null
     }
 
     @Operation(
         summary = "User Info",
-        description = "",
         security = [SecurityRequirement(name = "Authorization")]
     )
     @Parameters(
-        Parameter(name = "userCode", description = "User Number", `in` = ParameterIn.PATH)
+        Parameter(name = "userCode", description = "User Code", `in` = ParameterIn.PATH)
     )
     @GetMapping("/{userCode}")
     fun getUser(@PathVariable userCode: String): Result<GetUserResp?> {
@@ -110,19 +100,18 @@ class UserController(
         /**
          * Nickname
          */
-        @field:Schema(description = "User nickname", example = "john", required = false)
+        @field:Schema(description = "User Nickname", example = "john", required = false)
         var nickname: String? = null
 
         /**
          * Email
          */
-        @field:Schema(description = "User email", example = "john@example.com", required = false)
+        @field:Schema(description = "User Email", example = "john@example.com", required = false)
         var email: String? = null
     }
 
     @Operation(
         summary = "User Update",
-        description = "",
         security = [SecurityRequirement(name = "Authorization")]
     )
     @PutMapping("")
@@ -135,7 +124,6 @@ class UserController(
 
     @Operation(
         summary = "User Delete",
-        description = "",
         security = [SecurityRequirement(name = "Authorization")]
     )
     @DeleteMapping("")

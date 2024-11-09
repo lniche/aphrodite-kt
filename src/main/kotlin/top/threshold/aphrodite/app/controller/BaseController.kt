@@ -4,7 +4,6 @@ import cn.dev33.satoken.stp.StpUtil
 import org.springframework.web.context.request.RequestContextHolder
 import org.springframework.web.context.request.ServletRequestAttributes
 
-
 abstract class BaseController {
     private val isLogin: Boolean
         get() = StpUtil.isLogin()
