@@ -1,5 +1,7 @@
 # Aphrodite Kotlin API Scaffold
 
+[English](README.md) | [简体中文](README-zh.md)
+
 Aphrodite is a template project based on Kotlin, Spring Boot 3 and Gradle, designed to help developers get started
 quickly and gain a deep understanding of the framework's usage process. The project provides comprehensive sample code
 and configuration, covering common development scenarios for easy learning and practice. In addition, Aphrodite also
