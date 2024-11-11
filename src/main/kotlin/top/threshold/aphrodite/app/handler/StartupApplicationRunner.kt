@@ -22,9 +22,11 @@ class StartupApplicationRunner(
         if (!redisUtil.hasKey(CacheKey.NEXT_UNO)) {
             redisUtil.setLong(CacheKey.NEXT_UNO, 100000)
         }
-        if ("dev" == active) {
-            log.info("server start {\"host\": \"http://127.0.0.1:8000\"}")
-            log.info("docs addr {\"addr\": \"http://127.0.0.1:8000/swagger-ui/index.html\"}")
+        if ("prod" != active) {
+            log.info("===============================")
+            log.info("Listening on {\"host\": \"http://127.0.0.1:8000\"}")
+            log.info("Docs addr {\"addr\": \"http://127.0.0.1:8000/swagger-ui/index.html\"}")
+            log.info("===============================")
         }
     }
 }
