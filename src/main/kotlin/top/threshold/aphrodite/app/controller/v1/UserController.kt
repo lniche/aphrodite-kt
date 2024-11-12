@@ -29,7 +29,7 @@ class UserController(
 ) : BaseController() {
 
     @Data
-    class GetUserResp {
+    class GetUserResponse {
         /**
          * Nickname
          */
@@ -69,34 +69,34 @@ class UserController(
         Parameter(name = "userCode", description = "User Code", `in` = ParameterIn.PATH)
     )
     @GetMapping("/{userCode}")
-    fun getUser(@PathVariable userCode: String): Result<GetUserResp?> {
+    fun getUser(@PathVariable userCode: String): Result<GetUserResponse?> {
         val actualUserCode = if (StrUtil.isBlank(userCode)) {
             loginUid()
         } else {
             userCode
         }
         val redisKey = CacheKey.USER + actualUserCode
-        val getUserResp = redisUtil.getObj(redisKey, GetUserResp::class.java)
+        val getUserResponse = redisUtil.getObj(redisKey, GetUserResponse::class.java)
 
-        if (getUserResp == null) {
+        if (getUserResponse == null) {
             val userDO = userRepository.getByCode(actualUserCode)
             userDO?.let {
                 redisUtil[redisKey, it] = 60
-                return Result.ok(GetUserResp().apply { BeanUtil.copyProperties(it, this) })
+                return Result.ok(GetUserResponse().apply { BeanUtil.copyProperties(it, this) })
             }
         }
 
-        getUserResp?.apply {
+        getUserResponse?.apply {
             email = DesensitizedUtil.email(email)
             phone = DesensitizedUtil.mobilePhone(phone)
         }
 
-        return Result.ok(getUserResp)
+        return Result.ok(getUserResponse)
     }
 
     @Data
     @Schema(description = "Request object for updating user information")
-    class UpdateUserReq {
+    class UpdateUserRequest {
         /**
          * Nickname
          */
@@ -115,9 +115,9 @@ class UserController(
         security = [SecurityRequirement(name = "Authorization")]
     )
     @PutMapping("")
-    fun updateUser(@Validated @RequestBody updateUserReq: UpdateUserReq): Result<Void> {
+    fun updateUser(@Validated @RequestBody updateUserRequest: UpdateUserRequest): Result<Void> {
         val userDO = userRepository.getByCode(loginUid()) ?: return Result.err("User does not exist")
-        BeanUtil.copyProperties(updateUserReq, userDO, "userCode")
+        BeanUtil.copyProperties(updateUserRequest, userDO, "userCode")
         userRepository.updateById(userDO)
         return Result.ok()
     }

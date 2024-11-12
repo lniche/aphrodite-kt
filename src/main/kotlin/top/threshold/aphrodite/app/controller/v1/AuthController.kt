@@ -40,7 +40,7 @@ class AuthController(
     private val codeValidityInSeconds = 60L
 
     @Data
-    class SendVerifyCodeReq {
+    class SendVerifyCodeRequest {
         /**
          * Phone number
          */
@@ -54,8 +54,8 @@ class AuthController(
         summary = "Send Verification Code",
     )
     @PostMapping("/send-code")
-    fun sendVerifyCode(@Validated @RequestBody sendVerifyCodeReq: SendVerifyCodeReq): Result<Void> {
-        val phone = sendVerifyCodeReq.phone
+    fun sendVerifyCode(@Validated @RequestBody sendVerifyCodeRequest: SendVerifyCodeRequest): Result<Void> {
+        val phone = sendVerifyCodeRequest.phone
         val today = LocalDate.now()
         val dailyKey = CacheKey.SMS_CODE_NUM + "$phone:$today"
         val count = redisUtil.getInt(dailyKey)
@@ -66,9 +66,9 @@ class AuthController(
         if (redisUtil.hasKey(codeKey)) {
             return Result.err("A verification code has already been sent within a minute, please try again later")
         }
-        val code = RandomUtil.randomInt(1000, 9999).toString()
-        log.debug("$phone send verify code: $code")
-        redisUtil.setStr(codeKey, code, codeValidityInSeconds)
+        val cachedCode = RandomUtil.randomInt(1000, 9999).toString()
+        log.debug("$phone send verify code: $cachedCode")
+        redisUtil.setStr(CacheKey.SMS_CODE + phone, cachedCode, codeValidityInSeconds)
         redisUtil.incr(dailyKey, 1)
         redisUtil.expire(dailyKey, 3600 * 24L)
         // TODO fake send
@@ -76,24 +76,24 @@ class AuthController(
     }
 
     @Data
-    class LoginReq {
+    class LoginRequest {
         /**
          * Phone number
          */
         @field:NotBlank(message = "Phone number cannot be empty")
-        @field:Schema(description = "User phone number", example = "13800138000", required = true)
+        @field:Schema(description = "User Phone", example = "13800138000", required = true)
         var phone: String? = null
 
         /**
          * Verification code
          */
         @field:NotBlank(message = "Verification code cannot be empty")
-        @field:Schema(description = "Verification code for user registration", example = "1234", required = true)
+        @field:Schema(description = "Verification code", example = "1234", required = true)
         var code: String? = null
     }
 
     @Data
-    class LoginResp {
+    class LoginResponse {
         /**
          * Access token
          */
@@ -105,20 +105,20 @@ class AuthController(
         summary = "User Registration/Login",
     )
     @PostMapping("/login")
-    fun login(@Validated @RequestBody loginReq: LoginReq): Result<LoginResp> {
+    fun login(@Validated @RequestBody loginRequest: LoginRequest): Result<LoginResponse> {
         val today = LocalDate.now()
-        val dailyKey = CacheKey.SMS_CODE_NUM + "${loginReq.phone}:$today"
+        val dailyKey = CacheKey.SMS_CODE_NUM + "${loginRequest.phone}:$today"
         if (!redisUtil.hasKey(dailyKey)) return Result.err("Verification code has expired, please retrieve it again")
-        if (loginReq.code.equals(redisUtil.getStr(dailyKey))) return Result.err("Verification code is incorrect, please re-enter")
+        if (loginRequest.code.equals(redisUtil.getStr(dailyKey))) return Result.err("Verification code is incorrect, please re-enter")
 
-        var userDO = userRepository.getByPhone(loginReq.phone!!)
+        var userDO = userRepository.getByPhone(loginRequest.phone!!)
         if (Objects.isNull(userDO)) {
             userDO = UserDO()
             userDO.userNo = redisUtil.nextId(CacheKey.NEXT_UNO)
             userDO.userCode = IdUtil.getSnowflakeNextIdStr()
             userDO.clientIp = realIpAddress
-            userDO.nickname = "SUGAR_" + loginReq.phone!!.takeLast(4)
-            userDO.phone = loginReq.phone
+            userDO.nickname = "SUGAR_" + loginRequest.phone!!.takeLast(4)
+            userDO.phone = loginRequest.phone
             userDO.loginAt = OffsetDateTime.now()
             userDO.loginToken = login(userDO.userCode)
             userRepository.save(userDO)
@@ -130,9 +130,9 @@ class AuthController(
         }
 
         redisUtil.del(dailyKey)
-        val loginResp = LoginResp()
-        loginResp.accessToken = userDO.loginToken
-        return Result.ok(loginResp)
+        val loginResponse = LoginResponse()
+        loginResponse.accessToken = userDO.loginToken
+        return Result.ok(loginResponse)
     }
 
     @Operation(

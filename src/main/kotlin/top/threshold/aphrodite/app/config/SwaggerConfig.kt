@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration
 
 @OpenAPIDefinition(
     servers = [
-        Server(description = "Development Environment", url = "http://localhost:8000"),
+        Server(description = "Development Environment", url = "http://127.0.0.1:8000"),
         Server(description = "Test Environment", url = "http://test.aphrodite.com")
     ]
 )
@@ -22,7 +22,7 @@ import org.springframework.context.annotation.Configuration
 class SwaggerConfig {
     @Bean
     fun customOpenAPI(): OpenAPI {
-        return OpenAPI()
+        val openAPI = OpenAPI()
             .info(
                 Info().title("Aphrodite API")
                     .version("1.0.0")
@@ -39,6 +39,7 @@ class SwaggerConfig {
                             .name("Authorization")
                     )
             )
+        return openAPI
     }
 
     @Bean("appV1GroupApi")
