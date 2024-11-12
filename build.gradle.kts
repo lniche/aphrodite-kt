@@ -46,14 +46,13 @@ dependencies {
     implementation("cn.dev33:sa-token-redis-jackson:1.39.0")
     implementation("org.apache.commons:commons-pool2")
     implementation("com.baomidou:mybatis-plus-spring-boot3-starter:3.5.7")
-    implementation("com.github.xiaoymin:knife4j-openapi3-jakarta-spring-boot-starter:4.4.0")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
 
     "developmentOnly"("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("org.postgresql:postgresql")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-    testImplementation("cn.smallbun.screw:screw-core:1.0.5")
     testImplementation("org.springframework.boot:spring-boot-starter-freemarker")
     testImplementation("com.baomidou:mybatis-plus-generator:3.5.7")
 }

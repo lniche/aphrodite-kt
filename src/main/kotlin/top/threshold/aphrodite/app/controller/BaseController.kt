@@ -17,7 +17,6 @@ abstract class BaseController {
         return StpUtil.getLoginIdAsString()
     }
 
-
     protected val realIpAddress: String
         get() {
             val request = (RequestContextHolder.currentRequestAttributes() as ServletRequestAttributes).request

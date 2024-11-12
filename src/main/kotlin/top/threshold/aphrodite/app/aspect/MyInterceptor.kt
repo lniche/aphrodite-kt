@@ -1,7 +1,6 @@
 package top.threshold.aphrodite.app.aspect
 
 import cn.dev33.satoken.stp.StpUtil
-import cn.hutool.core.map.MapUtil
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.stereotype.Component
@@ -15,7 +14,7 @@ import top.threshold.aphrodite.pkg.helper.RequestDataHelper.setRequestData
 class MyInterceptor : HandlerInterceptor {
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
         val userCode = StpUtil.getLoginIdAsString()
-        setRequestData(MapUtil.of(Const.CODE, userCode))
+        setRequestData(mapOf(Const.CODE to userCode))
         return true
     }
 

@@ -5,23 +5,24 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.data.redis.connection.RedisConnectionFactory
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.data.redis.core.StringRedisTemplate
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer
 import org.springframework.data.redis.serializer.StringRedisSerializer
-import top.threshold.aphrodite.pkg.helper.HuJsonRedisSerializer
 
 
 @Configuration
 class EnableRedisAutoConfiguration {
-    val huJsonRedisSerializer = HuJsonRedisSerializer()
 
     @Bean
     fun redisTemplate(factory: RedisConnectionFactory): RedisTemplate<String, Any> {
         val redisTemplate = RedisTemplate<String, Any>()
         redisTemplate.connectionFactory = factory
+
         val stringRedisSerializer = StringRedisSerializer()
         redisTemplate.keySerializer = stringRedisSerializer
+        redisTemplate.valueSerializer = stringRedisSerializer
+
         redisTemplate.hashKeySerializer = stringRedisSerializer
-        redisTemplate.valueSerializer = huJsonRedisSerializer
-        redisTemplate.hashValueSerializer = huJsonRedisSerializer
+        redisTemplate.hashValueSerializer = Jackson2JsonRedisSerializer(Any::class.java)
         redisTemplate.afterPropertiesSet()
         return redisTemplate
     }

@@ -6,9 +6,9 @@ import java.util.*
 
 object RequestDataHelper {
 
-    private val REQUEST_DATA = TransmittableThreadLocal<MutableMap<String, String>>()
+    private val REQUEST_DATA = TransmittableThreadLocal<Map<String, String>>()
 
-    fun setRequestData(requestData: MutableMap<String, String>) {
+    fun setRequestData(requestData: Map<String, String>) {
         REQUEST_DATA.set(requestData)
     }
 
@@ -17,7 +17,7 @@ object RequestDataHelper {
         return dataMap?.get(param)
     }
 
-    val requestData: MutableMap<String, String>?
+    val requestData: Map<String, String>?
         get() = REQUEST_DATA.get()
 
     fun clear() {
