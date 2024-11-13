@@ -42,11 +42,10 @@ dependencies {
 //    implementation("org.redisson:redisson-spring-boot-starter:3.36.0")
     implementation("com.alibaba:transmittable-thread-local:2.14.5")
     implementation("cn.hutool:hutool-all:5.8.32")
-    implementation("cn.dev33:sa-token-spring-boot3-starter:1.39.0")
-    implementation("cn.dev33:sa-token-redis-jackson:1.39.0")
     implementation("org.apache.commons:commons-pool2")
     implementation("com.baomidou:mybatis-plus-spring-boot3-starter:3.5.7")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
+    implementation("io.jsonwebtoken:jjwt:0.12.6")
 
     "developmentOnly"("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("org.postgresql:postgresql")

@@ -1,7 +1,6 @@
 package top.threshold.aphrodite.app.handler
 
 import KtException
-import cn.dev33.satoken.exception.NotLoginException
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.web.HttpRequestMethodNotSupportedException
@@ -34,13 +33,6 @@ class GlobalExceptionHandler(
         return Result.err<Any>(Errors.ERR_BAD_REQUEST)
     }
 
-    @ExceptionHandler(NotLoginException::class)
-    @ResponseBody
-    fun notLoginExceptionHandler(req: HttpServletRequest, e: NotLoginException): Result<String?> {
-        log.error("notLoginException , {}, {}", req.requestURI, e.loginType)
-        return Result.err(Errors.ERR_UNAUTHORIZED)
-    }
-
     @ExceptionHandler(HttpRequestMethodNotSupportedException::class)
     @ResponseBody
     fun badMethodHandler(req: HttpServletRequest, e: HttpRequestMethodNotSupportedException): Result<String?> {
@@ -50,7 +42,7 @@ class GlobalExceptionHandler(
 
     @ExceptionHandler(KtException::class)
     @ResponseBody
-    fun RainbowExceptionHandler(req: HttpServletRequest, e: KtException): Result<*> {
+    fun KtExceptionHandler(req: HttpServletRequest, e: KtException): Result<*> {
         printStackTrace(e)
         return Result.err<Any>(e.code, e.message!!)
     }

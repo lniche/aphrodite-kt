@@ -6,6 +6,7 @@ import jakarta.annotation.Resource
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.stereotype.Component
+import top.threshold.aphrodite.pkg.entity.Slf4j.Companion.log
 import java.util.concurrent.TimeUnit
 
 @Component
@@ -24,7 +25,7 @@ class RedisUtil {
             }
             return true
         } catch (e: Exception) {
-            e.printStackTrace()
+            log.error("redis error", e)
             return false
         }
 
@@ -38,7 +39,7 @@ class RedisUtil {
         try {
             return stringRedisTemplate.hasKey(key)
         } catch (e: Exception) {
-            e.printStackTrace()
+            log.error("redis error", e)
             return false
         }
 
@@ -86,8 +87,8 @@ class RedisUtil {
             if (StrUtil.isBlankIfStr(json)) {
                 null
             } else JSONUtil.toBean(json, clazz)
-        } catch (e: java.lang.Exception) {
-            e.printStackTrace()
+        } catch (e: Exception) {
+            log.error("redis error", e)
             null
         }
     }
@@ -96,8 +97,8 @@ class RedisUtil {
         return try {
             stringRedisTemplate.opsForValue().set(key, str.toString())
             true
-        } catch (e: java.lang.Exception) {
-            e.printStackTrace()
+        } catch (e: Exception) {
+            log.error("redis error", e)
             return false
         }
     }
@@ -106,8 +107,8 @@ class RedisUtil {
         return try {
             stringRedisTemplate.opsForValue().set(key, str)
             true
-        } catch (e: java.lang.Exception) {
-            e.printStackTrace()
+        } catch (e: Exception) {
+            log.error("redis error", e)
             return false
         }
     }
@@ -116,8 +117,8 @@ class RedisUtil {
         return try {
             stringRedisTemplate.opsForValue().set(key, str.toString())
             true
-        } catch (e: java.lang.Exception) {
-            e.printStackTrace()
+        } catch (e: Exception) {
+            log.error("redis error", e)
             return false
         }
     }
@@ -126,8 +127,8 @@ class RedisUtil {
         return try {
             stringRedisTemplate.opsForValue().set(key, str.toString())
             true
-        } catch (e: java.lang.Exception) {
-            e.printStackTrace()
+        } catch (e: Exception) {
+            log.error("redis error", e)
             return false
         }
     }
@@ -140,8 +141,8 @@ class RedisUtil {
                 setStr(key, str.toString())
             }
             true
-        } catch (e: java.lang.Exception) {
-            e.printStackTrace()
+        } catch (e: Exception) {
+            log.error("redis error", e)
             return false
         }
     }
@@ -154,8 +155,8 @@ class RedisUtil {
                 setStr(key, str)
             }
             true
-        } catch (e: java.lang.Exception) {
-            e.printStackTrace()
+        } catch (e: Exception) {
+            log.error("redis error", e)
             return false
         }
     }
@@ -165,7 +166,7 @@ class RedisUtil {
             redisTemplate.opsForValue().set(key, value)
             return true
         } catch (e: Exception) {
-            e.printStackTrace()
+            log.error("redis error", e)
             return false
         }
 
@@ -180,7 +181,7 @@ class RedisUtil {
             }
             return true
         } catch (e: Exception) {
-            e.printStackTrace()
+            log.error("redis error", e)
             return false
         }
 
@@ -222,7 +223,7 @@ class RedisUtil {
             redisTemplate.opsForHash<Any, Any>().putAll(key, map)
             return true
         } catch (e: Exception) {
-            e.printStackTrace()
+            log.error("redis error", e)
             return false
         }
 
@@ -236,7 +237,7 @@ class RedisUtil {
             }
             return true
         } catch (e: Exception) {
-            e.printStackTrace()
+            log.error("redis error", e)
             return false
         }
 
@@ -247,7 +248,7 @@ class RedisUtil {
             redisTemplate.opsForHash<Any, Any>().put(key, item, value)
             return true
         } catch (e: Exception) {
-            e.printStackTrace()
+            log.error("redis error", e)
             return false
         }
 
@@ -261,7 +262,7 @@ class RedisUtil {
             }
             return true
         } catch (e: Exception) {
-            e.printStackTrace()
+            log.error("redis error", e)
             return false
         }
 
@@ -287,7 +288,7 @@ class RedisUtil {
         try {
             return redisTemplate.opsForSet().members(key)
         } catch (e: Exception) {
-            e.printStackTrace()
+            log.error("redis error", e)
             return null
         }
 
@@ -297,7 +298,7 @@ class RedisUtil {
         try {
             return redisTemplate.opsForSet().isMember(key, value)!!
         } catch (e: Exception) {
-            e.printStackTrace()
+            log.error("redis error", e)
             return false
         }
 
@@ -307,7 +308,7 @@ class RedisUtil {
         try {
             return redisTemplate.opsForSet().add(key, *values)!!
         } catch (e: Exception) {
-            e.printStackTrace()
+            log.error("redis error", e)
             return 0
         }
     }
@@ -319,7 +320,7 @@ class RedisUtil {
                 expire(key, time)
             return count!!
         } catch (e: Exception) {
-            e.printStackTrace()
+            log.error("redis error", e)
             return 0
         }
 
@@ -329,7 +330,7 @@ class RedisUtil {
         try {
             return redisTemplate.opsForSet().size(key)!!
         } catch (e: Exception) {
-            e.printStackTrace()
+            log.error("redis error", e)
             return 0
         }
 
@@ -340,7 +341,7 @@ class RedisUtil {
             val count = redisTemplate.opsForSet().remove(key, *values)
             return count!!
         } catch (e: Exception) {
-            e.printStackTrace()
+            log.error("redis error", e)
             return 0
         }
 
@@ -354,7 +355,7 @@ class RedisUtil {
         try {
             return redisTemplate.opsForList().range(key, start, end)
         } catch (e: Exception) {
-            e.printStackTrace()
+            log.error("redis error", e)
             return null
         }
 
@@ -364,7 +365,7 @@ class RedisUtil {
         try {
             return redisTemplate.opsForList().size(key)!!
         } catch (e: Exception) {
-            e.printStackTrace()
+            log.error("redis error", e)
             return 0
         }
 
@@ -374,7 +375,7 @@ class RedisUtil {
         try {
             return redisTemplate.opsForList().index(key, index)
         } catch (e: Exception) {
-            e.printStackTrace()
+            log.error("redis error", e)
             return null
         }
 
@@ -385,7 +386,7 @@ class RedisUtil {
             redisTemplate.opsForList().leftPush(key, value)
             true
         } catch (e: Exception) {
-            e.printStackTrace()
+            log.error("redis error", e)
             false
         }
 
@@ -396,7 +397,7 @@ class RedisUtil {
             redisTemplate.opsForList().rightPush(key, value)
             return true
         } catch (e: Exception) {
-            e.printStackTrace()
+            log.error("redis error", e)
             return false
         }
 
@@ -409,7 +410,7 @@ class RedisUtil {
                 expire(key, time)
             return true
         } catch (e: Exception) {
-            e.printStackTrace()
+            log.error("redis error", e)
             return false
         }
 
@@ -420,7 +421,7 @@ class RedisUtil {
             redisTemplate.opsForList().rightPushAll(key, *value.toTypedArray())
             return true
         } catch (e: Exception) {
-            e.printStackTrace()
+            log.error("redis error", e)
             return false
         }
 
@@ -433,7 +434,7 @@ class RedisUtil {
                 expire(key, time)
             return true
         } catch (e: Exception) {
-            e.printStackTrace()
+            log.error("redis error", e)
             return false
         }
 
@@ -444,7 +445,7 @@ class RedisUtil {
             redisTemplate.opsForList().set(key, index, value)
             return true
         } catch (e: Exception) {
-            e.printStackTrace()
+            log.error("redis error", e)
             return false
         }
 
@@ -455,7 +456,7 @@ class RedisUtil {
             val remove = redisTemplate.opsForList().remove(key, count, value)
             return remove!!
         } catch (e: Exception) {
-            e.printStackTrace()
+            log.error("redis error", e)
             return 0
         }
 
@@ -466,7 +467,7 @@ class RedisUtil {
             redisTemplate.opsForList().trim(key, start, end)
             return true
         } catch (e: Exception) {
-            e.printStackTrace()
+            log.error("redis error", e)
             return false
         }
 

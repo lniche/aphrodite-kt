@@ -1,20 +1,23 @@
-package top.threshold.aphrodite.app.aspect
+package top.threshold.aphrodite.app.handler
 
-import cn.dev33.satoken.stp.StpUtil
+import cn.hutool.core.util.IdUtil
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
+import org.slf4j.MDC
 import org.springframework.stereotype.Component
 import org.springframework.web.servlet.HandlerInterceptor
 import org.springframework.web.servlet.ModelAndView
 import top.threshold.aphrodite.pkg.constant.Const
-import top.threshold.aphrodite.pkg.helper.RequestDataHelper.clear
-import top.threshold.aphrodite.pkg.helper.RequestDataHelper.setRequestData
 
 @Component
-class MyInterceptor : HandlerInterceptor {
+class MDCInterceptor : HandlerInterceptor {
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
-        val userCode = StpUtil.getLoginIdAsString()
-        setRequestData(mapOf(Const.CODE to userCode))
+        var traceId = request.getHeader(Const.TRACE_ID)
+        if (traceId == null) {
+            traceId = IdUtil.randomUUID()
+        }
+        response.setHeader(Const.TRACE_ID, traceId)
+        MDC.put(Const.TRACE_ID, traceId)
         return true
     }
 
@@ -26,12 +29,13 @@ class MyInterceptor : HandlerInterceptor {
     ) {
     }
 
+
     override fun afterCompletion(
         request: HttpServletRequest,
         response: HttpServletResponse,
         handler: Any,
         ex: Exception?
     ) {
-        clear()
+        MDC.remove(Const.TRACE_ID)
     }
 }

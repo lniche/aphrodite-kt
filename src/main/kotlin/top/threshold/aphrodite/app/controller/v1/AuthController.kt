@@ -1,6 +1,5 @@
 package top.threshold.aphrodite.app.controller.v1;
 
-import cn.dev33.satoken.stp.StpUtil
 import cn.hutool.core.util.IdUtil
 import cn.hutool.core.util.RandomUtil
 import io.swagger.v3.oas.annotations.Operation
@@ -104,12 +103,12 @@ class AuthController(
             userDO.nickname = "SUGAR_" + loginRequest.phone!!.takeLast(4)
             userDO.phone = loginRequest.phone
             userDO.loginAt = OffsetDateTime.now()
-            userDO.loginToken = login(userDO.userCode)
+            userDO.loginToken = login(userDO.userCode!!)
             userRepository.save(userDO)
         } else {
             userDO!!.clientIp = realIpAddress
             userDO.loginAt = OffsetDateTime.now()
-            userDO.loginToken = login(userDO.userCode)
+            userDO.loginToken = login(userDO.userCode!!)
             userRepository.updateById(userDO)
         }
         val loginResponse = LoginResponse()
@@ -127,7 +126,6 @@ class AuthController(
         val userDO = userRepository.getByCode(loginUid()) ?: return Result.err("User not found")
         userDO.loginToken = ""
         userRepository.updateById(userDO)
-        StpUtil.logout()
         return Result.ok()
     }
 }

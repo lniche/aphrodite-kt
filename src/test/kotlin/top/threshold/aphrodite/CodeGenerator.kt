@@ -8,10 +8,6 @@ import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine
 import top.threshold.aphrodite.pkg.entity.BaseOprDO
 import java.nio.file.Paths
 
-
-/**
- * @link https://baomidou.com/pages/981406/
- */
 object CodeGenerator {
 
     @JvmStatic

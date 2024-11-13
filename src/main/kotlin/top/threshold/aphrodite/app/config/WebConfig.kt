@@ -1,22 +1,19 @@
 package top.threshold.aphrodite.app.config
 
-import cn.dev33.satoken.interceptor.SaInterceptor
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
-import top.threshold.aphrodite.app.aspect.MDCInterceptor
-import top.threshold.aphrodite.app.aspect.MyInterceptor
+import top.threshold.aphrodite.app.handler.JwtAuthenticationInterceptor
+import top.threshold.aphrodite.app.handler.MDCInterceptor
 
 @Configuration
-class SaTokenConfigure(
+class WebConfig(
     val mdcInterceptor: MDCInterceptor,
-    val myInterceptor: MyInterceptor,
+    val jwtAuthenticationInterceptor: JwtAuthenticationInterceptor,
 ) : WebMvcConfigurer {
     override fun addInterceptors(registry: InterceptorRegistry) {
-        registry.addInterceptor(SaInterceptor())
-            .addPathPatterns("/**").excludePathPatterns(common).excludePathPatterns(static)
+        registry.addInterceptor(jwtAuthenticationInterceptor).excludePathPatterns(common).excludePathPatterns(static)
         registry.addInterceptor(mdcInterceptor).excludePathPatterns(common).excludePathPatterns(static)
-        registry.addInterceptor(myInterceptor).excludePathPatterns(common).excludePathPatterns(static)
     }
 
     companion object {
