@@ -77,7 +77,6 @@ class UserController(
         }
         val redisKey = CacheKey.USER + actualUserCode
         val getUserResponse = redisUtil.getObj(redisKey, GetUserResponse::class.java)
-
         if (getUserResponse == null) {
             val userDO = userRepository.getByCode(actualUserCode)
             userDO?.let {
@@ -85,12 +84,10 @@ class UserController(
                 return Result.ok(GetUserResponse().apply { BeanUtil.copyProperties(it, this) })
             }
         }
-
         getUserResponse?.apply {
             email = DesensitizedUtil.email(email)
             phone = DesensitizedUtil.mobilePhone(phone)
         }
-
         return Result.ok(getUserResponse)
     }
 

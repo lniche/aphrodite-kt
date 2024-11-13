@@ -21,9 +21,7 @@ import top.threshold.aphrodite.app.repository.IUserRepository
 import top.threshold.aphrodite.pkg.constant.CacheKey
 import top.threshold.aphrodite.pkg.entity.Result
 import top.threshold.aphrodite.pkg.entity.Slf4j
-import top.threshold.aphrodite.pkg.entity.Slf4j.Companion.log
 import top.threshold.aphrodite.pkg.util.RedisUtil
-import java.time.LocalDate
 import java.time.OffsetDateTime
 import java.util.*
 
@@ -35,9 +33,6 @@ class AuthController(
     val redisUtil: RedisUtil,
     val userRepository: IUserRepository,
 ) : BaseController() {
-
-    private val dailyLimit = 30
-    private val codeValidityInSeconds = 60L
 
     @Data
     class SendVerifyCodeRequest {
@@ -55,22 +50,12 @@ class AuthController(
     )
     @PostMapping("/send-code")
     fun sendVerifyCode(@Validated @RequestBody sendVerifyCodeRequest: SendVerifyCodeRequest): Result<Void> {
-        val phone = sendVerifyCodeRequest.phone
-        val today = LocalDate.now()
-        val dailyKey = CacheKey.SMS_CODE_NUM + "$phone:$today"
-        val count = redisUtil.getInt(dailyKey)
-        if (count >= dailyLimit) {
-            return Result.err("The daily limit for SMS has been reached")
-        }
-        val codeKey = CacheKey.SMS_CODE + phone
-        if (redisUtil.hasKey(codeKey)) {
+        val cacheKey = CacheKey.SMS_CODE + sendVerifyCodeRequest.phone
+        if (redisUtil.hasKey(cacheKey)) {
             return Result.err("A verification code has already been sent within a minute, please try again later")
         }
-        val cachedCode = RandomUtil.randomInt(1000, 9999).toString()
-        log.debug("$phone send verify code: $cachedCode")
-        redisUtil.setStr(CacheKey.SMS_CODE + phone, cachedCode, codeValidityInSeconds)
-        redisUtil.incr(dailyKey, 1)
-        redisUtil.expire(dailyKey, 3600 * 24L)
+        val cacheCode = RandomUtil.randomInt(1000, 9999).toString()
+        redisUtil.setStr(cacheKey, cacheCode, 60)
         // TODO fake send
         return Result.ok()
     }
@@ -106,11 +91,10 @@ class AuthController(
     )
     @PostMapping("/login")
     fun login(@Validated @RequestBody loginRequest: LoginRequest): Result<LoginResponse> {
-        val today = LocalDate.now()
-        val dailyKey = CacheKey.SMS_CODE_NUM + "${loginRequest.phone}:$today"
-        if (!redisUtil.hasKey(dailyKey)) return Result.err("Verification code has expired, please retrieve it again")
-        if (loginRequest.code.equals(redisUtil.getStr(dailyKey))) return Result.err("Verification code is incorrect, please re-enter")
-
+        val codeKey = CacheKey.SMS_CODE + loginRequest.phone
+        val cacheCode = redisUtil.getStr(codeKey)
+        if (!loginRequest.code.equals(cacheCode))
+            return Result.err("Verification code is incorrect, please re-enter")
         var userDO = userRepository.getByPhone(loginRequest.phone!!)
         if (Objects.isNull(userDO)) {
             userDO = UserDO()
@@ -128,8 +112,6 @@ class AuthController(
             userDO.loginToken = login(userDO.userCode)
             userRepository.updateById(userDO)
         }
-
-        redisUtil.del(dailyKey)
         val loginResponse = LoginResponse()
         loginResponse.accessToken = userDO.loginToken
         return Result.ok(loginResponse)
@@ -142,7 +124,7 @@ class AuthController(
     )
     @PostMapping("/logout")
     fun logout(): Result<Void> {
-        val userDO = userRepository.getByCode(loginUid()) ?: return Result.err("User is not valid")
+        val userDO = userRepository.getByCode(loginUid()) ?: return Result.err("User not found")
         userDO.loginToken = ""
         userRepository.updateById(userDO)
         StpUtil.logout()
