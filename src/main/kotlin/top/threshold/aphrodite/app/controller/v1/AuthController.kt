@@ -20,6 +20,7 @@ import top.threshold.aphrodite.app.repository.IUserRepository
 import top.threshold.aphrodite.pkg.constant.CacheKey
 import top.threshold.aphrodite.pkg.entity.Result
 import top.threshold.aphrodite.pkg.entity.Slf4j
+import top.threshold.aphrodite.pkg.entity.Slf4j.Companion.log
 import top.threshold.aphrodite.pkg.util.RedisUtil
 import java.time.OffsetDateTime
 import java.util.*
@@ -54,6 +55,7 @@ class AuthController(
             return Result.err("A verification code has already been sent within a minute, please try again later")
         }
         val cacheCode = RandomUtil.randomInt(1000, 9999).toString()
+        log.debug("cache code: {}", cacheCode)
         redisUtil.setStr(cacheKey, cacheCode, 60)
         // TODO fake send
         return Result.ok()
@@ -113,6 +115,7 @@ class AuthController(
         }
         val loginResponse = LoginResponse()
         loginResponse.accessToken = userDO.loginToken
+        redisUtil.del(codeKey)
         return Result.ok(loginResponse)
     }
 
