@@ -2,8 +2,7 @@
 
 [English](README.md) | [简体中文](README-zh.md)
 
-Aphrodite 是一个基于 Kotlin、Spring Boot 3 和 Gradle
-开发的模板项目，旨在帮助开发者快速上手，深入理解框架的使用流程。该项目提供了全面的示例代码和配置，涵盖了常见的开发场景，以便于学习和实践。此外，Aphrodite
+Aphrodite 是一个基于 Spring Boot 3 开发的模板项目，旨在帮助开发者快速上手，深入理解框架的使用流程。该项目提供了全面的示例代码和配置，涵盖了常见的开发场景，以便于学习和实践。此外，Aphrodite
 还包含容器部署模板，使得项目在现代云环境中能够轻松部署与管理，助力开发者高效构建和发布应用。
 
 ## 技术栈
@@ -27,13 +26,10 @@ Aphrodite 是一个基于 Kotlin、Spring Boot 3 和 Gradle
 | [junit-platform-launcher](https://junit.org/junit5/docs/current/user-guide/#overview-platform-launcher)                                          | JUnit 平台启动器                     |
 | [spring-boot-starter-test](https://spring.io/projects/spring-boot)                                                                               | Spring Boot 测试工具                |
 | [kotlin-test-junit5](https://kotlinlang.org/docs/junit-5.html)                                                                                   | Kotlin 测试支持 JUnit 5             |
-| [screw-core](https://github.com/ban-jie/screw)                                                                                                   | 数据库文档生成工具                       |
 | [knife4j-openapi3-jakarta-spring-boot-starter](https://knife4j.github.io/knife4j/)                                                               | OpenAPI 3 支持的文档生成工具             |
 | [redisson-spring-boot-starter](https://github.com/redisson/redisson)                                                                             | Redis 的 Spring Boot 启动器         |
 | [transmittable-thread-local](https://github.com/alibaba/transmittable-thread-local)                                                              | 支持跨线程传递的线程本地变量                  |
 | [hutool-all](https://github.com/dromara/hutool)                                                                                                  | Java 工具库，提供多种常用功能               |
-| [sa-token-spring-boot3-starter](https://github.com/dromara/sa-token)                                                                             | 权限认证框架的 Spring Boot 启动器         |
-| [sa-token-redis-jackson](https://github.com/dromara/sa-token)                                                                                    | Sa-Token 的 Redis 和 Jackson 集成支持 |
 | [commons-pool2](https://commons.apache.org/proper/commons-pool/)                                                                                 | Apache Commons 连接池              |
 | [mybatis-plus-spring-boot3-starter](https://mp.baomidou.com/)                                                                                    | MyBatis 的增强版 Spring Boot 启动器    |
 | [mybatis-plus-generator](https://mp.baomidou.com/guide/generator.html)                                                                           | MyBatis-Plus 代码生成器              |

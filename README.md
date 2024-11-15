@@ -29,13 +29,10 @@ environment, helping developers to efficiently build and release applications.
 | [junit-platform-launcher](https://junit.org/junit5/docs/current/user-guide/#overview-platform-launcher)                                          | JUnit platform launcher                                        |
 | [spring-boot-starter-test](https://spring.io/projects/spring-boot)                                                                               | Spring Boot test tool                                          |
 | [kotlin-test-junit5](https://kotlinlang.org/docs/junit-5.html)                                                                                   | Kotlin test supports JUnit 5                                   |
-| [screw-core](https://github.com/ban-jie/screw)                                                                                                   | Database document generation tool                              |
 | [knife4j-openapi3-jakarta-spring-boot-starter](https://knife4j.github.io/knife4j/)                                                               | Document generation tool supported by OpenAPI 3                |
 | [redisson-spring-boot-starter](https://github.com/redisson/redisson)                                                                             | Spring Boot starter for Redis                                  |
 | [transmittable-thread-local](https://github.com/alibaba/transmittable-thread-local)                                                              | Supports thread local variables passed across threads          |
 | [hutool-all](https://github.com/dromara/hutool)                                                                                                  | Java tool library, providing a variety of common functions     |
-| [sa-token-spring-boot3-starter](https://github.com/dromara/sa-token)                                                                             | Spring Boot starter for the authentication framework           |
-| [sa-token-redis-jackson](https://github.com/dromara/sa-token)                                                                                    | Redis and Jackson integration support for Sa-Token             |
 | [commons-pool2](https://commons.apache.org/proper/commons-pool/)                                                                                 | Apache Commons connection pool                                 |
 | [mybatis-plus-spring-boot3-starter](https://mp.baomidou.com/)                                                                                    | Enhanced Spring Boot starter for MyBatis                       |
 | [mybatis-plus-generator](https://mp.baomidou.com/guide/generator.html)                                                                           | MyBatis-Plus code generator                                    |
@@ -75,7 +72,7 @@ git clone https://github.com/lniche/aphrodite-kt.git
 cd aphrodite-kt
 
 # 2. Configuration file
-update resources config
+mv application-dev.yml application-test.yml/application-prod.yml
 
 # 3. Handle dependencies
 # Make sure you have JDK21 installed

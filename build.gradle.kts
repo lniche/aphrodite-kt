@@ -39,7 +39,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 
-//    implementation("org.redisson:redisson-spring-boot-starter:3.36.0")
+    implementation("org.redisson:redisson-spring-boot-starter:3.36.0")
     implementation("com.alibaba:transmittable-thread-local:2.14.5")
     implementation("cn.hutool:hutool-all:5.8.32")
     implementation("org.apache.commons:commons-pool2")

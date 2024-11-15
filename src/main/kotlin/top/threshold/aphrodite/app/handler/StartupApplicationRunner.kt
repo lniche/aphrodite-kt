@@ -14,8 +14,6 @@ import top.threshold.aphrodite.pkg.util.RedisUtil
 @Component
 class StartupApplicationRunner(
     val redisUtil: RedisUtil,
-    @Value("\${spring.profiles.active:dev}")
-    val active: String,
     @Value("\${server.address:127.0.0.1}")
     val address: String,
     @Value("\${server.port:8000}")
