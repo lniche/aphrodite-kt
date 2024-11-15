@@ -11,7 +11,7 @@ open class BaseDO {
     var id: Long? = null
 
     @Version
-    var version: Int? = null
+    var version: Long? = null
 
     @TableField(fill = FieldFill.INSERT)
     var createdAt: OffsetDateTime? = null

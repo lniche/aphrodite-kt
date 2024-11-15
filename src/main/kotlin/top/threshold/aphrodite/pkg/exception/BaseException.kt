@@ -34,8 +34,4 @@ open class BaseException : RuntimeException {
         this.responseEnum = responseEnum
         this.args = args
     }
-
-    companion object {
-        private const val serialVersionUID = 6364577619817612762L
-    }
 }
