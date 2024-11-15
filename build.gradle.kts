@@ -1,68 +1,59 @@
+val h2_version: String by project
+val kotlin_version: String by project
+val logback_version: String by project
+val postgres_version: String by project
+
 plugins {
-    kotlin("jvm") version "2.0.20"
-    kotlin("plugin.spring") version "2.0.20"
-    id("org.springframework.boot") version "3.3.5"
-    id("io.spring.dependency-management") version "1.1.6"
-    kotlin("plugin.lombok") version "2.0.20"
-    id("io.freefair.lombok") version "8.10"
+    kotlin("jvm") version "2.0.21"
+    id("io.ktor.plugin") version "3.0.1"
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.0.21"
 }
 
-group = "top.threshold"
-version = "1.0.0"
-description = "Aphrodite Kotlin API Scaffold"
+group = "com.example"
+version = "0.0.1"
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
-    }
+application {
+    mainClass.set("io.ktor.server.netty.EngineMain")
+
+    val isDevelopment: Boolean = project.ext.has("development")
+    applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
 }
 
 repositories {
     mavenCentral()
-}
-
-configurations {
-    all {
-        exclude(group = "org.springframework.boot", module = "spring-boot-starter-tomcat")
-    }
+    maven { url = uri("https://packages.confluent.io/maven/") }
+    maven { url = uri("https://jitpack.io") }
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter")
-    implementation("org.springframework.boot:spring-boot-configuration-processor")
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-starter-undertow")
-    implementation("org.springframework.boot:spring-boot-starter-validation")
-    implementation("org.springframework.boot:spring-boot-starter-aop")
-    implementation("org.springframework.boot:spring-boot-starter-data-redis")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
-
-    implementation("org.redisson:redisson-spring-boot-starter:3.36.0")
-    implementation("com.alibaba:transmittable-thread-local:2.14.5")
-    implementation("cn.hutool:hutool-all:5.8.32")
-    implementation("org.apache.commons:commons-pool2")
-    implementation("com.baomidou:mybatis-plus-spring-boot3-starter:3.5.7")
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
-    implementation("io.jsonwebtoken:jjwt:0.12.6")
-    implementation("org.projectlombok:lombok")
-
-    "developmentOnly"("org.springframework.boot:spring-boot-devtools")
-    runtimeOnly("org.postgresql:postgresql")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-    testImplementation("org.springframework.boot:spring-boot-starter-freemarker")
-    testImplementation("com.baomidou:mybatis-plus-generator:3.5.7")
-}
-
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.addAll("-Xjsr305=strict")
-    }
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform()
+    implementation("io.ktor:ktor-server-default-headers-jvm")
+    implementation("io.ktor:ktor-server-call-logging-jvm")
+    implementation("io.ktor:ktor-server-call-id-jvm")
+    implementation("io.github.flaxoos:ktor-server-rate-limiting-jvm:2.1.1")
+    implementation("io.ktor:ktor-server-core-jvm")
+    implementation("io.ktor:ktor-serialization-kotlinx-json-jvm")
+    implementation("io.ktor:ktor-server-content-negotiation-jvm")
+    implementation("org.postgresql:postgresql:$postgres_version")
+    implementation("com.h2database:h2:$h2_version")
+    implementation("io.ktor:ktor-serialization-jackson-jvm")
+    implementation("io.ktor:ktor-server-webjars-jvm")
+    implementation("org.webjars:jquery:3.2.1")
+    implementation("io.ktor:ktor-server-host-common-jvm")
+    implementation("io.ktor:ktor-server-status-pages-jvm")
+    implementation("dev.hayden:khealth:3.0.0")
+    implementation("io.ktor:ktor-server-swagger-jvm")
+    implementation("com.ucasoft.ktor:ktor-simple-cache-jvm:0.4.4")
+    implementation("com.ucasoft.ktor:ktor-simple-redis-cache-jvm:0.4.4")
+    implementation("io.ktor:ktor-server-openapi")
+    implementation("io.ktor:ktor-server-conditional-headers-jvm")
+    implementation("io.ktor:ktor-server-cors-jvm")
+    implementation("io.ktor:ktor-server-compression-jvm")
+    implementation("io.ktor:ktor-server-sessions-jvm")
+    implementation("io.ktor:ktor-server-auth-jvm")
+    implementation("io.ktor:ktor-server-auth-jwt-jvm")
+    implementation("io.ktor:ktor-server-netty-jvm")
+    implementation("ch.qos.logback:logback-classic:$logback_version")
+    implementation("io.ktor:ktor-server-config-yaml")
+    testImplementation("io.ktor:ktor-server-test-host-jvm")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 }

@@ -1,6 +1,1 @@
-rootProject.name = "aphrodite-kt"
-pluginManagement {
-    repositories {
-        gradlePluginPortal()
-    }
-}
+rootProject.name = "top.threshold.aphrodite-kt"
