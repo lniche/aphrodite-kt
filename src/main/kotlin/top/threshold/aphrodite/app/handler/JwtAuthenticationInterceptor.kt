@@ -33,7 +33,6 @@ class JwtAuthenticationInterceptor : HandlerInterceptor {
         return true
     }
 
-
     @Throws(Exception::class)
     override fun postHandle(
         request: HttpServletRequest,
@@ -44,7 +43,6 @@ class JwtAuthenticationInterceptor : HandlerInterceptor {
 
     }
 
-    /
     @Throws(Exception::class)
     override fun afterCompletion(
         request: HttpServletRequest,

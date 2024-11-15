@@ -1,7 +1,7 @@
 plugins {
     kotlin("jvm") version "2.0.20"
     kotlin("plugin.spring") version "2.0.20"
-    id("org.springframework.boot") version "3.3.4"
+    id("org.springframework.boot") version "3.3.5"
     id("io.spring.dependency-management") version "1.1.6"
     kotlin("plugin.lombok") version "2.0.20"
     id("io.freefair.lombok") version "8.10"
@@ -9,6 +9,7 @@ plugins {
 
 group = "top.threshold"
 version = "1.0.0"
+description = "Aphrodite Kotlin API Scaffold"
 
 java {
     toolchain {
@@ -34,7 +35,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-aop")
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
-    implementation("org.projectlombok:lombok")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
@@ -46,6 +46,7 @@ dependencies {
     implementation("com.baomidou:mybatis-plus-spring-boot3-starter:3.5.7")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
     implementation("io.jsonwebtoken:jjwt:0.12.6")
+    implementation("org.projectlombok:lombok")
 
     "developmentOnly"("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("org.postgresql:postgresql")
