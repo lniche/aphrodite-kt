@@ -72,7 +72,7 @@ git clone https://github.com/lniche/aphrodite-kt.git
 cd aphrodite-kt
 
 # 2. Configuration file
-mv application-dev.yml application-test.yml/application-prod.yml
+edit application.yml
 
 # 3. Handle dependencies
 # Make sure you have JDK21 installed
