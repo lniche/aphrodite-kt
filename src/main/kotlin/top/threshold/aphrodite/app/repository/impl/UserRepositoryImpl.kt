@@ -8,7 +8,7 @@ import top.threshold.aphrodite.app.mapper.UserMapper
 import top.threshold.aphrodite.app.repository.IUserRepository
 
 @Service
-open class UserRepositoryImpl : ServiceImpl<UserMapper, UserDO>(), IUserRepository {
+class UserRepositoryImpl : ServiceImpl<UserMapper, UserDO>(), IUserRepository {
 
     override fun getByCode(userCode: String): UserDO? {
         return KtQueryChainWrapper(UserDO::class.java).eq(UserDO::userCode, userCode).one()

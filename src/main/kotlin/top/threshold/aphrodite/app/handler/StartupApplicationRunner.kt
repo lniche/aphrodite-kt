@@ -15,18 +15,20 @@ import top.threshold.aphrodite.pkg.util.RedisUtil
 class StartupApplicationRunner(
     val redisUtil: RedisUtil,
     @Value("\${spring.profiles.active:dev}")
-    val active: String
+    val active: String,
+    @Value("\${server.address:127.0.0.1}")
+    val address: String,
+    @Value("\${server.port:8000}")
+    val port: String
 ) : ApplicationRunner {
 
     override fun run(args: ApplicationArguments?) {
         if (!redisUtil.hasKey(CacheKey.NEXT_UNO)) {
             redisUtil.setLong(CacheKey.NEXT_UNO, 100000)
         }
-        if ("prod" != active) {
-            log.info("===============================")
-            log.info("Listening on {\"host\": \"http://127.0.0.1:8000\"}")
-            log.info("Docs addr {\"addr\": \"http://127.0.0.1:8000/swagger-ui/index.html\"}")
-            log.info("===============================")
-        }
+        log.info("===============================")
+        log.info("Listening on {\"host\": \"http://$address:$port\"}")
+        log.info("Docs addr {\"addr\": \"http://$address:$port/swagger-ui/index.html\"}")
+        log.info("===============================")
     }
 }

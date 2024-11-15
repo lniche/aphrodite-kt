@@ -1,10 +1,11 @@
 package top.threshold.aphrodite.app.service.impl;
 
 import org.springframework.stereotype.Service
+import top.threshold.aphrodite.app.service.IUserService
 
 
 @Service
-open class UserServiceImpl : top.threshold.aphrodite.app.service.IUserService {
+class UserServiceImpl : IUserService {
 
 
 }
