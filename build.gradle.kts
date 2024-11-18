@@ -9,7 +9,7 @@ plugins {
 
 group = "top.threshold"
 version = "1.0.0"
-description = "Aphrodite Kotlin API Scaffold"
+description = "Aphrodite Spring Boot 3 API Scaffold"
 
 java {
     toolchain {

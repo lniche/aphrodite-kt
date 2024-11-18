@@ -9,9 +9,9 @@ object JwtUtils {
 
     fun generateToken(userCode: String): String {
         return Jwts.builder()
-            .setSubject(userCode)
-            .setIssuedAt(Date())
-            .setExpiration(Date(System.currentTimeMillis() + 3600 * 24))
+            .subject(userCode)
+            .issuedAt(Date())
+            .expiration(Date(System.currentTimeMillis() + 3600 * 24))
             .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
             .compact()
     }
