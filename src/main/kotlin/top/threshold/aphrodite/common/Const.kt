@@ -1,4 +1,4 @@
-package top.threshold.aphrodite.pkg.constant
+package top.threshold.aphrodite.common
 
 object Const {
     const val CODE = "code"

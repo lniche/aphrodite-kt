@@ -4,13 +4,17 @@ import io.ktor.http.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import org.koin.ktor.ext.inject
 import top.threshold.aphrodite.common.KtResult
+import top.threshold.aphrodite.services.UserService
+
 
 fun Route.authRoutesV1() {
+    val userService by inject<UserService>()
+
     route("/send-code") {
         post {
             val loginRequest = call.receive<LoginRequest>()
-
             call.respond(KtResult.ok<Unit>())
         }
     }

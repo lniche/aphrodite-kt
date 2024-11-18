@@ -1,6 +1,7 @@
 package top.threshold.aphrodite.services
 
-class AuthService {
+import org.jetbrains.exposed.sql.Database
 
+class AuthService(database: Database) {
 
 }
