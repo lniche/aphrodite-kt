@@ -779,7 +779,7 @@ import java.util.*;
 public class DefaultApiExample {
 
     public static void main(String[] args) {
-        
+
         DefaultApi apiInstance = new DefaultApi();
         try {
             'String' result = apiInstance.rootGet();
@@ -817,7 +817,7 @@ public class DefaultApiExample {
                               <pre class="prettyprint"><code class="language-cpp">
 DefaultApi *apiInstance = [[DefaultApi alloc] init];
 
-[apiInstance rootGetWithCompletionHandler: 
+[apiInstance rootGetWithCompletionHandler:
               ^('String' output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
@@ -900,7 +900,7 @@ use WWW::SwaggerClient::DefaultApi;
 
 my $api_instance = WWW::SwaggerClient::DefaultApi->new();
 
-eval { 
+eval {
     my $result = $api_instance->rootGet();
     print Dumper($result);
 };
@@ -919,7 +919,7 @@ from pprint import pprint
 # create an instance of the API class
 api_instance = swagger_client.DefaultApi()
 
-try: 
+try:
     api_response = api_instance.root_get()
     pprint(api_response)
 except ApiException as e:

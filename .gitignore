@@ -1,36 +1,65 @@
-.gradle
-build/
-!gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
-!**/src/test/**/build/
+# Java and Kotlin build directories
+/build/
+/out/
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
+# Gradle files
+.gradle/
+**/gradle-wrapper.jar
+**/gradle-wrapper.properties
 
-### IntelliJ IDEA ###
-.idea
-*.iws
+# Maven files
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.lastUpdated
+
+# IntelliJ IDEA files
+.idea/
 *.iml
 *.ipr
-out/
-!**/src/main/**/out/
-!**/src/test/**/out/
+*.iws
+.kotlin
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
+# Eclipse files
+.classpath
+.project
+.settings/
 
-### VS Code ###
-.vscode/
+# Compiled class files
+*.class
+
+# Java archive files
+*.jar
+*.war
+*.ear
+
+# Log files
+*.log*
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*.swo
+*.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+*.env
+
+# Kotlin specific files
+*.kts
+
+# Dependency directories (if using Kotlin/Native)
+kotlin-native/
+
+# Operating system files
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Icon?

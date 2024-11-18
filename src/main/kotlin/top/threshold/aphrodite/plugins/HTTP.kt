@@ -1,8 +1,5 @@
 package top.threshold.aphrodite.plugins
 
-import com.ucasoft.ktor.simpleCache.SimpleCache
-import com.ucasoft.ktor.simpleCache.cacheOutput
-import com.ucasoft.ktor.simpleRedisCache.*
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.plugins.compression.*
@@ -11,24 +8,14 @@ import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.plugins.defaultheaders.*
 import io.ktor.server.plugins.openapi.*
 import io.ktor.server.plugins.swagger.*
-import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import kotlin.random.Random
-import kotlin.time.Duration.Companion.seconds
 
 fun Application.configureHTTP() {
     install(DefaultHeaders) {
-        header("X-Engine", "Ktor") // will send this header with each response
+//        header("X-Engine", "Ktor")
     }
     routing {
         swaggerUI(path = "openapi")
-    }
-    install(SimpleCache) {
-        redisCache {
-            invalidateAt = 10.seconds
-            host = "127.0.0.1"
-            port = 6379
-        }
     }
     routing {
         openAPI(path = "openapi")
@@ -40,8 +27,9 @@ fun Application.configureHTTP() {
         allowMethod(HttpMethod.Delete)
         allowMethod(HttpMethod.Patch)
         allowHeader(HttpHeaders.Authorization)
-        allowHeader("MyCustomHeader")
-        anyHost() // @TODO: Don't do this in production if possible. Try to limit it.
+        allowHeader(HttpHeaders.ContentType)
+        allowHeader("X-Custom-Header")
+        anyHost()
     }
     install(Compression)
 }
