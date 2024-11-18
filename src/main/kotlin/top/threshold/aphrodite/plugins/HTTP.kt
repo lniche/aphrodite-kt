@@ -1,4 +1,4 @@
-package com.example.plugins
+package top.threshold.aphrodite.plugins
 
 import com.ucasoft.ktor.simpleCache.SimpleCache
 import com.ucasoft.ktor.simpleCache.cacheOutput
@@ -26,7 +26,7 @@ fun Application.configureHTTP() {
     install(SimpleCache) {
         redisCache {
             invalidateAt = 10.seconds
-            host = "localhost"
+            host = "127.0.0.1"
             port = 6379
         }
     }
@@ -44,16 +44,4 @@ fun Application.configureHTTP() {
         anyHost() // @TODO: Don't do this in production if possible. Try to limit it.
     }
     install(Compression)
-    routing {
-        cacheOutput(2.seconds) {
-            get("/short") {
-                call.respond(Random.nextInt().toString())
-            }
-        }
-        cacheOutput {
-            get("/default") {
-                call.respond(Random.nextInt().toString())
-            }
-        }
-    }
 }

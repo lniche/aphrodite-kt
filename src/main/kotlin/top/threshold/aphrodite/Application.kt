@@ -1,10 +1,11 @@
-package com.example
+package top.threshold.aphrodite
 
-import com.example.plugins.*
 import io.ktor.server.application.*
+import io.ktor.server.netty.*
+import top.threshold.aphrodite.plugins.*
 
 fun main(args: Array<String>) {
-    io.ktor.server.netty.EngineMain.main(args)
+    EngineMain.main(args)
 }
 
 fun Application.module() {

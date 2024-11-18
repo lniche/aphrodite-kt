@@ -1,4 +1,4 @@
-package com.example.plugins
+package top.threshold.aphrodite.plugins
 
 import dev.hayden.KHealth
 import io.ktor.http.*
@@ -22,5 +22,4 @@ fun Application.configureMonitoring() {
             callId.isNotEmpty()
         }
     }
-    install(KHealth)
 }
