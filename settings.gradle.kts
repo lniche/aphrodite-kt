@@ -1,1 +1,1 @@
-rootProject.name = "top.threshold.aphrodite-kt"
+rootProject.name = "aphrodite-ktor"
