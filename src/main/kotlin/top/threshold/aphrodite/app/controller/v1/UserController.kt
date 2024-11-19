@@ -30,33 +30,18 @@ class UserController(
 
     @Data
     class GetUserResponse {
-        /**
-         * Nickname
-         */
         @field:Schema(description = "User Nickname", example = "john")
         var nickname: String? = null
 
-        /**
-         * User Number
-         */
         @field:Schema(description = "User Number", example = "A8000")
         var userNo: Long? = null
 
-        /**
-         * User Code
-         */
         @field:Schema(description = "User Code", example = "100000")
         var userCode: String? = null
 
-        /**
-         * Email
-         */
         @field:Schema(description = "User Email", example = "john@example.com")
         var email: String? = null
 
-        /**
-         * Phone Number
-         */
         @field:Schema(description = "User Phone", example = "13800138000")
         var phone: String? = null
     }
@@ -94,15 +79,9 @@ class UserController(
     @Data
     @Schema(description = "Request object for updating user information")
     class UpdateUserRequest {
-        /**
-         * Nickname
-         */
         @field:Schema(description = "User Nickname", example = "john", required = false)
         var nickname: String? = null
 
-        /**
-         * Email
-         */
         @field:Schema(description = "User Email", example = "john@example.com", required = false)
         var email: String? = null
     }

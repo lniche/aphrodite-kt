@@ -7,7 +7,6 @@ import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.validation.constraints.NotBlank
-import jakarta.validation.constraints.Pattern
 import lombok.Data
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.PostMapping
@@ -36,12 +35,8 @@ class AuthController(
 
     @Data
     class SendVerifyCodeRequest {
-        /**
-         * Phone number
-         */
         @field:NotBlank(message = "Phone number cannot be empty")
         @field:Schema(description = "User Phone", example = "13800138000", required = true)
-        @Pattern(regexp = "^\\+?[1-9]\\d{1,14}\$", message = "Phone number format is incorrect")
         var phone: String? = null
     }
 
@@ -63,16 +58,11 @@ class AuthController(
 
     @Data
     class LoginRequest {
-        /**
-         * Phone number
-         */
+
         @field:NotBlank(message = "Phone number cannot be empty")
         @field:Schema(description = "User Phone", example = "13800138000", required = true)
         var phone: String? = null
 
-        /**
-         * Verification code
-         */
         @field:NotBlank(message = "Verification code cannot be empty")
         @field:Schema(description = "Verification code", example = "1234", required = true)
         var code: String? = null
@@ -80,9 +70,6 @@ class AuthController(
 
     @Data
     class LoginResponse {
-        /**
-         * Access token
-         */
         @field:Schema(description = "Access token", example = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...")
         var accessToken: String? = null
     }

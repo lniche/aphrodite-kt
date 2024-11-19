@@ -1,6 +1,5 @@
 package top.threshold.aphrodite.app.handler
 
-import jakarta.servlet.*
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.stereotype.Component
@@ -8,6 +7,7 @@ import org.springframework.web.servlet.HandlerInterceptor
 import top.threshold.aphrodite.pkg.constant.Const
 import top.threshold.aphrodite.pkg.helper.RequestDataHelper
 import top.threshold.aphrodite.pkg.util.JwtUtils
+import kotlin.Throws
 
 @Component
 class JwtAuthenticationInterceptor : HandlerInterceptor {
@@ -17,7 +17,7 @@ class JwtAuthenticationInterceptor : HandlerInterceptor {
         var token = request.getHeader("Authorization")
 
         if (token != null && token.startsWith("Bearer ")) {
-            token = token.substring(7) // 去掉 "Bearer " 前缀
+            token = token.substring(7)
 
             if (JwtUtils.validateToken(token)) {
                 val userCode = JwtUtils.getFromToken(token)
