@@ -12,6 +12,7 @@ import top.threshold.aphrodite.routes.userRoutesV1
 fun Application.configureRouting() {
     install(StatusPages) {
         exception<Throwable> { call, cause ->
+            call.application.log.error("Exception:", cause)
             call.respondText(text = "500: $cause", status = HttpStatusCode.InternalServerError)
         }
     }

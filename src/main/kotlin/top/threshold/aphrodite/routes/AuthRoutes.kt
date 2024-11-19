@@ -4,17 +4,17 @@ import io.ktor.http.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import org.koin.ktor.ext.inject
+import kotlinx.serialization.Serializable
+import top.threshold.aphrodite.common.CacheKey
 import top.threshold.aphrodite.common.KtResult
-import top.threshold.aphrodite.services.UserService
 
 
 fun Route.authRoutesV1() {
-    val userService by inject<UserService>()
 
     route("/send-code") {
         post {
             val loginRequest = call.receive<LoginRequest>()
+            val redisKey = CacheKey.SMS_CODE + loginRequest.phone
             call.respond(KtResult.ok<Unit>())
         }
     }
@@ -32,12 +32,8 @@ fun Route.authRoutesV1() {
     }
 }
 
+@Serializable
 data class LoginRequest(
     val phone: String
-) {
-    fun isValidPhoneNumber(): Boolean {
-        val phoneRegex = "^\\+86\\s?1[3-9]\\d{9}\$".toRegex()
-        return phoneRegex.matches(phone)
-    }
-}
+)
 

@@ -1,20 +1,13 @@
 package top.threshold.aphrodite.plugins
 
 import io.ktor.server.application.*
+import io.lettuce.core.RedisClient
+import io.lettuce.core.api.sync.RedisCommands
 import org.jetbrains.exposed.sql.Database
-import org.koin.dsl.module
-import org.koin.ktor.plugin.Koin
-import org.koin.logger.slf4jLogger
-import top.threshold.aphrodite.services.UserService
 
 fun Application.configureDatabases() {
-    install(Koin) {
-        slf4jLogger()
-        modules(module {
-            single { connectToPostgres() }
-            single { UserService(get()) }
-        })
-    }
+    val connectToPostgres = connectToPostgres()
+    val connectToRedis = connectToRedis()
 }
 
 fun Application.connectToPostgres(): Database {
@@ -29,4 +22,19 @@ fun Application.connectToPostgres(): Database {
         user = user,
         password = password
     )
+}
+
+fun Application.connectToRedis(): RedisCommands<String, String> {
+    val host = environment.config.property("redis.host").getString()
+    val port = environment.config.property("redis.port").getString()
+    val db = environment.config.property("redis.db").getString().toInt()
+    val redisClient = RedisClient.create("redis://$host:$port/$db")
+    val statefulRedisConnection = redisClient.connect()
+    val redisCommands = statefulRedisConnection.sync()
+    environment.monitor.subscribe(ApplicationStopped) {
+        log.info("Shutting down Redis connection and client.")
+        statefulRedisConnection.close()
+        redisClient.shutdown()
+    }
+    return redisCommands
 }
