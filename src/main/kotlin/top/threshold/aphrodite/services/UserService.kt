@@ -20,7 +20,6 @@ class UserService(database: Database) {
         val salt = varchar("salt", 255).nullable()
         val email = varchar("email", 255).nullable()
         val phone = varchar("phone", 20)
-        val openId = varchar("open_id", 255).nullable()
         val clientIp = varchar("client_ip", 255).nullable()
         val loginAt = timestamp("login_at").nullable()
         val loginToken = varchar("login_token", 255).nullable()
@@ -33,7 +32,7 @@ class UserService(database: Database) {
         val updatedBy = varchar("updated_by", 50).nullable()
         val version = long("version").default(1)
 
-        override val primaryKey = PrimaryKey(id) // Primary key on "id"
+        override val primaryKey = PrimaryKey(id)
     }
 
     init {
@@ -53,7 +52,6 @@ class UserService(database: Database) {
                 it[salt] = user.salt
                 it[email] = user.email
                 it[phone] = user.phone
-                it[openId] = user.openId
                 it[clientIp] = user.clientIp
                 it[loginAt] = user.loginAt
                 it[loginToken] = user.loginToken
@@ -64,41 +62,47 @@ class UserService(database: Database) {
                 it[deletedAt] = user.deletedAt
                 it[createdBy] = user.createdBy
                 it[updatedBy] = user.updatedBy
-                it[version] = user.version
+                it[version] = 1
             }[User.id]
     }
 
-    suspend fun read(id: Long): UserSchema? = dbQuery {
-        User.selectAll().where { User.id eq id }
-            .mapNotNull {
-                UserSchema(
-                    userCode = it[User.userCode],
-                    userNo = it[User.userNo],
-                    username = it[User.username],
-                    nickname = it[User.nickname],
-                    password = it[User.password],
-                    salt = it[User.salt],
-                    email = it[User.email],
-                    phone = it[User.phone],
-                    openId = it[User.openId],
-                    clientIp = it[User.clientIp],
-                    loginAt = it[User.loginAt],
-                    loginToken = it[User.loginToken],
-                    avatar = it[User.avatar],
-                    status = it[User.status],
-                    createdBy = it[User.createdBy],
-                    updatedBy = it[User.updatedBy],
-                    createdAt = it[User.createdAt],
-                    updatedAt = it[User.updatedAt],
-                    deletedAt = it[User.deletedAt],
-                    version = it[User.version]
-                )
-            }
+    suspend fun getByPhone(phone: String): UserSchema? = dbQuery {
+        User.selectAll().where { User.phone eq phone }
+            .mapNotNull { it.toUserSchema() }
             .singleOrNull()
     }
 
-    suspend fun update(id: Long, user: UserSchema) = dbQuery {
-        User.update({ User.id eq id }) {
+    suspend fun getByCode(userCode: String): UserSchema? = dbQuery {
+        User.selectAll().where { User.userCode eq userCode }
+            .mapNotNull { it.toUserSchema() }
+            .singleOrNull()
+    }
+
+    private fun ResultRow.toUserSchema(): UserSchema {
+        return UserSchema(
+            userCode = this[User.userCode],
+            userNo = this[User.userNo],
+            username = this[User.username],
+            nickname = this[User.nickname],
+            password = this[User.password],
+            salt = this[User.salt],
+            email = this[User.email],
+            phone = this[User.phone],
+            clientIp = this[User.clientIp],
+            loginAt = this[User.loginAt],
+            loginToken = this[User.loginToken],
+            avatar = this[User.avatar],
+            status = this[User.status],
+            createdBy = this[User.createdBy],
+            updatedBy = this[User.updatedBy],
+            createdAt = this[User.createdAt],
+            updatedAt = this[User.updatedAt],
+            deletedAt = this[User.deletedAt],
+        )
+    }
+
+    suspend fun update(user: UserSchema) = dbQuery {
+        User.update({ User.userCode eq user.userCode }) {
             it[userCode] = user.userCode
             it[userNo] = user.userNo
             it[username] = user.username
@@ -107,7 +111,6 @@ class UserService(database: Database) {
             it[salt] = user.salt
             it[email] = user.email
             it[phone] = user.phone
-            it[openId] = user.openId
             it[clientIp] = user.clientIp
             it[loginAt] = user.loginAt
             it[loginToken] = user.loginToken
@@ -118,8 +121,8 @@ class UserService(database: Database) {
         }
     }
 
-    suspend fun delete(id: Long) = dbQuery {
-        User.update({ User.id eq id }) {
+    suspend fun delete(userCode: String) = dbQuery {
+        User.update({ User.userCode eq userCode }) {
             it[status] = 3
             it[deletedAt] = Clock.System.now()
         }

@@ -55,7 +55,6 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-dao:$exposed_version")
     implementation("org.jetbrains.exposed:exposed-kotlin-datetime:$exposed_version")
     implementation("ch.qos.logback:logback-classic:$logback_version")
-    implementation("com.auth0:java-jwt:3.18.2")
     implementation("io.lettuce:lettuce-core:6.2.4.RELEASE")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 }
