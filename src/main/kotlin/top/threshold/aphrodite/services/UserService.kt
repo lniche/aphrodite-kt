@@ -128,6 +128,13 @@ class UserService(database: Database) {
         }
     }
 
+    suspend fun logout(userCode: String) = dbQuery {
+        User.update({ User.userCode eq userCode }) {
+            it[loginToken] = ""
+            it[loginAt] = Clock.System.now()
+        }
+    }
+
     private suspend fun <T> dbQuery(block: suspend () -> T): T =
         newSuspendedTransaction(Dispatchers.IO) { block() }
 }

@@ -2,7 +2,9 @@ package top.threshold.aphrodite.plugins
 
 import io.ktor.http.*
 import io.ktor.server.application.*
+import io.ktor.server.plugins.openapi.*
 import io.ktor.server.plugins.statuspages.*
+import io.ktor.server.plugins.swagger.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import top.threshold.aphrodite.common.KtResult
@@ -17,6 +19,9 @@ fun Application.configureRouting() {
         }
     }
     routing {
+        swaggerUI(path = "/swagger-ui/index.html")
+        openAPI(path = "/api-docs/openapi.json")
+
         get("/") {
             call.respondText("Thank you for using Aphrodite!")
         }

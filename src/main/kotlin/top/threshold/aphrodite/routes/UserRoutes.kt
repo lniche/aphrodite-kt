@@ -1,40 +1,67 @@
 package top.threshold.aphrodite.routes
 
-import io.ktor.http.*
+import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.serialization.Serializable
+import top.threshold.aphrodite.common.DatabaseUtil
+import top.threshold.aphrodite.common.ErrorCode
+import top.threshold.aphrodite.common.KtResult
+import top.threshold.aphrodite.plugins.getLoginUser
+import top.threshold.aphrodite.services.UserService
 
 fun Route.userRoutesV1() {
-
-    put {
-        call.respondText("Create a new user", status = HttpStatusCode.Created)
-    }
-
-    delete {
-        call.respondText("Create a new user", status = HttpStatusCode.Created)
-    }
-
+    val userService = UserService(DatabaseUtil.getDatabase())
 
     route("/{id}") {
         get {
-            val userId = call.parameters["id"]
-            call.respondText("User details for id: $userId", status = HttpStatusCode.OK)
+            val userCode = call.getLoginUser()
+            val userSchema = userService.getByCode(userCode)
+            call.respond(
+                KtResult.ok(
+                    GetUserResponse(
+                        userCode = userSchema?.userCode,
+                        userNo = userSchema?.userNo,
+                        nickname = userSchema?.nickname,
+                        email = userSchema?.email,
+                        phone = userSchema?.phone
+                    )
+                )
+            )
         }
+    }
+
+    put {
+        val userCode = call.getLoginUser()
+        val userSchema = userService.getByCode(userCode)
+        userSchema ?: call.respond(KtResult.err<Unit>(ErrorCode.ERR_DATA))
+        val updateUserRequest = call.receive<UpdateUserRequest>()
+        userService.update(
+            userSchema!!.copy(
+                email = updateUserRequest.email,
+                nickname = updateUserRequest.nickname
+            )
+        )
+        call.respond(KtResult.ok<Unit>())
+    }
+
+    delete {
+        userService.delete(call.getLoginUser())
+        call.respond(KtResult.ok<Unit>())
     }
 }
 
 @Serializable
-class UpdateUserRequest {
-    var nickname: String? = null
-    var email: String? = null
-}
+data class UpdateUserRequest(
+    val nickname: String? = null,
+    val email: String? = null
+)
 
 @Serializable
-class GetUserResponse {
-    var nickname: String? = null
-    var userNo: Long? = null
-    var userCode: String? = null
-    var email: String? = null
-    var phone: String? = null
-}
+data class GetUserResponse(
+    val nickname: String? = null,
+    val userNo: Long? = null,
+    val userCode: String? = null,
+    val email: String? = null,
+    val phone: String? = null
+)

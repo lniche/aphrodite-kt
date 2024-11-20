@@ -31,7 +31,7 @@ fun Application.configureSecurity() {
     }
 }
 
-fun ApplicationCall.getLoginUser(): String? {
+fun ApplicationCall.getLoginUser(): String {
     val principal = this.principal<JWTPrincipal>()
-    return principal?.payload?.subject
+    return principal!!.payload.subject
 }

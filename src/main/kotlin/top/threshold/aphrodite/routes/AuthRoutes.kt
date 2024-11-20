@@ -1,6 +1,5 @@
 package top.threshold.aphrodite.routes
 
-import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
@@ -75,8 +74,8 @@ fun Route.authRoutesV1() {
 
     route("/logout") {
         post {
-            val userCode = call.getLoginUser()
-            call.respondText("Create a new user", status = HttpStatusCode.Created)
+            userService.logout(call.getLoginUser())
+            call.respond(KtResult.ok<Unit>())
         }
     }
 }
