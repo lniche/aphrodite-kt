@@ -6,6 +6,7 @@ import io.ktor.server.plugins.callid.*
 import io.ktor.server.plugins.calllogging.*
 import io.ktor.server.request.*
 import org.slf4j.event.Level
+import java.util.*
 
 fun Application.configureMonitoring() {
     install(CallLogging) {
@@ -18,5 +19,6 @@ fun Application.configureMonitoring() {
         verify { callId: String ->
             callId.isNotEmpty()
         }
+        generate { UUID.randomUUID().toString() }
     }
 }

@@ -8,6 +8,7 @@ import kotlinx.datetime.Clock
 import kotlinx.serialization.Serializable
 import top.threshold.aphrodite.common.*
 import top.threshold.aphrodite.models.UserSchema
+import top.threshold.aphrodite.plugins.generateJWT
 import top.threshold.aphrodite.plugins.getLoginUser
 import top.threshold.aphrodite.services.UserService
 
@@ -40,12 +41,13 @@ fun Route.authRoutesV1() {
             }
             var userSchema = userService.getByPhone(loginRequest.phone)
             if (userSchema == null) {
+                val userCode = Snowflake(1, 1).generateId().toString()
                 userSchema = UserSchema(
                     phone = loginRequest.phone,
-                    userCode = Snowflake(1, 1).generateId().toString(),
+                    userCode = userCode,
                     userNo = RedisUtil.nextId(CacheKey.NEXT_UNO),
                     loginAt = Clock.System.now(),
-                    loginToken = "",
+                    loginToken = call.generateJWT(userCode),
                     clientIp = call.request.host(),
                     nickname = "SUGAR_" + loginRequest.phone.takeLast(4)
                 )
@@ -57,7 +59,7 @@ fun Route.authRoutesV1() {
                     userSchema.copy(
                         clientIp = call.request.host(),
                         loginAt = Clock.System.now(),
-                        loginToken = "",
+                        loginToken = call.generateJWT(userSchema.userCode),
                     )
                 )
             }
