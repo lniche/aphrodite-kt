@@ -58,10 +58,8 @@ class UserService(database: Database) {
                 it[avatar] = user.avatar
                 it[status] = user.status
                 it[createdAt] = user.createdAt
-                it[updatedAt] = user.updatedAt
                 it[deletedAt] = user.deletedAt
                 it[createdBy] = user.createdBy
-                it[updatedBy] = user.updatedBy
                 it[version] = 1
             }[User.id]
     }
@@ -102,22 +100,32 @@ class UserService(database: Database) {
     }
 
     suspend fun update(user: UserSchema) = dbQuery {
-        User.update({ User.userCode eq user.userCode }) {
-            it[userCode] = user.userCode
-            it[userNo] = user.userNo
-            it[username] = user.username
-            it[nickname] = user.nickname
-            it[password] = user.password
-            it[salt] = user.salt
-            it[email] = user.email
-            it[phone] = user.phone
-            it[clientIp] = user.clientIp
-            it[loginAt] = user.loginAt
-            it[loginToken] = user.loginToken
-            it[avatar] = user.avatar
-            it[status] = user.status
-            it[updatedAt] = user.updatedAt
-            it[updatedBy] = user.updatedBy
+        transaction {
+            val currentVersion = User
+                .selectAll().where { User.userCode eq user.userCode }
+                .singleOrNull()?.get(User.version)
+
+            if (currentVersion == null || currentVersion != user.version) {
+                return@transaction false
+            }
+            User.update({ User.userCode eq user.userCode }) {
+                it[userCode] = user.userCode
+                it[userNo] = user.userNo
+                it[username] = user.username
+                it[nickname] = user.nickname
+                it[password] = user.password
+                it[salt] = user.salt
+                it[email] = user.email
+                it[phone] = user.phone
+                it[clientIp] = user.clientIp
+                it[loginAt] = user.loginAt
+                it[loginToken] = user.loginToken
+                it[avatar] = user.avatar
+                it[status] = user.status
+                it[updatedAt] = user.updatedAt
+                it[updatedBy] = user.updatedBy
+                it[version] = currentVersion + 1
+            }
         }
     }
 

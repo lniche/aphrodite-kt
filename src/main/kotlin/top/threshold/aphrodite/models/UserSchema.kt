@@ -23,6 +23,7 @@ data class UserSchema(
     val deletedAt: Instant? = null,
     val createdBy: String? = null,
     val updatedBy: String? = null,
+    val version: Long? = null,
 )
 
 

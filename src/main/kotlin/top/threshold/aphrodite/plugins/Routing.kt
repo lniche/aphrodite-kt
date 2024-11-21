@@ -18,6 +18,7 @@ fun Application.configureRouting() {
             call.respondText(text = "500: $cause", status = HttpStatusCode.InternalServerError)
         }
     }
+
     routing {
         swaggerUI(path = "/swagger-ui/index.html", swaggerFile = "openapi/documentation.json")
         openAPI(path = "/api-docs/openapi.json", swaggerFile = "openapi/documentation.json")

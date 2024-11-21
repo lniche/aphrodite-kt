@@ -49,7 +49,9 @@ fun Route.authRoutesV1() {
                     loginAt = Clock.System.now(),
                     loginToken = call.generateJWT(userCode),
                     clientIp = call.request.host(),
-                    nickname = "SUGAR_" + loginRequest.phone.takeLast(4)
+                    nickname = "SUGAR_" + loginRequest.phone.takeLast(4),
+                    createdBy = "777",
+                    createdAt = Clock.System.now()
                 )
                 userService.create(
                     userSchema
@@ -60,6 +62,8 @@ fun Route.authRoutesV1() {
                         clientIp = call.request.host(),
                         loginAt = Clock.System.now(),
                         loginToken = call.generateJWT(userSchema.userCode),
+                        updatedBy = "777",
+                        updatedAt = Clock.System.now()
                     )
                 )
             }

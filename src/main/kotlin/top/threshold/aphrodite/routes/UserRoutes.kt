@@ -3,6 +3,7 @@ package top.threshold.aphrodite.routes
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import kotlinx.datetime.Clock
 import kotlinx.serialization.Serializable
 import top.threshold.aphrodite.common.DatabaseUtil
 import top.threshold.aphrodite.common.ErrorCode
@@ -39,7 +40,9 @@ fun Route.userRoutesV1() {
         userService.update(
             userSchema!!.copy(
                 email = updateUserRequest.email,
-                nickname = updateUserRequest.nickname
+                nickname = updateUserRequest.nickname,
+                updatedBy = "777",
+                updatedAt = Clock.System.now()
             )
         )
         call.respond(KtResult.ok<Unit>())
