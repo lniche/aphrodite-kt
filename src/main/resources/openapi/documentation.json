@@ -1,0 +1,317 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Application API",
+    "description": "API Description",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:8080",
+      "description": "Development Environment"
+    },
+    {
+      "url": "http://test.aphrodite.com",
+      "description": "Test Environment"
+    }
+  ],
+  "paths": {
+    "/v1/send-code": {
+      "post": {
+        "tags": [
+          "Auth Module"
+        ],
+        "summary": "Send Verification Code",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendVerifyCodeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OK"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/login": {
+      "post": {
+        "tags": [
+          "Auth Module"
+        ],
+        "summary": "User Registration/Login",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LoginResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/logout": {
+      "post": {
+        "tags": [
+          "Auth Module"
+        ],
+        "summary": "User Logout",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OK"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/user": {
+      "get": {
+        "tags": [
+          "User Module"
+        ],
+        "summary": "User Info",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetUserResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "User Module"
+        ],
+        "summary": "User Update",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OK"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "User Module"
+        ],
+        "summary": "User Delete",
+        "security": [
+          {
+            "Authorization": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OK"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "Authorization": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "JWT Bearer Token authentication"
+      }
+    },
+    "schemas": {
+      "OK": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": 0
+          },
+          "message": {
+            "type": "string",
+            "example": "ok"
+          },
+          "data": {
+            "type": "object"
+          }
+        }
+      },
+      "ERR": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": -1
+          },
+          "message": {
+            "type": "string",
+            "example": "err"
+          },
+          "data": {
+            "type": "object"
+          }
+        }
+      },
+      "SendVerifyCodeRequest": {
+        "type": "object",
+        "properties": {
+          "phone": {
+            "type": "string",
+            "description": "User Phone",
+            "example": "13800138000"
+          }
+        },
+        "required": [
+          "phone"
+        ]
+      },
+      "LoginRequest": {
+        "type": "object",
+        "properties": {
+          "phone": {
+            "type": "string",
+            "description": "User Phone",
+            "example": "13800138000"
+          },
+          "code": {
+            "type": "string",
+            "description": "Verification Code",
+            "example": "1234"
+          }
+        },
+        "required": [
+          "phone",
+          "code"
+        ]
+      },
+      "GetUserResponse": {
+        "type": "object",
+        "properties": {
+          "nickname": {
+            "type": "string",
+            "description": "User Nickname",
+            "example": "john"
+          },
+          "email": {
+            "type": "string",
+            "description": "User Email",
+            "example": "john@example.com"
+          },
+          "userNo": {
+            "type": "string",
+            "description": "User Number",
+            "example": "100000"
+          },
+          "userCode": {
+            "type": "string",
+            "description": "User Code",
+            "example": "A8000"
+          },
+          "phone": {
+            "type": "string",
+            "description": "User Phone",
+            "example": "13800138000"
+          }
+        }
+      },
+      "UpdateUserRequest": {
+        "type": "object",
+        "properties": {
+          "nickname": {
+            "type": "string",
+            "description": "User Nickname",
+            "example": "john"
+          },
+          "email": {
+            "type": "string",
+            "description": "User Email",
+            "example": "john@example.com"
+          }
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string",
+            "description": "Access Token",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+          }
+        }
+      }
+    }
+  }
+}

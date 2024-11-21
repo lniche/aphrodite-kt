@@ -689,6 +689,120 @@
 <script>
     // Script section to load models into a JS Var
     var defs = {}
+            defs["ERR"] = {
+  "type" : "object",
+  "properties" : {
+    "code" : {
+      "type" : "string",
+      "example" : "-1"
+    },
+    "message" : {
+      "type" : "string",
+      "example" : "err"
+    },
+    "data" : {
+      "type" : "object"
+    }
+  }
+};
+            defs["GetUserResponse"] = {
+  "type" : "object",
+  "properties" : {
+    "nickname" : {
+      "type" : "string",
+      "description" : "User Nickname",
+      "example" : "john"
+    },
+    "email" : {
+      "type" : "string",
+      "description" : "User Email",
+      "example" : "john@example.com"
+    },
+    "userNo" : {
+      "type" : "string",
+      "description" : "User Number",
+      "example" : "100000"
+    },
+    "userCode" : {
+      "type" : "string",
+      "description" : "User Code",
+      "example" : "A8000"
+    },
+    "phone" : {
+      "type" : "string",
+      "description" : "User Phone",
+      "example" : "13800138000"
+    }
+  }
+};
+            defs["LoginRequest"] = {
+  "required" : [ "code", "phone" ],
+  "type" : "object",
+  "properties" : {
+    "phone" : {
+      "type" : "string",
+      "description" : "User Phone",
+      "example" : "13800138000"
+    },
+    "code" : {
+      "type" : "string",
+      "description" : "Verification Code",
+      "example" : "1234"
+    }
+  }
+};
+            defs["LoginResponse"] = {
+  "type" : "object",
+  "properties" : {
+    "accessToken" : {
+      "type" : "string",
+      "description" : "Access Token",
+      "example" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    }
+  }
+};
+            defs["OK"] = {
+  "type" : "object",
+  "properties" : {
+    "code" : {
+      "type" : "string",
+      "example" : "0"
+    },
+    "message" : {
+      "type" : "string",
+      "example" : "ok"
+    },
+    "data" : {
+      "type" : "object"
+    }
+  }
+};
+            defs["SendVerifyCodeRequest"] = {
+  "required" : [ "phone" ],
+  "type" : "object",
+  "properties" : {
+    "phone" : {
+      "type" : "string",
+      "description" : "User Phone",
+      "example" : "13800138000"
+    }
+  }
+};
+            defs["UpdateUserRequest"] = {
+  "type" : "object",
+  "properties" : {
+    "nickname" : {
+      "type" : "string",
+      "description" : "User Nickname",
+      "example" : "john"
+    },
+    "email" : {
+      "type" : "string",
+      "description" : "User Email",
+      "example" : "john@example.com"
+    }
+  }
+};
 </script>
 
 <div class="container-fluid">
@@ -705,9 +819,27 @@
                   -->
                     <li class="nav-fixed nav-header active" data-group="_"><a href="#api-_">API Summary</a></li>
 
-                    <li class="nav-header" data-group="Default"><a href="#api-Default">API Methods - Default</a></li>
-                    <li class="" data-group="Default" data-name="rootGet">
-                        <a href="#api-Default-rootGet">rootGet</a>
+                    <li class="nav-header" data-group="AuthModule"><a href="#api-AuthModule">API Methods -
+                        AuthModule</a></li>
+                    <li class="" data-group="AuthModule" data-name="v1LoginPost">
+                        <a href="#api-AuthModule-v1LoginPost">v1LoginPost</a>
+                    </li>
+                    <li class="" data-group="AuthModule" data-name="v1LogoutPost">
+                        <a href="#api-AuthModule-v1LogoutPost">v1LogoutPost</a>
+                    </li>
+                    <li class="" data-group="AuthModule" data-name="v1SendCodePost">
+                        <a href="#api-AuthModule-v1SendCodePost">v1SendCodePost</a>
+                    </li>
+                    <li class="nav-header" data-group="UserModule"><a href="#api-UserModule">API Methods -
+                        UserModule</a></li>
+                    <li class="" data-group="UserModule" data-name="v1UserDelete">
+                        <a href="#api-UserModule-v1UserDelete">v1UserDelete</a>
+                    </li>
+                    <li class="" data-group="UserModule" data-name="v1UserGet">
+                        <a href="#api-UserModule-v1UserGet">v1UserGet</a>
+                    </li>
+                    <li class="" data-group="UserModule" data-name="v1UserPut">
+                        <a href="#api-UserModule-v1UserPut">v1UserPut</a>
                     </li>
                 </ul>
             </nav>
@@ -724,101 +856,107 @@
                     <h2 id="welcome-to-apidoc">API and SDK Documentation</h2>
                     <div class="app-desc">Version: 1.0.0</div>
                     <hr>
-                    <div>Application API</div>
+                    <div>API Description</div>
                 </div>
             </div>
             <div id="sections">
-                <section id="api-Default">
-                    <h1>Default</h1>
-                    <div id="api-Default-rootGet">
-                        <article data-group="User" data-name="rootGet" data-version="0" id="api-Default-rootGet-0">
+                <section id="api-AuthModule">
+                    <h1>AuthModule</h1>
+                    <div id="api-AuthModule-v1LoginPost">
+                        <article data-group="User" data-name="v1LoginPost" data-version="0"
+                                 id="api-AuthModule-v1LoginPost-0">
                             <div class="pull-left">
-                                <h1>rootGet</h1>
-                                <p></p>
+                                <h1>v1LoginPost</h1>
+                                <p>User Registration/Login</p>
                             </div>
                             <div class="pull-right"></div>
                             <div class="clearfix"></div>
                             <p></p>
-                            <p class="marked">Hello World!</p>
+                            <p class="marked"></p>
                             <p></p>
                             <br/>
-                            <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span
-                                    class="pln">/</span></code></pre>
+                            <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span
+                                    class="pln">/v1/login</span></code></pre>
                             <p>
                             <h3>Usage and SDK Samples</h3>
                             </p>
                             <ul class="nav nav-tabs nav-tabs-examples">
-                                <li class="active"><a href="#examples-Default-rootGet-0-curl">Curl</a></li>
-                                <li class=""><a href="#examples-Default-rootGet-0-java">Java</a></li>
-                                <li class=""><a href="#examples-Default-rootGet-0-android">Android</a></li>
-                                <!--<li class=""><a href="#examples-Default-rootGet-0-groovy">Groovy</a></li>-->
-                                <li class=""><a href="#examples-Default-rootGet-0-objc">Obj-C</a></li>
-                                <li class=""><a href="#examples-Default-rootGet-0-javascript">JavaScript</a></li>
-                                <!--<li class=""><a href="#examples-Default-rootGet-0-angular">Angular</a></li>-->
-                                <li class=""><a href="#examples-Default-rootGet-0-csharp">C#</a></li>
-                                <li class=""><a href="#examples-Default-rootGet-0-php">PHP</a></li>
-                                <li class=""><a href="#examples-Default-rootGet-0-perl">Perl</a></li>
-                                <li class=""><a href="#examples-Default-rootGet-0-python">Python</a></li>
+                                <li class="active"><a href="#examples-AuthModule-v1LoginPost-0-curl">Curl</a></li>
+                                <li class=""><a href="#examples-AuthModule-v1LoginPost-0-java">Java</a></li>
+                                <li class=""><a href="#examples-AuthModule-v1LoginPost-0-android">Android</a></li>
+                                <!--<li class=""><a href="#examples-AuthModule-v1LoginPost-0-groovy">Groovy</a></li>-->
+                                <li class=""><a href="#examples-AuthModule-v1LoginPost-0-objc">Obj-C</a></li>
+                                <li class=""><a href="#examples-AuthModule-v1LoginPost-0-javascript">JavaScript</a></li>
+                                <!--<li class=""><a href="#examples-AuthModule-v1LoginPost-0-angular">Angular</a></li>-->
+                                <li class=""><a href="#examples-AuthModule-v1LoginPost-0-csharp">C#</a></li>
+                                <li class=""><a href="#examples-AuthModule-v1LoginPost-0-php">PHP</a></li>
+                                <li class=""><a href="#examples-AuthModule-v1LoginPost-0-perl">Perl</a></li>
+                                <li class=""><a href="#examples-AuthModule-v1LoginPost-0-python">Python</a></li>
                             </ul>
 
                             <div class="tab-content">
-                                <div class="tab-pane active" id="examples-Default-rootGet-0-curl">
-                           <pre class="prettyprint"><code class="language-bsh">curl -X GET\
--H "Accept: text/plain"\
-"http://127.0.0.1:8080/"</code></pre>
+                                <div class="tab-pane active" id="examples-AuthModule-v1LoginPost-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X POST\
+-H "Accept: application/json"\
+-H "Content-Type: application/json"\
+"http://127.0.0.1:8080/v1/login"</code></pre>
                                 </div>
-                                <div class="tab-pane" id="examples-Default-rootGet-0-java">
+                                <div class="tab-pane" id="examples-AuthModule-v1LoginPost-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
 import io.swagger.client.auth.*;
 import io.swagger.client.model.*;
-import io.swagger.client.api.DefaultApi;
+import io.swagger.client.api.AuthModuleApi;
 
 import java.io.File;
 import java.util.*;
 
-public class DefaultApiExample {
+public class AuthModuleApiExample {
 
     public static void main(String[] args) {
 
-        DefaultApi apiInstance = new DefaultApi();
+        AuthModuleApi apiInstance = new AuthModuleApi();
+        LoginRequest body = ; // LoginRequest |
         try {
-            'String' result = apiInstance.rootGet();
+            LoginResponse result = apiInstance.v1LoginPost(body);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling DefaultApi#rootGet");
+            System.err.println("Exception when calling AuthModuleApi#v1LoginPost");
             e.printStackTrace();
         }
     }
 }</code></pre>
                                 </div>
 
-                                <div class="tab-pane" id="examples-Default-rootGet-0-android">
-                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.DefaultApi;
+                                <div class="tab-pane" id="examples-AuthModule-v1LoginPost-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.AuthModuleApi;
 
-public class DefaultApiExample {
+public class AuthModuleApiExample {
 
     public static void main(String[] args) {
-        DefaultApi apiInstance = new DefaultApi();
+        AuthModuleApi apiInstance = new AuthModuleApi();
+        LoginRequest body = ; // LoginRequest |
         try {
-            'String' result = apiInstance.rootGet();
+            LoginResponse result = apiInstance.v1LoginPost(body);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling DefaultApi#rootGet");
+            System.err.println("Exception when calling AuthModuleApi#v1LoginPost");
             e.printStackTrace();
         }
     }
 }</code></pre>
                                 </div>
                                 <!--
-                                <div class="tab-pane" id="examples-Default-rootGet-0-groovy">
+                                <div class="tab-pane" id="examples-AuthModule-v1LoginPost-0-groovy">
                                 <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
                                 </div> -->
-                                <div class="tab-pane" id="examples-Default-rootGet-0-objc">
-                              <pre class="prettyprint"><code class="language-cpp">
-DefaultApi *apiInstance = [[DefaultApi alloc] init];
+                                <div class="tab-pane" id="examples-AuthModule-v1LoginPost-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">LoginRequest *body = ; //
 
-[apiInstance rootGetWithCompletionHandler:
-              ^('String' output, NSError* error) {
+AuthModuleApi *apiInstance = [[AuthModuleApi alloc] init];
+
+// User Registration/Login
+[apiInstance v1LoginPostWith:body
+              completionHandler: ^(LoginResponse output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -829,10 +967,12 @@ DefaultApi *apiInstance = [[DefaultApi alloc] init];
 </code></pre>
                                 </div>
 
-                                <div class="tab-pane" id="examples-Default-rootGet-0-javascript">
+                                <div class="tab-pane" id="examples-AuthModule-v1LoginPost-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var ApplicationApi = require('application_api');
 
-var api = new ApplicationApi.DefaultApi()
+var api = new ApplicationApi.AuthModuleApi()
+var body = ; // {{LoginRequest}}
+
 var callback = function(error, data, response) {
   if (error) {
     console.error(error);
@@ -840,14 +980,14 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-api.rootGet(callback);
+api.v1LoginPost(body, callback);
 </code></pre>
                                 </div>
 
-                                <!--<div class="tab-pane" id="examples-Default-rootGet-0-angular">
+                                <!--<div class="tab-pane" id="examples-AuthModule-v1LoginPost-0-angular">
                   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
                 </div>-->
-                                <div class="tab-pane" id="examples-Default-rootGet-0-csharp">
+                                <div class="tab-pane" id="examples-AuthModule-v1LoginPost-0-csharp">
                               <pre class="prettyprint"><code class="language-cs">using System;
 using System.Diagnostics;
 using IO.Swagger.Api;
@@ -856,21 +996,23 @@ using IO.Swagger.Model;
 
 namespace Example
 {
-    public class rootGetExample
+    public class v1LoginPostExample
     {
         public void main()
         {
 
-            var apiInstance = new DefaultApi();
+            var apiInstance = new AuthModuleApi();
+            var body = new LoginRequest(); // LoginRequest |
 
             try
             {
-                'String' result = apiInstance.rootGet();
+                // User Registration/Login
+                LoginResponse result = apiInstance.v1LoginPost(body);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.rootGet: " + e.Message );
+                Debug.Print("Exception when calling AuthModuleApi.v1LoginPost: " + e.Message );
             }
         }
     }
@@ -878,38 +1020,40 @@ namespace Example
 </code></pre>
                                 </div>
 
-                                <div class="tab-pane" id="examples-Default-rootGet-0-php">
+                                <div class="tab-pane" id="examples-AuthModule-v1LoginPost-0-php">
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
 
-$api_instance = new Swagger\Client\ApiDefaultApi();
+$api_instance = new Swagger\Client\ApiAuthModuleApi();
+$body = ; // LoginRequest |
 
 try {
-    $result = $api_instance->rootGet();
+    $result = $api_instance->v1LoginPost($body);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling DefaultApi->rootGet: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling AuthModuleApi->v1LoginPost: ', $e->getMessage(), PHP_EOL;
 }
 ?></code></pre>
                                 </div>
 
-                                <div class="tab-pane" id="examples-Default-rootGet-0-perl">
+                                <div class="tab-pane" id="examples-AuthModule-v1LoginPost-0-perl">
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::SwaggerClient::Configuration;
-use WWW::SwaggerClient::DefaultApi;
+use WWW::SwaggerClient::AuthModuleApi;
 
-my $api_instance = WWW::SwaggerClient::DefaultApi->new();
+my $api_instance = WWW::SwaggerClient::AuthModuleApi->new();
+my $body = WWW::SwaggerClient::Object::LoginRequest->new(); # LoginRequest |
 
 eval {
-    my $result = $api_instance->rootGet();
+    my $result = $api_instance->v1LoginPost(body => $body);
     print Dumper($result);
 };
 if ($@) {
-    warn "Exception when calling DefaultApi->rootGet: $@\n";
+    warn "Exception when calling AuthModuleApi->v1LoginPost: $@\n";
 }</code></pre>
                                 </div>
 
-                                <div class="tab-pane" id="examples-Default-rootGet-0-python">
+                                <div class="tab-pane" id="examples-AuthModule-v1LoginPost-0-python">
                               <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
 import time
 import swagger_client
@@ -917,52 +1061,94 @@ from swagger_client.rest import ApiException
 from pprint import pprint
 
 # create an instance of the API class
-api_instance = swagger_client.DefaultApi()
+api_instance = swagger_client.AuthModuleApi()
+body =  # LoginRequest |
 
 try:
-    api_response = api_instance.root_get()
+    # User Registration/Login
+    api_response = api_instance.v1_login_post(body)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->rootGet: %s\n" % e)</code></pre>
+    print("Exception when calling AuthModuleApi->v1LoginPost: %s\n" % e)</code></pre>
                                 </div>
                             </div>
 
                             <h2>Parameters</h2>
 
 
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                    <th width="150px">Name</th>
+                                    <th>Description</th>
+                                </tr>
+                                <tr>
+                                    <td style="width:150px;">body <span style="color:red;">*</span></td>
+                                    <td>
+
+
+                                        <script>
+                                            $(document).ready(function() {
+                                              var schemaWrapper = {
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/LoginRequest"
+                  }
+                }
+              },
+              "required" : true
+            };
+                                              var schema = schemaWrapper.content["application/json"].schema;
+                                              if (schema.$ref != null) {
+                                                schema = defsParser.$refs.get(schema.$ref);
+                                              } else {
+                                                schemaWrapper.components = {};
+                                                schemaWrapper.components.schemas = Object.assign({}, defs);
+                                                $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                                  console.log(err);
+                                                });
+                                              }
+
+                                              var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+                                              var result = $('#d2e199_v1LoginPost_body');
+                                              result.empty();
+                                              result.append(view.render());
+                                            });
+                                        </script>
+                                        <div id="d2e199_v1LoginPost_body"></div>
+                                    </td>
+                                </tr>
+                            </table>
+
+
                             <h2>Responses</h2>
-                            <h3> Status: 200 - OK </h3>
+                            <h3> Status: 200 - Successful Response </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples">
                                 <li class="active">
-                                    <a data-toggle="tab" href="#responses-rootGet-200-schema">Schema</a>
+                                    <a data-toggle="tab" href="#responses-v1LoginPost-200-schema">Schema</a>
                                 </li>
 
                             </ul>
 
                             <div class="tab-content" style='margin-bottom: 10px;'>
-                                <div class="tab-pane active" id="responses-rootGet-200-schema">
-                                    <div id='responses-rootGet-200-schema-200'
+                                <div class="tab-pane active" id="responses-v1LoginPost-200-schema">
+                                    <div id='responses-v1LoginPost-200-schema-200'
                                          style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
                                         <script>
                                             $(document).ready(function() {
                                               var schemaWrapper = {
-        "description" : "OK",
+        "description" : "Successful Response",
         "content" : {
-          "text/plain" : {
+          "application/json" : {
             "schema" : {
-              "type" : "string",
-              "x-content-type" : "text/plain"
-            },
-            "examples" : {
-              "example1" : {
-                "value" : "Hello World!"
-              }
+              "$ref" : "#/components/schemas/LoginResponse"
             }
           }
         }
       };
-                                              var schema = schemaWrapper.content["text/plain"].schema;
+                                              var schema = schemaWrapper.content["application/json"].schema;
                                               if (schema.$ref != null) {
                                                 schema = defsParser.$refs.get(schema.$ref);
                                               } else {
@@ -975,14 +1161,1457 @@ except ApiException as e:
 
                                               //console.log(JSON.stringify(schema));
                                               var view = new JSONSchemaView(schema, 3);
-                                              $('#responses-rootGet-200-schema-data').val(stringify(schema));
-                                              var result = $('#responses-rootGet-200-schema-200');
+                                              $('#responses-v1LoginPost-200-schema-data').val(stringify(schema));
+                                              var result = $('#responses-v1LoginPost-200-schema-200');
                                               result.empty();
                                               result.append(view.render());
                                             });
                                         </script>
                                     </div>
-                                    <input id='responses-rootGet-200-schema-data' type='hidden' value=''></input>
+                                    <input id='responses-v1LoginPost-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                        </article>
+                    </div>
+                    <hr>
+                    <div id="api-AuthModule-v1LogoutPost">
+                        <article data-group="User" data-name="v1LogoutPost" data-version="0"
+                                 id="api-AuthModule-v1LogoutPost-0">
+                            <div class="pull-left">
+                                <h1>v1LogoutPost</h1>
+                                <p>User Logout</p>
+                            </div>
+                            <div class="pull-right"></div>
+                            <div class="clearfix"></div>
+                            <p></p>
+                            <p class="marked"></p>
+                            <p></p>
+                            <br/>
+                            <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span
+                                    class="pln">/v1/logout</span></code></pre>
+                            <p>
+                            <h3>Usage and SDK Samples</h3>
+                            </p>
+                            <ul class="nav nav-tabs nav-tabs-examples">
+                                <li class="active"><a href="#examples-AuthModule-v1LogoutPost-0-curl">Curl</a></li>
+                                <li class=""><a href="#examples-AuthModule-v1LogoutPost-0-java">Java</a></li>
+                                <li class=""><a href="#examples-AuthModule-v1LogoutPost-0-android">Android</a></li>
+                                <!--<li class=""><a href="#examples-AuthModule-v1LogoutPost-0-groovy">Groovy</a></li>-->
+                                <li class=""><a href="#examples-AuthModule-v1LogoutPost-0-objc">Obj-C</a></li>
+                                <li class=""><a href="#examples-AuthModule-v1LogoutPost-0-javascript">JavaScript</a>
+                                </li>
+                                <!--<li class=""><a href="#examples-AuthModule-v1LogoutPost-0-angular">Angular</a></li>-->
+                                <li class=""><a href="#examples-AuthModule-v1LogoutPost-0-csharp">C#</a></li>
+                                <li class=""><a href="#examples-AuthModule-v1LogoutPost-0-php">PHP</a></li>
+                                <li class=""><a href="#examples-AuthModule-v1LogoutPost-0-perl">Perl</a></li>
+                                <li class=""><a href="#examples-AuthModule-v1LogoutPost-0-python">Python</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="examples-AuthModule-v1LogoutPost-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X POST\
+ -H "Authorization: Bearer [[accessToken]]"\
+-H "Accept: application/json"\
+"http://127.0.0.1:8080/v1/logout"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="examples-AuthModule-v1LogoutPost-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.AuthModuleApi;
+
+import java.io.File;
+import java.util.*;
+
+public class AuthModuleApiExample {
+
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+
+        AuthModuleApi apiInstance = new AuthModuleApi();
+        try {
+            OK result = apiInstance.v1LogoutPost();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AuthModuleApi#v1LogoutPost");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                                </div>
+
+                                <div class="tab-pane" id="examples-AuthModule-v1LogoutPost-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.AuthModuleApi;
+
+public class AuthModuleApiExample {
+
+    public static void main(String[] args) {
+        AuthModuleApi apiInstance = new AuthModuleApi();
+        try {
+            OK result = apiInstance.v1LogoutPost();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AuthModuleApi#v1LogoutPost");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                                </div>
+                                <!--
+                                <div class="tab-pane" id="examples-AuthModule-v1LogoutPost-0-groovy">
+                                <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+                                </div> -->
+                                <div class="tab-pane" id="examples-AuthModule-v1LogoutPost-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+AuthModuleApi *apiInstance = [[AuthModuleApi alloc] init];
+
+// User Logout
+[apiInstance v1LogoutPostWithCompletionHandler:
+              ^(OK output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                                </div>
+
+                                <div class="tab-pane" id="examples-AuthModule-v1LogoutPost-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var ApplicationApi = require('application_api');
+var defaultClient = ApplicationApi.ApiClient.instance;
+
+
+var api = new ApplicationApi.AuthModuleApi()
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.v1LogoutPost(callback);
+</code></pre>
+                                </div>
+
+                                <!--<div class="tab-pane" id="examples-AuthModule-v1LogoutPost-0-angular">
+                  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+                </div>-->
+                                <div class="tab-pane" id="examples-AuthModule-v1LogoutPost-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class v1LogoutPostExample
+    {
+        public void main()
+        {
+
+
+            var apiInstance = new AuthModuleApi();
+
+            try
+            {
+                // User Logout
+                OK result = apiInstance.v1LogoutPost();
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling AuthModuleApi.v1LogoutPost: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                                </div>
+
+                                <div class="tab-pane" id="examples-AuthModule-v1LogoutPost-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+$api_instance = new Swagger\Client\ApiAuthModuleApi();
+
+try {
+    $result = $api_instance->v1LogoutPost();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling AuthModuleApi->v1LogoutPost: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                                </div>
+
+                                <div class="tab-pane" id="examples-AuthModule-v1LogoutPost-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::AuthModuleApi;
+
+
+my $api_instance = WWW::SwaggerClient::AuthModuleApi->new();
+
+eval {
+    my $result = $api_instance->v1LogoutPost();
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling AuthModuleApi->v1LogoutPost: $@\n";
+}</code></pre>
+                                </div>
+
+                                <div class="tab-pane" id="examples-AuthModule-v1LogoutPost-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = swagger_client.AuthModuleApi()
+
+try:
+    # User Logout
+    api_response = api_instance.v1_logout_post()
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AuthModuleApi->v1LogoutPost: %s\n" % e)</code></pre>
+                                </div>
+                            </div>
+
+                            <h2>Parameters</h2>
+
+
+                            <h2>Responses</h2>
+                            <h3> Status: 200 - Successful Response </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples">
+                                <li class="active">
+                                    <a data-toggle="tab" href="#responses-v1LogoutPost-200-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-v1LogoutPost-200-schema">
+                                    <div id='responses-v1LogoutPost-200-schema-200'
+                                         style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                        <script>
+                                            $(document).ready(function() {
+                                              var schemaWrapper = {
+        "description" : "Successful Response",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/OK"
+            }
+          }
+        }
+      };
+                                              var schema = schemaWrapper.content["application/json"].schema;
+                                              if (schema.$ref != null) {
+                                                schema = defsParser.$refs.get(schema.$ref);
+                                              } else {
+                                                schemaWrapper.components = {};
+                                                schemaWrapper.components.schemas = Object.assign({}, defs);
+                                                $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                                  console.log(err);
+                                                });
+                                              }
+
+                                              //console.log(JSON.stringify(schema));
+                                              var view = new JSONSchemaView(schema, 3);
+                                              $('#responses-v1LogoutPost-200-schema-data').val(stringify(schema));
+                                              var result = $('#responses-v1LogoutPost-200-schema-200');
+                                              result.empty();
+                                              result.append(view.render());
+                                            });
+                                        </script>
+                                    </div>
+                                    <input id='responses-v1LogoutPost-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                        </article>
+                    </div>
+                    <hr>
+                    <div id="api-AuthModule-v1SendCodePost">
+                        <article data-group="User" data-name="v1SendCodePost" data-version="0"
+                                 id="api-AuthModule-v1SendCodePost-0">
+                            <div class="pull-left">
+                                <h1>v1SendCodePost</h1>
+                                <p>Send Verification Code</p>
+                            </div>
+                            <div class="pull-right"></div>
+                            <div class="clearfix"></div>
+                            <p></p>
+                            <p class="marked"></p>
+                            <p></p>
+                            <br/>
+                            <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span
+                                    class="pln">/v1/send-code</span></code></pre>
+                            <p>
+                            <h3>Usage and SDK Samples</h3>
+                            </p>
+                            <ul class="nav nav-tabs nav-tabs-examples">
+                                <li class="active"><a href="#examples-AuthModule-v1SendCodePost-0-curl">Curl</a></li>
+                                <li class=""><a href="#examples-AuthModule-v1SendCodePost-0-java">Java</a></li>
+                                <li class=""><a href="#examples-AuthModule-v1SendCodePost-0-android">Android</a></li>
+                                <!--<li class=""><a href="#examples-AuthModule-v1SendCodePost-0-groovy">Groovy</a></li>-->
+                                <li class=""><a href="#examples-AuthModule-v1SendCodePost-0-objc">Obj-C</a></li>
+                                <li class=""><a href="#examples-AuthModule-v1SendCodePost-0-javascript">JavaScript</a>
+                                </li>
+                                <!--<li class=""><a href="#examples-AuthModule-v1SendCodePost-0-angular">Angular</a></li>-->
+                                <li class=""><a href="#examples-AuthModule-v1SendCodePost-0-csharp">C#</a></li>
+                                <li class=""><a href="#examples-AuthModule-v1SendCodePost-0-php">PHP</a></li>
+                                <li class=""><a href="#examples-AuthModule-v1SendCodePost-0-perl">Perl</a></li>
+                                <li class=""><a href="#examples-AuthModule-v1SendCodePost-0-python">Python</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="examples-AuthModule-v1SendCodePost-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X POST\
+-H "Accept: application/json"\
+-H "Content-Type: application/json"\
+"http://127.0.0.1:8080/v1/send-code"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="examples-AuthModule-v1SendCodePost-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.AuthModuleApi;
+
+import java.io.File;
+import java.util.*;
+
+public class AuthModuleApiExample {
+
+    public static void main(String[] args) {
+
+        AuthModuleApi apiInstance = new AuthModuleApi();
+        SendVerifyCodeRequest body = ; // SendVerifyCodeRequest |
+        try {
+            OK result = apiInstance.v1SendCodePost(body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AuthModuleApi#v1SendCodePost");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                                </div>
+
+                                <div class="tab-pane" id="examples-AuthModule-v1SendCodePost-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.AuthModuleApi;
+
+public class AuthModuleApiExample {
+
+    public static void main(String[] args) {
+        AuthModuleApi apiInstance = new AuthModuleApi();
+        SendVerifyCodeRequest body = ; // SendVerifyCodeRequest |
+        try {
+            OK result = apiInstance.v1SendCodePost(body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling AuthModuleApi#v1SendCodePost");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                                </div>
+                                <!--
+                                <div class="tab-pane" id="examples-AuthModule-v1SendCodePost-0-groovy">
+                                <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+                                </div> -->
+                                <div class="tab-pane" id="examples-AuthModule-v1SendCodePost-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">SendVerifyCodeRequest *body = ; //
+
+AuthModuleApi *apiInstance = [[AuthModuleApi alloc] init];
+
+// Send Verification Code
+[apiInstance v1SendCodePostWith:body
+              completionHandler: ^(OK output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                                </div>
+
+                                <div class="tab-pane" id="examples-AuthModule-v1SendCodePost-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var ApplicationApi = require('application_api');
+
+var api = new ApplicationApi.AuthModuleApi()
+var body = ; // {{SendVerifyCodeRequest}}
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.v1SendCodePost(body, callback);
+</code></pre>
+                                </div>
+
+                                <!--<div class="tab-pane" id="examples-AuthModule-v1SendCodePost-0-angular">
+                  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+                </div>-->
+                                <div class="tab-pane" id="examples-AuthModule-v1SendCodePost-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class v1SendCodePostExample
+    {
+        public void main()
+        {
+
+            var apiInstance = new AuthModuleApi();
+            var body = new SendVerifyCodeRequest(); // SendVerifyCodeRequest |
+
+            try
+            {
+                // Send Verification Code
+                OK result = apiInstance.v1SendCodePost(body);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling AuthModuleApi.v1SendCodePost: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                                </div>
+
+                                <div class="tab-pane" id="examples-AuthModule-v1SendCodePost-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\ApiAuthModuleApi();
+$body = ; // SendVerifyCodeRequest |
+
+try {
+    $result = $api_instance->v1SendCodePost($body);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling AuthModuleApi->v1SendCodePost: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                                </div>
+
+                                <div class="tab-pane" id="examples-AuthModule-v1SendCodePost-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::AuthModuleApi;
+
+my $api_instance = WWW::SwaggerClient::AuthModuleApi->new();
+my $body = WWW::SwaggerClient::Object::SendVerifyCodeRequest->new(); # SendVerifyCodeRequest |
+
+eval {
+    my $result = $api_instance->v1SendCodePost(body => $body);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling AuthModuleApi->v1SendCodePost: $@\n";
+}</code></pre>
+                                </div>
+
+                                <div class="tab-pane" id="examples-AuthModule-v1SendCodePost-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.AuthModuleApi()
+body =  # SendVerifyCodeRequest |
+
+try:
+    # Send Verification Code
+    api_response = api_instance.v1_send_code_post(body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling AuthModuleApi->v1SendCodePost: %s\n" % e)</code></pre>
+                                </div>
+                            </div>
+
+                            <h2>Parameters</h2>
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                    <th width="150px">Name</th>
+                                    <th>Description</th>
+                                </tr>
+                                <tr>
+                                    <td style="width:150px;">body <span style="color:red;">*</span></td>
+                                    <td>
+
+
+                                        <script>
+                                            $(document).ready(function() {
+                                              var schemaWrapper = {
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/SendVerifyCodeRequest"
+                  }
+                }
+              },
+              "required" : true
+            };
+                                              var schema = schemaWrapper.content["application/json"].schema;
+                                              if (schema.$ref != null) {
+                                                schema = defsParser.$refs.get(schema.$ref);
+                                              } else {
+                                                schemaWrapper.components = {};
+                                                schemaWrapper.components.schemas = Object.assign({}, defs);
+                                                $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                                  console.log(err);
+                                                });
+                                              }
+
+                                              var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+                                              var result = $('#d2e199_v1SendCodePost_body');
+                                              result.empty();
+                                              result.append(view.render());
+                                            });
+                                        </script>
+                                        <div id="d2e199_v1SendCodePost_body"></div>
+                                    </td>
+                                </tr>
+                            </table>
+
+
+                            <h2>Responses</h2>
+                            <h3> Status: 200 - Successful Response </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples">
+                                <li class="active">
+                                    <a data-toggle="tab" href="#responses-v1SendCodePost-200-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-v1SendCodePost-200-schema">
+                                    <div id='responses-v1SendCodePost-200-schema-200'
+                                         style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                        <script>
+                                            $(document).ready(function() {
+                                              var schemaWrapper = {
+        "description" : "Successful Response",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/OK"
+            }
+          }
+        }
+      };
+                                              var schema = schemaWrapper.content["application/json"].schema;
+                                              if (schema.$ref != null) {
+                                                schema = defsParser.$refs.get(schema.$ref);
+                                              } else {
+                                                schemaWrapper.components = {};
+                                                schemaWrapper.components.schemas = Object.assign({}, defs);
+                                                $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                                  console.log(err);
+                                                });
+                                              }
+
+                                              //console.log(JSON.stringify(schema));
+                                              var view = new JSONSchemaView(schema, 3);
+                                              $('#responses-v1SendCodePost-200-schema-data').val(stringify(schema));
+                                              var result = $('#responses-v1SendCodePost-200-schema-200');
+                                              result.empty();
+                                              result.append(view.render());
+                                            });
+                                        </script>
+                                    </div>
+                                    <input id='responses-v1SendCodePost-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                        </article>
+                    </div>
+                    <hr>
+                </section>
+                <section id="api-UserModule">
+                    <h1>UserModule</h1>
+                    <div id="api-UserModule-v1UserDelete">
+                        <article data-group="User" data-name="v1UserDelete" data-version="0"
+                                 id="api-UserModule-v1UserDelete-0">
+                            <div class="pull-left">
+                                <h1>v1UserDelete</h1>
+                                <p>User Delete</p>
+                            </div>
+                            <div class="pull-right"></div>
+                            <div class="clearfix"></div>
+                            <p></p>
+                            <p class="marked"></p>
+                            <p></p>
+                            <br/>
+                            <pre class="prettyprint language-html prettyprinted" data-type="delete"><code><span
+                                    class="pln">/v1/user</span></code></pre>
+                            <p>
+                            <h3>Usage and SDK Samples</h3>
+                            </p>
+                            <ul class="nav nav-tabs nav-tabs-examples">
+                                <li class="active"><a href="#examples-UserModule-v1UserDelete-0-curl">Curl</a></li>
+                                <li class=""><a href="#examples-UserModule-v1UserDelete-0-java">Java</a></li>
+                                <li class=""><a href="#examples-UserModule-v1UserDelete-0-android">Android</a></li>
+                                <!--<li class=""><a href="#examples-UserModule-v1UserDelete-0-groovy">Groovy</a></li>-->
+                                <li class=""><a href="#examples-UserModule-v1UserDelete-0-objc">Obj-C</a></li>
+                                <li class=""><a href="#examples-UserModule-v1UserDelete-0-javascript">JavaScript</a>
+                                </li>
+                                <!--<li class=""><a href="#examples-UserModule-v1UserDelete-0-angular">Angular</a></li>-->
+                                <li class=""><a href="#examples-UserModule-v1UserDelete-0-csharp">C#</a></li>
+                                <li class=""><a href="#examples-UserModule-v1UserDelete-0-php">PHP</a></li>
+                                <li class=""><a href="#examples-UserModule-v1UserDelete-0-perl">Perl</a></li>
+                                <li class=""><a href="#examples-UserModule-v1UserDelete-0-python">Python</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="examples-UserModule-v1UserDelete-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X DELETE\
+ -H "Authorization: Bearer [[accessToken]]"\
+-H "Accept: application/json"\
+"http://127.0.0.1:8080/v1/user"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="examples-UserModule-v1UserDelete-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.UserModuleApi;
+
+import java.io.File;
+import java.util.*;
+
+public class UserModuleApiExample {
+
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+
+        UserModuleApi apiInstance = new UserModuleApi();
+        try {
+            OK result = apiInstance.v1UserDelete();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling UserModuleApi#v1UserDelete");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                                </div>
+
+                                <div class="tab-pane" id="examples-UserModule-v1UserDelete-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.UserModuleApi;
+
+public class UserModuleApiExample {
+
+    public static void main(String[] args) {
+        UserModuleApi apiInstance = new UserModuleApi();
+        try {
+            OK result = apiInstance.v1UserDelete();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling UserModuleApi#v1UserDelete");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                                </div>
+                                <!--
+                                <div class="tab-pane" id="examples-UserModule-v1UserDelete-0-groovy">
+                                <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+                                </div> -->
+                                <div class="tab-pane" id="examples-UserModule-v1UserDelete-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+UserModuleApi *apiInstance = [[UserModuleApi alloc] init];
+
+// User Delete
+[apiInstance v1UserDeleteWithCompletionHandler:
+              ^(OK output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                                </div>
+
+                                <div class="tab-pane" id="examples-UserModule-v1UserDelete-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var ApplicationApi = require('application_api');
+var defaultClient = ApplicationApi.ApiClient.instance;
+
+
+var api = new ApplicationApi.UserModuleApi()
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.v1UserDelete(callback);
+</code></pre>
+                                </div>
+
+                                <!--<div class="tab-pane" id="examples-UserModule-v1UserDelete-0-angular">
+                  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+                </div>-->
+                                <div class="tab-pane" id="examples-UserModule-v1UserDelete-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class v1UserDeleteExample
+    {
+        public void main()
+        {
+
+
+            var apiInstance = new UserModuleApi();
+
+            try
+            {
+                // User Delete
+                OK result = apiInstance.v1UserDelete();
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling UserModuleApi.v1UserDelete: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                                </div>
+
+                                <div class="tab-pane" id="examples-UserModule-v1UserDelete-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+$api_instance = new Swagger\Client\ApiUserModuleApi();
+
+try {
+    $result = $api_instance->v1UserDelete();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling UserModuleApi->v1UserDelete: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                                </div>
+
+                                <div class="tab-pane" id="examples-UserModule-v1UserDelete-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::UserModuleApi;
+
+
+my $api_instance = WWW::SwaggerClient::UserModuleApi->new();
+
+eval {
+    my $result = $api_instance->v1UserDelete();
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling UserModuleApi->v1UserDelete: $@\n";
+}</code></pre>
+                                </div>
+
+                                <div class="tab-pane" id="examples-UserModule-v1UserDelete-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = swagger_client.UserModuleApi()
+
+try:
+    # User Delete
+    api_response = api_instance.v1_user_delete()
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling UserModuleApi->v1UserDelete: %s\n" % e)</code></pre>
+                                </div>
+                            </div>
+
+                            <h2>Parameters</h2>
+
+
+                            <h2>Responses</h2>
+                            <h3> Status: 200 - Successful Response </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples">
+                                <li class="active">
+                                    <a data-toggle="tab" href="#responses-v1UserDelete-200-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-v1UserDelete-200-schema">
+                                    <div id='responses-v1UserDelete-200-schema-200'
+                                         style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                        <script>
+                                            $(document).ready(function() {
+                                              var schemaWrapper = {
+        "description" : "Successful Response",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/OK"
+            }
+          }
+        }
+      };
+                                              var schema = schemaWrapper.content["application/json"].schema;
+                                              if (schema.$ref != null) {
+                                                schema = defsParser.$refs.get(schema.$ref);
+                                              } else {
+                                                schemaWrapper.components = {};
+                                                schemaWrapper.components.schemas = Object.assign({}, defs);
+                                                $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                                  console.log(err);
+                                                });
+                                              }
+
+                                              //console.log(JSON.stringify(schema));
+                                              var view = new JSONSchemaView(schema, 3);
+                                              $('#responses-v1UserDelete-200-schema-data').val(stringify(schema));
+                                              var result = $('#responses-v1UserDelete-200-schema-200');
+                                              result.empty();
+                                              result.append(view.render());
+                                            });
+                                        </script>
+                                    </div>
+                                    <input id='responses-v1UserDelete-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                        </article>
+                    </div>
+                    <hr>
+                    <div id="api-UserModule-v1UserGet">
+                        <article data-group="User" data-name="v1UserGet" data-version="0"
+                                 id="api-UserModule-v1UserGet-0">
+                            <div class="pull-left">
+                                <h1>v1UserGet</h1>
+                                <p>User Info</p>
+                            </div>
+                            <div class="pull-right"></div>
+                            <div class="clearfix"></div>
+                            <p></p>
+                            <p class="marked"></p>
+                            <p></p>
+                            <br/>
+                            <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span
+                                    class="pln">/v1/user</span></code></pre>
+                            <p>
+                            <h3>Usage and SDK Samples</h3>
+                            </p>
+                            <ul class="nav nav-tabs nav-tabs-examples">
+                                <li class="active"><a href="#examples-UserModule-v1UserGet-0-curl">Curl</a></li>
+                                <li class=""><a href="#examples-UserModule-v1UserGet-0-java">Java</a></li>
+                                <li class=""><a href="#examples-UserModule-v1UserGet-0-android">Android</a></li>
+                                <!--<li class=""><a href="#examples-UserModule-v1UserGet-0-groovy">Groovy</a></li>-->
+                                <li class=""><a href="#examples-UserModule-v1UserGet-0-objc">Obj-C</a></li>
+                                <li class=""><a href="#examples-UserModule-v1UserGet-0-javascript">JavaScript</a></li>
+                                <!--<li class=""><a href="#examples-UserModule-v1UserGet-0-angular">Angular</a></li>-->
+                                <li class=""><a href="#examples-UserModule-v1UserGet-0-csharp">C#</a></li>
+                                <li class=""><a href="#examples-UserModule-v1UserGet-0-php">PHP</a></li>
+                                <li class=""><a href="#examples-UserModule-v1UserGet-0-perl">Perl</a></li>
+                                <li class=""><a href="#examples-UserModule-v1UserGet-0-python">Python</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="examples-UserModule-v1UserGet-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X GET\
+ -H "Authorization: Bearer [[accessToken]]"\
+-H "Accept: application/json"\
+"http://127.0.0.1:8080/v1/user"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="examples-UserModule-v1UserGet-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.UserModuleApi;
+
+import java.io.File;
+import java.util.*;
+
+public class UserModuleApiExample {
+
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+
+        UserModuleApi apiInstance = new UserModuleApi();
+        try {
+            GetUserResponse result = apiInstance.v1UserGet();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling UserModuleApi#v1UserGet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                                </div>
+
+                                <div class="tab-pane" id="examples-UserModule-v1UserGet-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.UserModuleApi;
+
+public class UserModuleApiExample {
+
+    public static void main(String[] args) {
+        UserModuleApi apiInstance = new UserModuleApi();
+        try {
+            GetUserResponse result = apiInstance.v1UserGet();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling UserModuleApi#v1UserGet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                                </div>
+                                <!--
+                                <div class="tab-pane" id="examples-UserModule-v1UserGet-0-groovy">
+                                <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+                                </div> -->
+                                <div class="tab-pane" id="examples-UserModule-v1UserGet-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+
+UserModuleApi *apiInstance = [[UserModuleApi alloc] init];
+
+// User Info
+[apiInstance v1UserGetWithCompletionHandler:
+              ^(GetUserResponse output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                                </div>
+
+                                <div class="tab-pane" id="examples-UserModule-v1UserGet-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var ApplicationApi = require('application_api');
+var defaultClient = ApplicationApi.ApiClient.instance;
+
+
+var api = new ApplicationApi.UserModuleApi()
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.v1UserGet(callback);
+</code></pre>
+                                </div>
+
+                                <!--<div class="tab-pane" id="examples-UserModule-v1UserGet-0-angular">
+                  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+                </div>-->
+                                <div class="tab-pane" id="examples-UserModule-v1UserGet-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class v1UserGetExample
+    {
+        public void main()
+        {
+
+
+            var apiInstance = new UserModuleApi();
+
+            try
+            {
+                // User Info
+                GetUserResponse result = apiInstance.v1UserGet();
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling UserModuleApi.v1UserGet: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                                </div>
+
+                                <div class="tab-pane" id="examples-UserModule-v1UserGet-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+$api_instance = new Swagger\Client\ApiUserModuleApi();
+
+try {
+    $result = $api_instance->v1UserGet();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling UserModuleApi->v1UserGet: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                                </div>
+
+                                <div class="tab-pane" id="examples-UserModule-v1UserGet-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::UserModuleApi;
+
+
+my $api_instance = WWW::SwaggerClient::UserModuleApi->new();
+
+eval {
+    my $result = $api_instance->v1UserGet();
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling UserModuleApi->v1UserGet: $@\n";
+}</code></pre>
+                                </div>
+
+                                <div class="tab-pane" id="examples-UserModule-v1UserGet-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = swagger_client.UserModuleApi()
+
+try:
+    # User Info
+    api_response = api_instance.v1_user_get()
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling UserModuleApi->v1UserGet: %s\n" % e)</code></pre>
+                                </div>
+                            </div>
+
+                            <h2>Parameters</h2>
+
+
+                            <h2>Responses</h2>
+                            <h3> Status: 200 - Successful Response </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples">
+                                <li class="active">
+                                    <a data-toggle="tab" href="#responses-v1UserGet-200-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-v1UserGet-200-schema">
+                                    <div id='responses-v1UserGet-200-schema-200'
+                                         style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                        <script>
+                                            $(document).ready(function() {
+                                              var schemaWrapper = {
+        "description" : "Successful Response",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/GetUserResponse"
+            }
+          }
+        }
+      };
+                                              var schema = schemaWrapper.content["application/json"].schema;
+                                              if (schema.$ref != null) {
+                                                schema = defsParser.$refs.get(schema.$ref);
+                                              } else {
+                                                schemaWrapper.components = {};
+                                                schemaWrapper.components.schemas = Object.assign({}, defs);
+                                                $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                                  console.log(err);
+                                                });
+                                              }
+
+                                              //console.log(JSON.stringify(schema));
+                                              var view = new JSONSchemaView(schema, 3);
+                                              $('#responses-v1UserGet-200-schema-data').val(stringify(schema));
+                                              var result = $('#responses-v1UserGet-200-schema-200');
+                                              result.empty();
+                                              result.append(view.render());
+                                            });
+                                        </script>
+                                    </div>
+                                    <input id='responses-v1UserGet-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                        </article>
+                    </div>
+                    <hr>
+                    <div id="api-UserModule-v1UserPut">
+                        <article data-group="User" data-name="v1UserPut" data-version="0"
+                                 id="api-UserModule-v1UserPut-0">
+                            <div class="pull-left">
+                                <h1>v1UserPut</h1>
+                                <p>User Update</p>
+                            </div>
+                            <div class="pull-right"></div>
+                            <div class="clearfix"></div>
+                            <p></p>
+                            <p class="marked"></p>
+                            <p></p>
+                            <br/>
+                            <pre class="prettyprint language-html prettyprinted" data-type="put"><code><span
+                                    class="pln">/v1/user</span></code></pre>
+                            <p>
+                            <h3>Usage and SDK Samples</h3>
+                            </p>
+                            <ul class="nav nav-tabs nav-tabs-examples">
+                                <li class="active"><a href="#examples-UserModule-v1UserPut-0-curl">Curl</a></li>
+                                <li class=""><a href="#examples-UserModule-v1UserPut-0-java">Java</a></li>
+                                <li class=""><a href="#examples-UserModule-v1UserPut-0-android">Android</a></li>
+                                <!--<li class=""><a href="#examples-UserModule-v1UserPut-0-groovy">Groovy</a></li>-->
+                                <li class=""><a href="#examples-UserModule-v1UserPut-0-objc">Obj-C</a></li>
+                                <li class=""><a href="#examples-UserModule-v1UserPut-0-javascript">JavaScript</a></li>
+                                <!--<li class=""><a href="#examples-UserModule-v1UserPut-0-angular">Angular</a></li>-->
+                                <li class=""><a href="#examples-UserModule-v1UserPut-0-csharp">C#</a></li>
+                                <li class=""><a href="#examples-UserModule-v1UserPut-0-php">PHP</a></li>
+                                <li class=""><a href="#examples-UserModule-v1UserPut-0-perl">Perl</a></li>
+                                <li class=""><a href="#examples-UserModule-v1UserPut-0-python">Python</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="examples-UserModule-v1UserPut-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X PUT\
+ -H "Authorization: Bearer [[accessToken]]"\
+-H "Accept: application/json"\
+-H "Content-Type: application/json"\
+"http://127.0.0.1:8080/v1/user"</code></pre>
+                                </div>
+                                <div class="tab-pane" id="examples-UserModule-v1UserPut-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.UserModuleApi;
+
+import java.io.File;
+import java.util.*;
+
+public class UserModuleApiExample {
+
+    public static void main(String[] args) {
+        ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+
+        UserModuleApi apiInstance = new UserModuleApi();
+        UpdateUserRequest body = ; // UpdateUserRequest |
+        try {
+            OK result = apiInstance.v1UserPut(body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling UserModuleApi#v1UserPut");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                                </div>
+
+                                <div class="tab-pane" id="examples-UserModule-v1UserPut-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.UserModuleApi;
+
+public class UserModuleApiExample {
+
+    public static void main(String[] args) {
+        UserModuleApi apiInstance = new UserModuleApi();
+        UpdateUserRequest body = ; // UpdateUserRequest |
+        try {
+            OK result = apiInstance.v1UserPut(body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling UserModuleApi#v1UserPut");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                                </div>
+                                <!--
+                                <div class="tab-pane" id="examples-UserModule-v1UserPut-0-groovy">
+                                <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+                                </div> -->
+                                <div class="tab-pane" id="examples-UserModule-v1UserPut-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Configuration *apiConfig = [Configuration sharedConfig];
+UpdateUserRequest *body = ; //
+
+UserModuleApi *apiInstance = [[UserModuleApi alloc] init];
+
+// User Update
+[apiInstance v1UserPutWith:body
+              completionHandler: ^(OK output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                                </div>
+
+                                <div class="tab-pane" id="examples-UserModule-v1UserPut-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var ApplicationApi = require('application_api');
+var defaultClient = ApplicationApi.ApiClient.instance;
+
+
+var api = new ApplicationApi.UserModuleApi()
+var body = ; // {{UpdateUserRequest}}
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.v1UserPut(body, callback);
+</code></pre>
+                                </div>
+
+                                <!--<div class="tab-pane" id="examples-UserModule-v1UserPut-0-angular">
+                  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+                </div>-->
+                                <div class="tab-pane" id="examples-UserModule-v1UserPut-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class v1UserPutExample
+    {
+        public void main()
+        {
+
+
+            var apiInstance = new UserModuleApi();
+            var body = new UpdateUserRequest(); // UpdateUserRequest |
+
+            try
+            {
+                // User Update
+                OK result = apiInstance.v1UserPut(body);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling UserModuleApi.v1UserPut: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                                </div>
+
+                                <div class="tab-pane" id="examples-UserModule-v1UserPut-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+$api_instance = new Swagger\Client\ApiUserModuleApi();
+$body = ; // UpdateUserRequest |
+
+try {
+    $result = $api_instance->v1UserPut($body);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling UserModuleApi->v1UserPut: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                                </div>
+
+                                <div class="tab-pane" id="examples-UserModule-v1UserPut-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::UserModuleApi;
+
+
+my $api_instance = WWW::SwaggerClient::UserModuleApi->new();
+my $body = WWW::SwaggerClient::Object::UpdateUserRequest->new(); # UpdateUserRequest |
+
+eval {
+    my $result = $api_instance->v1UserPut(body => $body);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling UserModuleApi->v1UserPut: $@\n";
+}</code></pre>
+                                </div>
+
+                                <div class="tab-pane" id="examples-UserModule-v1UserPut-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+
+# create an instance of the API class
+api_instance = swagger_client.UserModuleApi()
+body =  # UpdateUserRequest |
+
+try:
+    # User Update
+    api_response = api_instance.v1_user_put(body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling UserModuleApi->v1UserPut: %s\n" % e)</code></pre>
+                                </div>
+                            </div>
+
+                            <h2>Parameters</h2>
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                    <th width="150px">Name</th>
+                                    <th>Description</th>
+                                </tr>
+                                <tr>
+                                    <td style="width:150px;">body <span style="color:red;">*</span></td>
+                                    <td>
+
+
+                                        <script>
+                                            $(document).ready(function() {
+                                              var schemaWrapper = {
+              "content" : {
+                "application/json" : {
+                  "schema" : {
+                    "$ref" : "#/components/schemas/UpdateUserRequest"
+                  }
+                }
+              },
+              "required" : true
+            };
+                                              var schema = schemaWrapper.content["application/json"].schema;
+                                              if (schema.$ref != null) {
+                                                schema = defsParser.$refs.get(schema.$ref);
+                                              } else {
+                                                schemaWrapper.components = {};
+                                                schemaWrapper.components.schemas = Object.assign({}, defs);
+                                                $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                                  console.log(err);
+                                                });
+                                              }
+
+                                              var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+                                              var result = $('#d2e199_v1UserPut_body');
+                                              result.empty();
+                                              result.append(view.render());
+                                            });
+                                        </script>
+                                        <div id="d2e199_v1UserPut_body"></div>
+                                    </td>
+                                </tr>
+                            </table>
+
+
+                            <h2>Responses</h2>
+                            <h3> Status: 200 - Successful Response </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples">
+                                <li class="active">
+                                    <a data-toggle="tab" href="#responses-v1UserPut-200-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-v1UserPut-200-schema">
+                                    <div id='responses-v1UserPut-200-schema-200'
+                                         style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                        <script>
+                                            $(document).ready(function() {
+                                              var schemaWrapper = {
+        "description" : "Successful Response",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/OK"
+            }
+          }
+        }
+      };
+                                              var schema = schemaWrapper.content["application/json"].schema;
+                                              if (schema.$ref != null) {
+                                                schema = defsParser.$refs.get(schema.$ref);
+                                              } else {
+                                                schemaWrapper.components = {};
+                                                schemaWrapper.components.schemas = Object.assign({}, defs);
+                                                $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                                  console.log(err);
+                                                });
+                                              }
+
+                                              //console.log(JSON.stringify(schema));
+                                              var view = new JSONSchemaView(schema, 3);
+                                              $('#responses-v1UserPut-200-schema-data').val(stringify(schema));
+                                              var result = $('#responses-v1UserPut-200-schema-200');
+                                              result.empty();
+                                              result.append(view.render());
+                                            });
+                                        </script>
+                                    </div>
+                                    <input id='responses-v1UserPut-200-schema-data' type='hidden' value=''></input>
                                 </div>
                             </div>
 
