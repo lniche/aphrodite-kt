@@ -20,8 +20,8 @@ fun Application.configureRouting() {
     }
 
     routing {
-        swaggerUI(path = "/swagger-ui/index.html", swaggerFile = "openapi/documentation.json")
-        openAPI(path = "/api-docs/openapi.json", swaggerFile = "openapi/documentation.json")
+        swaggerUI(path = "/swagger", swaggerFile = "openapi/documentation.json")
+        openAPI(path = "/openapi", swaggerFile = "openapi/documentation.json")
 
         get("/") {
             call.respondText("Thank you for using Aphrodite!")
