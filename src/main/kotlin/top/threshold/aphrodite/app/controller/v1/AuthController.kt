@@ -64,13 +64,13 @@ class AuthController(
         var phone: String? = null
 
         @field:NotBlank(message = "Verification code cannot be empty")
-        @field:Schema(description = "Verification code", example = "1234", required = true)
+        @field:Schema(description = "Verification Code", example = "1234", required = true)
         var code: String? = null
     }
 
     @Data
     class LoginResponse {
-        @field:Schema(description = "Access token", example = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...")
+        @field:Schema(description = "Access Token", example = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...")
         var accessToken: String? = null
     }
 

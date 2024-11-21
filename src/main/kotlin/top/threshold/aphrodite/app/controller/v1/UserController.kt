@@ -33,10 +33,10 @@ class UserController(
         @field:Schema(description = "User Nickname", example = "john")
         var nickname: String? = null
 
-        @field:Schema(description = "User Number", example = "A8000")
+        @field:Schema(description = "User Number", example = "100000")
         var userNo: Long? = null
 
-        @field:Schema(description = "User Code", example = "100000")
+        @field:Schema(description = "User Code", example = "A8000")
         var userCode: String? = null
 
         @field:Schema(description = "User Email", example = "john@example.com")
@@ -77,7 +77,6 @@ class UserController(
     }
 
     @Data
-    @Schema(description = "Request object for updating user information")
     class UpdateUserRequest {
         @field:Schema(description = "User Nickname", example = "john", required = false)
         var nickname: String? = null
