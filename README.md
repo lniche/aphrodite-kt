@@ -2,7 +2,7 @@
 
 [English](README.md) | [简体中文](README-zh.md)
 
-Aphrodite is a template project based on Kotlin, Spring Boot 3 and Gradle, designed to help developers get started
+Aphrodite is a template project based on Ktor, designed to help developers get started
 quickly and gain a deep understanding of the framework's usage process. The project provides comprehensive sample code
 and configuration, covering common development scenarios for easy learning and practice. In addition, Aphrodite also
 includes a container deployment template, which makes the project easy to deploy and manage in a modern cloud
@@ -10,32 +10,32 @@ environment, helping developers to efficiently build and release applications.
 
 ## Tech Stack
 
-| Technology                                                                                                                                       | Description                                                    |
-|--------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
-| [spring-boot-starter](https://spring.io/projects/spring-boot)                                                                                    | Spring Boot's basic dependencies                               |
-| [kotlin-reflect](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/)                                                                   | Kotlin reflection library                                      |
-| [spring-boot-configuration-processor](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-configuration-processor.html) | Spring Boot configuration processor                            |
-| [spring-boot-starter-web](https://spring.io/projects/spring-boot)                                                                                | Provides dependencies required for web application development |
-| [spring-boot-starter-undertow](https://spring.io/projects/spring-boot)                                                                           | Undertow embedded web server                                   |
-| [spring-boot-starter-validation](https://spring.io/projects/spring-boot)                                                                         | Data validation support                                        |
-| [spring-boot-starter-aop](https://spring.io/projects/spring-boot)                                                                                | AOP (Aspect-Oriented Programming) support                      |
-| [spring-boot-starter-data-redis](https://spring.io/projects/spring-data-redis)                                                                   | Redis data access support                                      |
-| [spring-boot-starter-freemarker](https://spring.io/projects/spring-boot)                                                                         | Freemarker template engine support                             |
-| [lombok](https://projectlombok.org/)                                                                                                             | Tools to simplify Java object encapsulation                    |
-| [kotlinx-coroutines-core](https://kotlinlang.org/docs/coroutines-overview.html)                                                                  | Kotlin coroutine core library                                  |
-| [kotlinx-coroutines-reactor](https://kotlinlang.org/docs/coroutines-guide.html#reactor)                                                          | Kotlin coroutines and Reactor integration                      |
-| [spring-boot-devtools](https://docs.spring.io/spring-boot/docs/current/reference/html/using.html#using-boot-devtools)                            | Development tools, support hot reload                          |
-| [postgresql](https://jdbc.postgresql.org/)                                                                                                       | PostgreSQL database driver                                     |
-| [junit-platform-launcher](https://junit.org/junit5/docs/current/user-guide/#overview-platform-launcher)                                          | JUnit platform launcher                                        |
-| [spring-boot-starter-test](https://spring.io/projects/spring-boot)                                                                               | Spring Boot test tool                                          |
-| [kotlin-test-junit5](https://kotlinlang.org/docs/junit-5.html)                                                                                   | Kotlin test supports JUnit 5                                   |
-| [knife4j-openapi3-jakarta-spring-boot-starter](https://knife4j.github.io/knife4j/)                                                               | Document generation tool supported by OpenAPI 3                |
-| [redisson-spring-boot-starter](https://github.com/redisson/redisson)                                                                             | Spring Boot starter for Redis                                  |
-| [transmittable-thread-local](https://github.com/alibaba/transmittable-thread-local)                                                              | Supports thread local variables passed across threads          |
-| [hutool-all](https://github.com/dromara/hutool)                                                                                                  | Java tool library, providing a variety of common functions     |
-| [commons-pool2](https://commons.apache.org/proper/commons-pool/)                                                                                 | Apache Commons connection pool                                 |
-| [mybatis-plus-spring-boot3-starter](https://mp.baomidou.com/)                                                                                    | Enhanced Spring Boot starter for MyBatis                       |
-| [mybatis-plus-generator](https://mp.baomidou.com/guide/generator.html)                                                                           | MyBatis-Plus code generator                                    |
+| Technology                                                                           | Description                                     |
+|--------------------------------------------------------------------------------------|-------------------------------------------------|
+| [ktor-server-default-headers-jvm](https://ktor.io/docs/default-headers.html)         | Ktor server default headers support             |
+| [ktor-server-call-logging-jvm](https://ktor.io/docs/call-logging.html)               | Ktor server call logging                        |
+| [ktor-server-call-id-jvm](https://ktor.io/docs/call-id.html)                         | Ktor server call ID generation                  |
+| [ktor-server-rate-limiting-jvm](https://github.com/flaxoos/ktor-rate-limiting)       | Ktor server rate limiting                       |
+| [ktor-server-core-jvm](https://ktor.io/docs/core.html)                               | Ktor core server features                       |
+| [ktor-serialization-kotlinx-json-jvm](https://ktor.io/docs/serialization.html)       | Ktor serialization using kotlinx-json           |
+| [ktor-server-content-negotiation-jvm](https://ktor.io/docs/content-negotiation.html) | Ktor content negotiation                        |
+| [postgresql](https://jdbc.postgresql.org/)                                           | PostgreSQL database driver                      |
+| [ktor-server-host-common-jvm](https://ktor.io/docs/host-common.html)                 | Ktor common host utilities                      |
+| [ktor-server-status-pages-jvm](https://ktor.io/docs/status-pages.html)               | Ktor server status pages handling               |
+| [ktor-server-swagger-jvm](https://ktor.io/docs/openapi.html)                         | Ktor Swagger support                            |
+| [ktor-server-openapi](https://ktor.io/docs/openapi.html)                             | Ktor OpenAPI support                            |
+| [ktor-server-conditional-headers-jvm](https://ktor.io/docs/conditional-headers.html) | Ktor conditional headers support                |
+| [ktor-server-cors-jvm](https://ktor.io/docs/cors.html)                               | Ktor Cross-Origin Resource Sharing (CORS)       |
+| [ktor-server-compression-jvm](https://ktor.io/docs/compression.html)                 | Ktor response compression                       |
+| [ktor-server-auth-jwt-jvm](https://ktor.io/docs/jwt.html)                            | Ktor JWT-based authentication                   |
+| [ktor-server-netty-jvm](https://ktor.io/docs/netty.html)                             | Netty engine support for Ktor server            |
+| [exposed-core](https://github.com/JetBrains/Exposed/wiki/Getting-Started)            | Core module of Exposed, Kotlin SQL framework    |
+| [exposed-jdbc](https://github.com/JetBrains/Exposed/wiki/Getting-Started)            | JDBC module of Exposed                          |
+| [exposed-dao](https://github.com/JetBrains/Exposed/wiki/DataAccessObjects)           | DAO module of Exposed for ORM-style data access |
+| [exposed-kotlin-datetime](https://github.com/JetBrains/Exposed/wiki/Getting-Started) | Kotlin datetime integration for Exposed         |
+| [logback-classic](https://logback.qos.ch/manual/classic.html)                        | Logback classic library for logging             |
+| [lettuce-core](https://lettuce.io/core/release/reference/)                           | Reactive Redis client library                   |
+| [kotlin-test-junit](https://kotlinlang.org/docs/junit-5.html)                        | Kotlin test support for JUnit                   |
 
 ## Features
 
@@ -52,15 +52,15 @@ environment, helping developers to efficiently build and release applications.
 
 ```
 .
-├── bin/ # executable scripts
-├── database/ # database related
-├── deploy/ # deployment related files
-├── docs/ # project documentation
-├── src/ # core directory
-│ ├── app/ # application core code
-│ ├── pkg/ # public module
-├── storage/ # file storage
-└── README.md # project description
+├── bin/                # executable scripts
+├── database/           # database related
+├── deploy/             # deployment related files
+├── docs/               # project documentation
+├── src/                # core directory
+│ ├── app/              # application core code
+│ ├── pkg/              # public module
+├── storage/            # file storage
+└── README.md           # project description
 
 ```
 
