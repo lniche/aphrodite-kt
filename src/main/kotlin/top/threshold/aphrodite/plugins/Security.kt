@@ -10,7 +10,7 @@ import java.util.*
 fun Application.configureSecurity() {
     val jwtConfig = environment.config.config("jwt")
     val jwtAudience = jwtConfig.property("audience").getString()
-    val jwtIssuer = jwtConfig.property("issuer").getString()
+    val jwtDomain = jwtConfig.property("domain ").getString()
     val jwtSecret = jwtConfig.property("secret").getString()
 
     val jwtRealm = "Access to the '/protected' path"
@@ -21,7 +21,7 @@ fun Application.configureSecurity() {
                 JWT
                     .require(Algorithm.HMAC256(jwtSecret))
                     .withAudience(jwtAudience)
-                    .withIssuer(jwtIssuer)
+                    .withIssuer(jwtDomain)
                     .build()
             )
             validate { credential ->
