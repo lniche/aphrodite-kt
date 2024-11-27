@@ -45,7 +45,7 @@ class UserDO : BaseOprDO() {
     var avatar: String? = null
 
     @TableField("avatar")
-    var status: Short? = null
+    var status: Int? = null
 
     override fun toString(): String {
         return "UserDO{" +
