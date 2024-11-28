@@ -1,24 +1,17 @@
-ARG RUBY_VERSION=3.3.5
-FROM ruby:${RUBY_VERSION}-slim-bullseye
-
-RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends \
-    apt-utils \
-    build-essential \
-    curl \
-    git \
-    imagemagick \
-    iproute2 \
-    libpq-dev \
-    openssh-client \
-    postgresql-client \
-    vim
-
-RUN gem install bundler
-RUN gem install foreman
-
-# Install Node.js 20
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y nodejs
+FROM openjdk:21-jdk
 
 WORKDIR /workspace
+
+ARG GRADLE_VERSION=8.10.2
+RUN wget -q https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip && \
+    unzip gradle-${GRADLE_VERSION}-bin.zip -d /opt && \
+    rm gradle-${GRADLE_VERSION}-bin.zip
+
+ENV GRADLE_HOME /opt/gradle-${GRADLE_VERSION}
+ENV PATH $GRADLE_HOME/bin:$PATH
+
+COPY . .
+
+EXPOSE 8000
+
+CMD ["./gradlew", "bootRun"]

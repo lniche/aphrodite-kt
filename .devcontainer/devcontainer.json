@@ -1,21 +1,27 @@
 {
-  "name": "Maybe",
+  "name": "Kotlin Spring Boot Dev Container",
   "dockerComposeFile": "docker-compose.yml",
   "service": "app",
   "workspaceFolder": "/workspace",
   "containerEnv": {
-    "GITHUB_TOKEN": "${localEnv:GITHUB_TOKEN}",
-    "GITHUB_USER": "${localEnv:GITHUB_USER}"
+    "JAVA_HOME": "/usr/lib/jvm/java-21-openjdk-amd64",
+    "GRADLE_HOME": "/opt/gradle"
   },
   "remoteEnv": {
-    "PATH": "/workspace/bin:${containerEnv:PATH}"
+    "PATH": "${containerEnv:JAVA_HOME}/bin:${containerEnv:GRADLE_HOME}/bin:${containerEnv:PATH}"
   },
-  "postCreateCommand": "bundle install && npm install",
+  "postCreateCommand": "./gradlew build",
   "customizations": {
     "vscode": {
       "extensions": [
-        "biomejs.biome",
-        "EditorConfig.EditorConfig"
+        "fwcd.kotlin",
+        "vscjava.vscode-java-pack",
+        "vscjava.vscode-maven",
+        "vscjava.vscode-java-debug",
+        "vscjava.vscode-java-test",
+        "redhat.java",
+        "sonarsource.sonarlint-vscode",
+        "Pivotal.vscode-spring-boot"
       ]
     }
   }
