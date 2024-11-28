@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component
 import org.springframework.web.servlet.HandlerInterceptor
 import top.threshold.aphrodite.pkg.constant.Const
 import top.threshold.aphrodite.pkg.helper.RequestDataHelper
-import top.threshold.aphrodite.pkg.util.JwtUtils
+import top.threshold.aphrodite.pkg.utils.JwtUtils
 import kotlin.Throws
 
 @Component

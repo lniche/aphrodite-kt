@@ -20,7 +20,7 @@ import top.threshold.aphrodite.pkg.constant.CacheKey
 import top.threshold.aphrodite.pkg.entity.KtResult
 import top.threshold.aphrodite.pkg.entity.Slf4j
 import top.threshold.aphrodite.pkg.entity.Slf4j.Companion.log
-import top.threshold.aphrodite.pkg.util.RedisUtil
+import top.threshold.aphrodite.pkg.utils.RedisUtil
 import java.time.OffsetDateTime
 import java.util.*
 

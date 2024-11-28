@@ -17,7 +17,7 @@ import top.threshold.aphrodite.app.controller.BaseController
 import top.threshold.aphrodite.app.repository.IUserRepository
 import top.threshold.aphrodite.pkg.constant.CacheKey
 import top.threshold.aphrodite.pkg.entity.KtResult
-import top.threshold.aphrodite.pkg.util.RedisUtil
+import top.threshold.aphrodite.pkg.utils.RedisUtil
 import java.time.OffsetDateTime
 
 @RestController

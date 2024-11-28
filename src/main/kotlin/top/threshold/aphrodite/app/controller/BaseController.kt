@@ -4,7 +4,7 @@ import org.springframework.web.context.request.RequestContextHolder
 import org.springframework.web.context.request.ServletRequestAttributes
 import top.threshold.aphrodite.pkg.constant.Const
 import top.threshold.aphrodite.pkg.helper.RequestDataHelper
-import top.threshold.aphrodite.pkg.util.JwtUtils
+import top.threshold.aphrodite.pkg.utils.JwtUtils
 
 abstract class BaseController {
 
