@@ -1,4 +1,4 @@
-package top.threshold.aphrodite.routes
+package top.threshold.aphrodite.route
 
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -7,10 +7,10 @@ import io.ktor.server.routing.*
 import kotlinx.datetime.Clock
 import kotlinx.serialization.Serializable
 import top.threshold.aphrodite.common.*
-import top.threshold.aphrodite.models.UserSchema
-import top.threshold.aphrodite.plugins.generateJWT
-import top.threshold.aphrodite.plugins.getLoginUser
-import top.threshold.aphrodite.services.UserService
+import top.threshold.aphrodite.model.UserSchema
+import top.threshold.aphrodite.plugin.generateJWT
+import top.threshold.aphrodite.plugin.getLoginUser
+import top.threshold.aphrodite.service.UserService
 
 
 fun Route.authRoutesV1() {

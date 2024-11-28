@@ -1,4 +1,4 @@
-package top.threshold.aphrodite.plugins
+package top.threshold.aphrodite.plugin
 
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*

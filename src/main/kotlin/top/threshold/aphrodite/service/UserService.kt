@@ -1,4 +1,4 @@
-package top.threshold.aphrodite.services
+package top.threshold.aphrodite.service
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.datetime.Clock
@@ -6,7 +6,7 @@ import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.kotlin.datetime.timestamp
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
-import top.threshold.aphrodite.models.UserSchema
+import top.threshold.aphrodite.model.UserSchema
 
 class UserService(database: Database) {
 

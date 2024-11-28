@@ -1,4 +1,4 @@
-package top.threshold.aphrodite.models
+package top.threshold.aphrodite.model
 
 import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable

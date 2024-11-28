@@ -1,4 +1,4 @@
-package top.threshold.aphrodite.plugins
+package top.threshold.aphrodite.plugin
 
 import io.ktor.server.application.*
 import top.threshold.aphrodite.common.DatabaseUtil

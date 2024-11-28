@@ -1,4 +1,4 @@
-package top.threshold.aphrodite.routes
+package top.threshold.aphrodite.route
 
 import io.ktor.server.request.*
 import io.ktor.server.response.*
@@ -8,8 +8,8 @@ import kotlinx.serialization.Serializable
 import top.threshold.aphrodite.common.DatabaseUtil
 import top.threshold.aphrodite.common.ErrorCode
 import top.threshold.aphrodite.common.KtResult
-import top.threshold.aphrodite.plugins.getLoginUser
-import top.threshold.aphrodite.services.UserService
+import top.threshold.aphrodite.plugin.getLoginUser
+import top.threshold.aphrodite.service.UserService
 
 fun Route.userRoutesV1() {
     val userService = UserService(DatabaseUtil.getDatabase())

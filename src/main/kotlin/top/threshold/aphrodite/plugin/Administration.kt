@@ -1,4 +1,4 @@
-package top.threshold.aphrodite.plugins
+package top.threshold.aphrodite.plugin
 
 import io.github.flaxoos.ktor.server.plugins.ratelimiter.RateLimiting
 import io.github.flaxoos.ktor.server.plugins.ratelimiter.implementations.TokenBucket

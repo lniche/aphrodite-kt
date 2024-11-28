@@ -1,4 +1,4 @@
-package top.threshold.aphrodite.services
+package top.threshold.aphrodite.service
 
 import org.jetbrains.exposed.sql.Database
 

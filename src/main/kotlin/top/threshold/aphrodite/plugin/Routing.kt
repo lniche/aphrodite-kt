@@ -1,4 +1,4 @@
-package top.threshold.aphrodite.plugins
+package top.threshold.aphrodite.plugin
 
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -8,8 +8,8 @@ import io.ktor.server.plugins.swagger.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import top.threshold.aphrodite.common.KtResult
-import top.threshold.aphrodite.routes.authRoutesV1
-import top.threshold.aphrodite.routes.userRoutesV1
+import top.threshold.aphrodite.route.authRoutesV1
+import top.threshold.aphrodite.route.userRoutesV1
 
 fun Application.configureRouting() {
     install(StatusPages) {
