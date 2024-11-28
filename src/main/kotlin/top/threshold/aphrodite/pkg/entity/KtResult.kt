@@ -1,6 +1,6 @@
 package top.threshold.aphrodite.pkg.entity
 
-import top.threshold.aphrodite.pkg.enum.Errors
+import top.threshold.aphrodite.pkg.enums.Errors
 import java.io.Serializable
 
 open class KtResult<T> : Serializable {

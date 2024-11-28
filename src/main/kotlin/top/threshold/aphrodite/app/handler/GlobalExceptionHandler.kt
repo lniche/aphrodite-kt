@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 import top.threshold.aphrodite.pkg.entity.KtResult
 import top.threshold.aphrodite.pkg.entity.Slf4j
 import top.threshold.aphrodite.pkg.entity.Slf4j.Companion.log
-import top.threshold.aphrodite.pkg.enum.Errors
+import top.threshold.aphrodite.pkg.enums.Errors
 
 @Slf4j
 @RestControllerAdvice
