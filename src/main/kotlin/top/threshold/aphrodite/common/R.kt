@@ -3,36 +3,36 @@ package top.threshold.aphrodite.common
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class KtResult<T>(
+data class R<T>(
     val message: String,
     val data: T? = null,
     val code: Int
 ) {
     companion object {
-        fun <T> ok(data: T? = null): KtResult<T> {
-            return KtResult(
+        fun <T> ok(data: T? = null): R<T> {
+            return R(
                 message = "ok",
                 data = data,
                 code = 0
             )
         }
 
-        fun <T> err(message: String = "err", code: Int = -1): KtResult<T> {
-            return KtResult(
+        fun <T> err(message: String = "err", code: Int = -1): R<T> {
+            return R(
                 message = message,
                 code = code
             )
         }
 
-        fun <T> err(error: ErrorCode, message: String = "err", code: Int = -1): KtResult<T> {
-            return KtResult(
+        fun <T> err(error: ErrorCode, message: String = "err", code: Int = -1): R<T> {
+            return R(
                 message = message,
                 code = error.code
             )
         }
 
-        fun <T> err(error: ErrorCode, data: T? = null): KtResult<T> {
-            return KtResult(
+        fun <T> err(error: ErrorCode, data: T? = null): R<T> {
+            return R(
                 message = error.message,
                 data = data,
                 code = error.code

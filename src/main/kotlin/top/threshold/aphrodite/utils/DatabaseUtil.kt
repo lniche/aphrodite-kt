@@ -1,4 +1,4 @@
-package top.threshold.aphrodite.common
+package top.threshold.aphrodite.utils
 
 import io.ktor.server.application.*
 import org.jetbrains.exposed.sql.Database

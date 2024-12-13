@@ -6,11 +6,15 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.datetime.Clock
 import kotlinx.serialization.Serializable
-import top.threshold.aphrodite.common.*
+import top.threshold.aphrodite.common.CacheKey
+import top.threshold.aphrodite.common.R
 import top.threshold.aphrodite.model.UserSchema
 import top.threshold.aphrodite.plugin.generateJWT
 import top.threshold.aphrodite.plugin.getLoginUser
 import top.threshold.aphrodite.service.UserService
+import top.threshold.aphrodite.utils.DatabaseUtil
+import top.threshold.aphrodite.utils.RedisUtil
+import top.threshold.aphrodite.utils.Snowflake
 
 
 fun Route.authRoutesV1() {
@@ -21,14 +25,14 @@ fun Route.authRoutesV1() {
             val sendVerifyCodeRequest = call.receive<SendVerifyCodeRequest>()
             val codeKey = CacheKey.SMS_CODE + sendVerifyCodeRequest.phone
             if (RedisUtil.getRedisCommands().exists(codeKey) > 0) {
-                call.respond(KtResult.err<Unit>(message = "Verification code is incorrect, please re-enter"))
+                call.respond(R.err<Unit>(message = "Verification code is incorrect, please re-enter"))
             }
             val cacheCode = (1000..9999).random().toString()
             application.log.info("cache code: $cacheCode")
             RedisUtil.getRedisCommands().set(codeKey, cacheCode)
             RedisUtil.getRedisCommands().expire(codeKey, 60)
             // TODO: fake send
-            call.respond(KtResult.ok<Unit>())
+            call.respond(R.ok<Unit>())
         }
     }
 
@@ -37,7 +41,7 @@ fun Route.authRoutesV1() {
             val loginRequest = call.receive<LoginRequest>()
             val codeKey = CacheKey.SMS_CODE + loginRequest.phone
             if (loginRequest.code != RedisUtil.getRedisCommands().get(codeKey)) {
-                call.respond(KtResult.err<Unit>("Verification code is incorrect, please re-enter"))
+                call.respond(R.err<Unit>("Verification code is incorrect, please re-enter"))
             }
             var userSchema = userService.getByPhone(loginRequest.phone)
             if (userSchema == null) {
@@ -69,7 +73,7 @@ fun Route.authRoutesV1() {
             }
             RedisUtil.getRedisCommands().del(codeKey)
             call.respond(
-                KtResult.ok(
+                R.ok(
                     LoginResponse(
                         accessToken = userSchema.loginToken!!
                     )
@@ -81,7 +85,7 @@ fun Route.authRoutesV1() {
     route("/logout") {
         post {
             userService.logout(call.getLoginUser())
-            call.respond(KtResult.ok<Unit>())
+            call.respond(R.ok<Unit>())
         }
     }
 }

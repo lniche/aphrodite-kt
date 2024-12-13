@@ -7,7 +7,7 @@ import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.plugins.swagger.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import top.threshold.aphrodite.common.KtResult
+import top.threshold.aphrodite.common.R
 import top.threshold.aphrodite.route.authRoutesV1
 import top.threshold.aphrodite.route.userRoutesV1
 
@@ -27,7 +27,7 @@ fun Application.configureRouting() {
             call.respondText("Thank you for using Aphrodite!")
         }
         get("/ping") {
-            call.respond(KtResult.ok("pong"))
+            call.respond(R.ok("pong"))
         }
         route("/v1") {
             route("/user") {

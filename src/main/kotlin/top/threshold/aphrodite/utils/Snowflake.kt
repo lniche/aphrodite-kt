@@ -1,4 +1,4 @@
-package top.threshold.aphrodite.common
+package top.threshold.aphrodite.utils
 
 class Snowflake(private val dataCenterId: Int, private val workerId: Int) {
     companion object {

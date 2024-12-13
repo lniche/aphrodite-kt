@@ -5,11 +5,11 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.datetime.Clock
 import kotlinx.serialization.Serializable
-import top.threshold.aphrodite.common.DatabaseUtil
 import top.threshold.aphrodite.common.ErrorCode
-import top.threshold.aphrodite.common.KtResult
+import top.threshold.aphrodite.common.R
 import top.threshold.aphrodite.plugin.getLoginUser
 import top.threshold.aphrodite.service.UserService
+import top.threshold.aphrodite.utils.DatabaseUtil
 
 fun Route.userRoutesV1() {
     val userService = UserService(DatabaseUtil.getDatabase())
@@ -19,7 +19,7 @@ fun Route.userRoutesV1() {
             val userCode = call.getLoginUser()
             val userSchema = userService.getByCode(userCode)
             call.respond(
-                KtResult.ok(
+                R.ok(
                     GetUserResponse(
                         userCode = userSchema?.userCode,
                         userNo = userSchema?.userNo,
@@ -35,7 +35,7 @@ fun Route.userRoutesV1() {
     put {
         val userCode = call.getLoginUser()
         val userSchema = userService.getByCode(userCode)
-        userSchema ?: call.respond(KtResult.err<Unit>(ErrorCode.ERR_DATA))
+        userSchema ?: call.respond(R.err<Unit>(ErrorCode.ERR_DATA))
         val updateUserRequest = call.receive<UpdateUserRequest>()
         userService.update(
             userSchema!!.copy(
@@ -45,12 +45,12 @@ fun Route.userRoutesV1() {
                 updatedAt = Clock.System.now()
             )
         )
-        call.respond(KtResult.ok<Unit>())
+        call.respond(R.ok<Unit>())
     }
 
     delete {
         userService.delete(call.getLoginUser())
-        call.respond(KtResult.ok<Unit>())
+        call.respond(R.ok<Unit>())
     }
 }
 
