@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component
 import org.springframework.web.context.request.RequestContextHolder
 import org.springframework.web.context.request.ServletRequestAttributes
 import org.springframework.web.multipart.MultipartFile
-import top.threshold.aphrodite.pkg.entity.Slf4j.Companion.log
+import top.threshold.aphrodite.pkg.model.Slf4j.Companion.log
 
 @Order(0)
 @Aspect

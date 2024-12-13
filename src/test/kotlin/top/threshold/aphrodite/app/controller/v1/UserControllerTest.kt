@@ -10,7 +10,7 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import top.threshold.aphrodite.app.controller.v1.UserController.GetUserResponse
-import top.threshold.aphrodite.app.entity.pojo.UserDO
+import top.threshold.aphrodite.app.model.pojo.UserDO
 import top.threshold.aphrodite.app.repository.IUserRepository
 import top.threshold.aphrodite.pkg.utils.RedisUtil
 import java.time.LocalDateTime

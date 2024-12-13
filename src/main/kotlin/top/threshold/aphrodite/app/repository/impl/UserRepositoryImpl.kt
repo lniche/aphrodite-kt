@@ -3,8 +3,8 @@ package top.threshold.aphrodite.app.repository.impl;
 import com.baomidou.mybatisplus.extension.kotlin.KtQueryChainWrapper
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl
 import org.springframework.stereotype.Service
-import top.threshold.aphrodite.app.entity.pojo.UserDO
 import top.threshold.aphrodite.app.mapper.UserMapper
+import top.threshold.aphrodite.app.model.pojo.UserDO
 import top.threshold.aphrodite.app.repository.IUserRepository
 
 @Service

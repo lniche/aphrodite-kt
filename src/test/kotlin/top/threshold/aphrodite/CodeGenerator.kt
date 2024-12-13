@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.generator.config.GlobalConfig
 import com.baomidou.mybatisplus.generator.config.PackageConfig
 import com.baomidou.mybatisplus.generator.config.StrategyConfig
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine
-import top.threshold.aphrodite.pkg.entity.BaseOprDO
+import top.threshold.aphrodite.pkg.model.BaseOprDO
 import java.nio.file.Paths
 
 object CodeGenerator {

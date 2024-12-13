@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import top.threshold.aphrodite.app.controller.BaseController
-import top.threshold.aphrodite.app.entity.pojo.UserDO
+import top.threshold.aphrodite.app.model.pojo.UserDO
 import top.threshold.aphrodite.app.repository.IUserRepository
 import top.threshold.aphrodite.pkg.constant.CacheKey
-import top.threshold.aphrodite.pkg.entity.KtResult
-import top.threshold.aphrodite.pkg.entity.Slf4j
-import top.threshold.aphrodite.pkg.entity.Slf4j.Companion.log
+import top.threshold.aphrodite.pkg.model.R
+import top.threshold.aphrodite.pkg.model.Slf4j
+import top.threshold.aphrodite.pkg.model.Slf4j.Companion.log
 import top.threshold.aphrodite.pkg.utils.RedisUtil
 import java.time.OffsetDateTime
 import java.util.*
@@ -44,16 +44,16 @@ class AuthController(
         summary = "Send Verification Code",
     )
     @PostMapping("/send-code")
-    fun sendVerifyCode(@Validated @RequestBody sendVerifyCodeRequest: SendVerifyCodeRequest): KtResult<Void> {
+    fun sendVerifyCode(@Validated @RequestBody sendVerifyCodeRequest: SendVerifyCodeRequest): R<Void> {
         val cacheKey = CacheKey.SMS_CODE + sendVerifyCodeRequest.phone
         if (redisUtil.hasKey(cacheKey)) {
-            return KtResult.err("A verification code has already been sent within a minute, please try again later")
+            return R.err("A verification code has already been sent within a minute, please try again later")
         }
         val cacheCode = RandomUtil.randomInt(1000, 9999).toString()
         log.debug("cache code: {}", cacheCode)
         redisUtil.setStr(cacheKey, cacheCode, 60)
         // TODO fake send
-        return KtResult.ok()
+        return R.ok()
     }
 
     @Data
@@ -78,11 +78,11 @@ class AuthController(
         summary = "User Registration/Login",
     )
     @PostMapping("/login")
-    fun login(@Validated @RequestBody loginRequest: LoginRequest): KtResult<LoginResponse> {
+    fun login(@Validated @RequestBody loginRequest: LoginRequest): R<LoginResponse> {
         val codeKey = CacheKey.SMS_CODE + loginRequest.phone
         val cacheCode = redisUtil.getStr(codeKey)
         if (!loginRequest.code.equals(cacheCode))
-            return KtResult.err("Verification code is incorrect, please re-enter")
+            return R.err("Verification code is incorrect, please re-enter")
         var userDO = userRepository.getByPhone(loginRequest.phone!!)
         if (Objects.isNull(userDO)) {
             userDO = UserDO()
@@ -103,7 +103,7 @@ class AuthController(
         val loginResponse = LoginResponse()
         loginResponse.accessToken = userDO.loginToken
         redisUtil.del(codeKey)
-        return KtResult.ok(loginResponse)
+        return R.ok(loginResponse)
     }
 
     @Operation(
@@ -112,11 +112,11 @@ class AuthController(
         security = [SecurityRequirement(name = "Authorization")]
     )
     @PostMapping("/logout")
-    fun logout(): KtResult<Void> {
-        val userDO = userRepository.getByCode(loginUid()) ?: return KtResult.err("User not found")
+    fun logout(): R<Void> {
+        val userDO = userRepository.getByCode(loginUid()) ?: return R.err("User not found")
         userDO.loginToken = ""
         userRepository.updateById(userDO)
-        return KtResult.ok()
+        return R.ok()
     }
 }
 

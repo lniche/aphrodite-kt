@@ -1,4 +1,4 @@
-package top.threshold.aphrodite.pkg.entity
+package top.threshold.aphrodite.pkg.model
 
 import com.baomidou.mybatisplus.annotation.FieldFill
 import com.baomidou.mybatisplus.annotation.TableField

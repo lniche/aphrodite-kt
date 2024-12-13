@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*
 import top.threshold.aphrodite.app.controller.BaseController
 import top.threshold.aphrodite.app.repository.IUserRepository
 import top.threshold.aphrodite.pkg.constant.CacheKey
-import top.threshold.aphrodite.pkg.entity.KtResult
+import top.threshold.aphrodite.pkg.model.R
 import top.threshold.aphrodite.pkg.utils.RedisUtil
 import java.time.OffsetDateTime
 
@@ -54,7 +54,7 @@ class UserController(
         Parameter(name = "userCode", description = "User Code", `in` = ParameterIn.PATH)
     )
     @GetMapping("/{userCode}")
-    fun getUser(@PathVariable userCode: String): KtResult<GetUserResponse?> {
+    fun getUser(@PathVariable userCode: String): R<GetUserResponse?> {
         val actualUserCode = if (StrUtil.isBlank(userCode)) {
             loginUid()
         } else {
@@ -66,14 +66,14 @@ class UserController(
             val userDO = userRepository.getByCode(actualUserCode)
             userDO?.let {
                 redisUtil[redisKey, it] = 60
-                return KtResult.ok(GetUserResponse().apply { BeanUtil.copyProperties(it, this) })
+                return R.ok(GetUserResponse().apply { BeanUtil.copyProperties(it, this) })
             }
         }
         getUserResponse?.apply {
             email = DesensitizedUtil.email(email)
             phone = DesensitizedUtil.mobilePhone(phone)
         }
-        return KtResult.ok(getUserResponse)
+        return R.ok(getUserResponse)
     }
 
     @Data
@@ -90,11 +90,11 @@ class UserController(
         security = [SecurityRequirement(name = "Authorization")]
     )
     @PutMapping("")
-    fun updateUser(@Validated @RequestBody updateUserRequest: UpdateUserRequest): KtResult<Void> {
-        val userDO = userRepository.getByCode(loginUid()) ?: return KtResult.err("User does not exist")
+    fun updateUser(@Validated @RequestBody updateUserRequest: UpdateUserRequest): R<Void> {
+        val userDO = userRepository.getByCode(loginUid()) ?: return R.err("User does not exist")
         BeanUtil.copyProperties(updateUserRequest, userDO, "userCode")
         userRepository.updateById(userDO)
-        return KtResult.ok()
+        return R.ok()
     }
 
     @Operation(
@@ -102,11 +102,11 @@ class UserController(
         security = [SecurityRequirement(name = "Authorization")]
     )
     @DeleteMapping("")
-    fun deleteUser(): KtResult<Void> {
-        val userDO = userRepository.getByCode(loginUid()) ?: return KtResult.err("User is not valid")
+    fun deleteUser(): R<Void> {
+        val userDO = userRepository.getByCode(loginUid()) ?: return R.err("User is not valid")
         userDO.status = 3
         userDO.deletedAt = OffsetDateTime.now()
         userRepository.updateById(userDO)
-        return KtResult.ok()
+        return R.ok()
     }
 }

@@ -6,7 +6,7 @@ import jakarta.annotation.Resource
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.stereotype.Component
-import top.threshold.aphrodite.pkg.entity.Slf4j.Companion.log
+import top.threshold.aphrodite.pkg.model.Slf4j.Companion.log
 import java.util.concurrent.TimeUnit
 
 @Component
