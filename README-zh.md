@@ -74,7 +74,7 @@ edit application.yml
 ./gradlew build
 
 # 4. 初始化数据库
-db/init.sql
+db.migrate/V1.0.0__initial_schema.sql
 
 # 5. 启动服务
 ./gradlew run
