@@ -59,6 +59,8 @@ Aphrodite は Spring Boot
 
 ```
 
+## ローカルでの実行
+
 ```bash
 # 1. プロジェクトリポジトリをクローン
 git clone https://github.com/lniche/aphrodite-kt.git
