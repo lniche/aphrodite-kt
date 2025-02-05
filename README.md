@@ -1,6 +1,6 @@
 # Aphrodite Ktor API Scaffold
 
-[English](README.md) | [简体中文](README-zh.md)
+[English](README.md) | [简体中文](README-zh.md) | [日本語](README-jp.md)
 
 Aphrodite is a template project based on Ktor, designed to help developers get started
 quickly and gain a deep understanding of the framework's usage process. The project provides comprehensive sample code
@@ -52,15 +52,19 @@ environment, helping developers to efficiently build and release applications.
 
 ```
 .
-├── bin/                # executable scripts
-├── database/           # database related
-├── deploy/             # deployment related files
-├── docs/               # project documentation
-├── src/                # core directory
-│ ├── app/              # application core code
-│ ├── pkg/              # public module
-├── storage/            # file storage
-└── README.md           # project description
+├── scripts/
+├── database/
+├── deploy/
+├── docs/
+├── src/
+│ ├── common/
+│ ├── model/
+│ ├── plugin/
+│ ├── route/
+│ ├── service/
+│ ├── utils/
+├── storage/
+└── README.md
 
 ```
 
@@ -88,31 +92,6 @@ database/init.sql
 ## Repo Activity
 
 ![Alt](https://repobeats.axiom.co/api/embed/8c4c3c37cf3d00a71bc527b1a0eee18d2f20f7b5.svg "Repobeats analytics image")
-
-## Contribute
-
-If you have any suggestions or ideas, please create an issue or submit a Pull Request directly.
-
-1. **Fork** this repository.
-2. **Create** a new branch:
-
-```
-git checkout -b feature/your-feature
-```
-
-3. **Commit** your changes:
-
-```
-git commit -m 'Add new feature'
-```
-
-4. **Push** to your branch:
-
-```
-git push origin feature/your-feature
-```
-
-5. **Submit** a Pull Request.
 
 ## License
 
