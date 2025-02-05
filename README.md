@@ -52,15 +52,15 @@ environment, helping developers to efficiently build and release applications.
 
 ```
 .
-├── bin/                    # executable scripts
-├── database/               # database related
-├── deploy/                 # deployment related files
-├── docs/                   # project documentation
-├── src/                    # core directory
-│ ├── app/                  # application core code
-│ ├── pkg/                  # public module
-├── storage/                # file storage
-└── README.md               # project description
+├── scripts/
+├── database/
+├── deploy/
+├── docs/
+├── src/
+│ ├── app/
+│ ├── pkg/
+├── storage/
+└── README.md
 
 ```
 
@@ -68,7 +68,7 @@ environment, helping developers to efficiently build and release applications.
 
 ```bash
 # 1. Clone the project code base
-git clone https://github.com/lniche/aphrodite-kt.git
+git clone -b springboot3 https://github.com/lniche/aphrodite-kt.git
 cd aphrodite-kt
 
 # 2. Configuration file

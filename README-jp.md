@@ -47,15 +47,15 @@ Aphrodite は Spring Boot
 
 ```
 .
-├── bin/            # 実行可能スクリプト
-├── database/       # データベース関連
-├── deploy/         # デプロイ関連ファイル
-├── docs/           # プロジェクトドキュメント
-├── src/            # コアディレクトリ
-│ ├── app/          # アプリケーションのコアコード
-│ ├── pkg/          # 共通モジュール
-├── storage/        # ファイルストレージ
-└── README.md       # プロジェクト説明
+├── scripts/
+├── database/
+├── deploy/
+├── docs/
+├── src/
+│ ├── app/
+│ ├── pkg/
+├── storage/
+└── README.md
 
 ```
 
@@ -63,7 +63,7 @@ Aphrodite は Spring Boot
 
 ```bash
 # 1. プロジェクトリポジトリをクローン
-git clone https://github.com/lniche/aphrodite-kt.git
+git clone -b springboot3 https://github.com/lniche/aphrodite-kt.git
 cd aphrodite-kt
 
 # 2. 設定ファイルを編集
