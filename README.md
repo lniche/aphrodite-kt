@@ -1,6 +1,6 @@
 # Aphrodite Ktor API Scaffold
 
-[English](README.md) | [简体中文](README-zh.md) | [日本語](README-jp.md)
+[English](README.md) | [简体中文](README-zh.md) | [日本語](README-ja)
 
 Aphrodite is a template project based on Ktor, designed to help developers get started
 quickly and gain a deep understanding of the framework's usage process. The project provides comprehensive sample code
