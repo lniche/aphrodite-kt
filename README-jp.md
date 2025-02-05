@@ -78,7 +78,7 @@ edit application.conf
 ./mvn clean package
 
 # 4. データベースを初期化
-db/init.sql
+database.migrations/V1.0.0__initial_schema.sql
 
 # 5. サービスを起動
 ./mvn spring-boot:run

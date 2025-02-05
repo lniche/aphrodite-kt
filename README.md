@@ -83,7 +83,7 @@ edit application.conf
 ./gradlew build
 
 # 4. Initialize the database
-database/init.sql
+database.migrations/V1.0.0__initial_schema.sql
 
 # 5. Start the service
 ./gradlew run
