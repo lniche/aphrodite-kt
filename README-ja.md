@@ -1,38 +1,38 @@
 # Aphrodite Ktor API Scaffold
 
-[English](README.md) | [简体中文](README-zh.md)
+[English](README.md) | [简体中文](README-zh.md) | [日本語](README-ja.md) | [한국어](README-ko.md)
 
 Aphrodite は Spring Boot
 3をベースに開発されたテンプレートプロジェクトであり、開発者が素早く始め、フレームワークの使用プロセスを深く理解するのを支援することを目的としています。このプロジェクトでは、一般的な開発シーンを網羅する包括的なサンプルコードと設定が提供されており、学習と実践が容易になります。さらに、Aphroditeにはコンテナデプロイメントテンプレートも含まれているため、プロジェクトは現代のクラウド環境で簡単にデプロイされ、管理することができ、開発者がアプリケーションを効率的に構築し、公開するのを支援します。
 
 ## 技術スタック
 
-| 技术                                                                                   | 说明                              |
-|--------------------------------------------------------------------------------------|---------------------------------|
-| [ktor-server-default-headers-jvm](https://ktor.io/docs/default-headers.html)         | Ktor 服务默认请求头支持                  |
-| [ktor-server-call-logging-jvm](https://ktor.io/docs/call-logging.html)               | Ktor 服务调用日志记录                   |
-| [ktor-server-call-id-jvm](https://ktor.io/docs/call-id.html)                         | Ktor 服务调用 ID 生成                 |
-| [ktor-server-rate-limiting-jvm](https://github.com/flaxoos/ktor-rate-limiting)       | Ktor 服务限流功能                     |
-| [ktor-server-core-jvm](https://ktor.io/docs/core.html)                               | Ktor 核心服务功能                     |
-| [ktor-serialization-kotlinx-json-jvm](https://ktor.io/docs/serialization.html)       | 使用 kotlinx-json 的 Ktor 序列化支持    |
-| [ktor-server-content-negotiation-jvm](https://ktor.io/docs/content-negotiation.html) | Ktor 内容协商支持                     |
-| [postgresql](https://jdbc.postgresql.org/)                                           | PostgreSQL 数据库驱动                |
-| [ktor-server-host-common-jvm](https://ktor.io/docs/host-common.html)                 | Ktor 通用主机工具                     |
-| [ktor-server-status-pages-jvm](https://ktor.io/docs/status-pages.html)               | Ktor 服务状态页面处理                   |
-| [ktor-server-swagger-jvm](https://ktor.io/docs/openapi.html)                         | Ktor Swagger 支持                 |
-| [ktor-server-openapi](https://ktor.io/docs/openapi.html)                             | Ktor OpenAPI 支持                 |
-| [ktor-server-conditional-headers-jvm](https://ktor.io/docs/conditional-headers.html) | Ktor 条件请求头支持                    |
-| [ktor-server-cors-jvm](https://ktor.io/docs/cors.html)                               | Ktor 跨域资源共享（CORS）               |
-| [ktor-server-compression-jvm](https://ktor.io/docs/compression.html)                 | Ktor 响应压缩支持                     |
-| [ktor-server-auth-jwt-jvm](https://ktor.io/docs/jwt.html)                            | 基于 JWT 的 Ktor 鉴权                |
-| [ktor-server-netty-jvm](https://ktor.io/docs/netty.html)                             | Ktor 服务的 Netty 引擎支持             |
-| [exposed-core](https://github.com/JetBrains/Exposed/wiki/Getting-Started)            | Exposed 的核心模块，Kotlin SQL 框架     |
-| [exposed-jdbc](https://github.com/JetBrains/Exposed/wiki/Getting-Started)            | Exposed 的 JDBC 模块               |
-| [exposed-dao](https://github.com/JetBrains/Exposed/wiki/DataAccessObjects)           | Exposed 的 DAO 模块，支持 ORM 风格的数据访问 |
-| [exposed-kotlin-datetime](https://github.com/JetBrains/Exposed/wiki/Getting-Started) | Exposed 对 Kotlin 日期时间的支持        |
-| [logback-classic](https://logback.qos.ch/manual/classic.html)                        | Logback Classic 日志库             |
-| [lettuce-core](https://lettuce.io/core/release/reference/)                           | 响应式 Redis 客户端库                  |
-| [kotlin-test-junit](https://kotlinlang.org/docs/junit-5.html)                        | Kotlin 对 JUnit 的测试支持            |
+| 技術                                                                                   | 説明                                 |
+|--------------------------------------------------------------------------------------|------------------------------------|
+| [ktor-server-default-headers-jvm](https://ktor.io/docs/default-headers.html)         | Ktorサーバーのデフォルトヘッダーのサポート            |
+| [ktor-server-call-logging-jvm](https://ktor.io/docs/call-logging.html)               | Ktorサーバーのコールログ記録                   |
+| [ktor-server-call-id-jvm](https://ktor.io/docs/call-id.html)                         | KtorサーバーのコールID生成                   |
+| [ktor-server-rate-limiting-jvm](https://github.com/flaxoos/ktor-rate-limiting)       | Ktorサーバーのレート制限                     |
+| [ktor-server-core-jvm](https://ktor.io/docs/core.html)                               | Ktorのコアサーバー機能                      |
+| [ktor-serialization-kotlinx-json-jvm](https://ktor.io/docs/serialization.html)       | kotlinx-jsonを使ったKtorのシリアライゼーション    |
+| [ktor-server-content-negotiation-jvm](https://ktor.io/docs/content-negotiation.html) | Ktorのコンテンツネゴシエーション                 |
+| [postgresql](https://jdbc.postgresql.org/)                                           | PostgreSQLデータベースドライバー              |
+| [ktor-server-host-common-jvm](https://ktor.io/docs/host-common.html)                 | Ktorの共通ホストユーティリティ                  |
+| [ktor-server-status-pages-jvm](https://ktor.io/docs/status-pages.html)               | Ktorサーバーのステータスページ処理                |
+| [ktor-server-swagger-jvm](https://ktor.io/docs/openapi.html)                         | KtorのSwaggerサポート                   |
+| [ktor-server-openapi](https://ktor.io/docs/openapi.html)                             | KtorのOpenAPIサポート                   |
+| [ktor-server-conditional-headers-jvm](https://ktor.io/docs/conditional-headers.html) | Ktorの条件付きヘッダーサポート                  |
+| [ktor-server-cors-jvm](https://ktor.io/docs/cors.html)                               | Ktorのクロスオリジンリソース共有（CORS）           |
+| [ktor-server-compression-jvm](https://ktor.io/docs/compression.html)                 | Ktorのレスポンス圧縮                       |
+| [ktor-server-auth-jwt-jvm](https://ktor.io/docs/jwt.html)                            | KtorのJWTベース認証                      |
+| [ktor-server-netty-jvm](https://ktor.io/docs/netty.html)                             | Ktorサーバー用Nettyエンジンサポート             |
+| [exposed-core](https://github.com/JetBrains/Exposed/wiki/Getting-Started)            | Exposed（Kotlin SQLフレームワーク）のコアモジュール |
+| [exposed-jdbc](https://github.com/JetBrains/Exposed/wiki/Getting-Started)            | ExposedのJDBCモジュール                  |
+| [exposed-dao](https://github.com/JetBrains/Exposed/wiki/DataAccessObjects)           | ORMスタイルのデータアクセス用ExposedのDAOモジュール   |
+| [exposed-kotlin-datetime](https://github.com/JetBrains/Exposed/wiki/Getting-Started) | Exposed用Kotlin日時統合                 |
+| [logback-classic](https://logback.qos.ch/manual/classic.html)                        | ログ用のLogbackクラシックライブラリ              |
+| [lettuce-core](https://lettuce.io/core/release/reference/)                           | リアクティブRedisクライアントライブラリ             |
+| [kotlin-test-junit](https://kotlinlang.org/docs/junit-5.html)                        | KotlinのJUnitサポート                   |
 
 ## 特徴
 

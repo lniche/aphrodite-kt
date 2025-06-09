@@ -1,38 +1,38 @@
 # Aphrodite Ktor API Scaffold
 
-[English](README.md) | [简体中文](README-zh.md) | [日本語](README-ja)
+[English](README.md) | [简体中文](README-zh.md) | [日本語](README-ja.md) | [한국어](README-ko.md)
 
 Aphrodite 是一个基于 Ktor
 开发的模板项目，旨在帮助开发者快速上手，深入理解框架的使用流程。该项目提供了全面的示例代码和配置，涵盖了常见的开发场景，以便于学习和实践。此外，Aphrodite还包含容器部署模板，使得项目在现代云环境中能够轻松部署与管理，助力开发者高效构建和发布应用。
 
 ## 技术栈
 
-| 技术                                                                                   | 说明                              |
-|--------------------------------------------------------------------------------------|---------------------------------|
-| [ktor-server-default-headers-jvm](https://ktor.io/docs/default-headers.html)         | Ktor 服务默认请求头支持                  |
-| [ktor-server-call-logging-jvm](https://ktor.io/docs/call-logging.html)               | Ktor 服务调用日志记录                   |
-| [ktor-server-call-id-jvm](https://ktor.io/docs/call-id.html)                         | Ktor 服务调用 ID 生成                 |
-| [ktor-server-rate-limiting-jvm](https://github.com/flaxoos/ktor-rate-limiting)       | Ktor 服务限流功能                     |
-| [ktor-server-core-jvm](https://ktor.io/docs/core.html)                               | Ktor 核心服务功能                     |
-| [ktor-serialization-kotlinx-json-jvm](https://ktor.io/docs/serialization.html)       | 使用 kotlinx-json 的 Ktor 序列化支持    |
-| [ktor-server-content-negotiation-jvm](https://ktor.io/docs/content-negotiation.html) | Ktor 内容协商支持                     |
-| [postgresql](https://jdbc.postgresql.org/)                                           | PostgreSQL 数据库驱动                |
-| [ktor-server-host-common-jvm](https://ktor.io/docs/host-common.html)                 | Ktor 通用主机工具                     |
-| [ktor-server-status-pages-jvm](https://ktor.io/docs/status-pages.html)               | Ktor 服务状态页面处理                   |
-| [ktor-server-swagger-jvm](https://ktor.io/docs/openapi.html)                         | Ktor Swagger 支持                 |
-| [ktor-server-openapi](https://ktor.io/docs/openapi.html)                             | Ktor OpenAPI 支持                 |
-| [ktor-server-conditional-headers-jvm](https://ktor.io/docs/conditional-headers.html) | Ktor 条件请求头支持                    |
-| [ktor-server-cors-jvm](https://ktor.io/docs/cors.html)                               | Ktor 跨域资源共享（CORS）               |
-| [ktor-server-compression-jvm](https://ktor.io/docs/compression.html)                 | Ktor 响应压缩支持                     |
-| [ktor-server-auth-jwt-jvm](https://ktor.io/docs/jwt.html)                            | 基于 JWT 的 Ktor 鉴权                |
-| [ktor-server-netty-jvm](https://ktor.io/docs/netty.html)                             | Ktor 服务的 Netty 引擎支持             |
-| [exposed-core](https://github.com/JetBrains/Exposed/wiki/Getting-Started)            | Exposed 的核心模块，Kotlin SQL 框架     |
-| [exposed-jdbc](https://github.com/JetBrains/Exposed/wiki/Getting-Started)            | Exposed 的 JDBC 模块               |
-| [exposed-dao](https://github.com/JetBrains/Exposed/wiki/DataAccessObjects)           | Exposed 的 DAO 模块，支持 ORM 风格的数据访问 |
-| [exposed-kotlin-datetime](https://github.com/JetBrains/Exposed/wiki/Getting-Started) | Exposed 对 Kotlin 日期时间的支持        |
-| [logback-classic](https://logback.qos.ch/manual/classic.html)                        | Logback Classic 日志库             |
-| [lettuce-core](https://lettuce.io/core/release/reference/)                           | 响应式 Redis 客户端库                  |
-| [kotlin-test-junit](https://kotlinlang.org/docs/junit-5.html)                        | Kotlin 对 JUnit 的测试支持            |
+| 技术                                                                                   | 说明                        |
+|--------------------------------------------------------------------------------------|---------------------------|
+| [ktor-server-default-headers-jvm](https://ktor.io/docs/default-headers.html)         | Ktor服务器默认请求头支持            |
+| [ktor-server-call-logging-jvm](https://ktor.io/docs/call-logging.html)               | Ktor服务器调用日志记录             |
+| [ktor-server-call-id-jvm](https://ktor.io/docs/call-id.html)                         | Ktor服务器调用ID生成             |
+| [ktor-server-rate-limiting-jvm](https://github.com/flaxoos/ktor-rate-limiting)       | Ktor服务器限流支持               |
+| [ktor-server-core-jvm](https://ktor.io/docs/core.html)                               | Ktor核心服务器功能               |
+| [ktor-serialization-kotlinx-json-jvm](https://ktor.io/docs/serialization.html)       | 使用kotlinx-json的Ktor序列化    |
+| [ktor-server-content-negotiation-jvm](https://ktor.io/docs/content-negotiation.html) | Ktor内容协商支持                |
+| [postgresql](https://jdbc.postgresql.org/)                                           | PostgreSQL数据库驱动           |
+| [ktor-server-host-common-jvm](https://ktor.io/docs/host-common.html)                 | Ktor通用主机工具                |
+| [ktor-server-status-pages-jvm](https://ktor.io/docs/status-pages.html)               | Ktor服务器状态页处理              |
+| [ktor-server-swagger-jvm](https://ktor.io/docs/openapi.html)                         | Ktor Swagger支持            |
+| [ktor-server-openapi](https://ktor.io/docs/openapi.html)                             | Ktor OpenAPI支持            |
+| [ktor-server-conditional-headers-jvm](https://ktor.io/docs/conditional-headers.html) | Ktor条件请求头支持               |
+| [ktor-server-cors-jvm](https://ktor.io/docs/cors.html)                               | Ktor跨域资源共享（CORS）          |
+| [ktor-server-compression-jvm](https://ktor.io/docs/compression.html)                 | Ktor响应压缩                  |
+| [ktor-server-auth-jwt-jvm](https://ktor.io/docs/jwt.html)                            | Ktor基于JWT的认证              |
+| [ktor-server-netty-jvm](https://ktor.io/docs/netty.html)                             | Ktor服务器的Netty引擎支持         |
+| [exposed-core](https://github.com/JetBrains/Exposed/wiki/Getting-Started)            | Exposed（Kotlin SQL框架）核心模块 |
+| [exposed-jdbc](https://github.com/JetBrains/Exposed/wiki/Getting-Started)            | Exposed的JDBC模块            |
+| [exposed-dao](https://github.com/JetBrains/Exposed/wiki/DataAccessObjects)           | Exposed的ORM风格数据访问DAO模块    |
+| [exposed-kotlin-datetime](https://github.com/JetBrains/Exposed/wiki/Getting-Started) | Exposed的Kotlin日期时间集成      |
+| [logback-classic](https://logback.qos.ch/manual/classic.html)                        | 用于日志记录的Logback经典库         |
+| [lettuce-core](https://lettuce.io/core/release/reference/)                           | 响应式Redis客户端库              |
+| [kotlin-test-junit](https://kotlinlang.org/docs/junit-5.html)                        | Kotlin对JUnit的测试支持         |
 
 ## 特性
 
