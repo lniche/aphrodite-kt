@@ -1,7 +1,5 @@
 package top.threshold.aphrodite.app.controller.v1;
 
-import cn.hutool.core.util.IdUtil
-import cn.hutool.core.util.RandomUtil
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
@@ -21,8 +19,10 @@ import top.threshold.aphrodite.pkg.model.R
 import top.threshold.aphrodite.pkg.model.Slf4j
 import top.threshold.aphrodite.pkg.model.Slf4j.Companion.log
 import top.threshold.aphrodite.pkg.utils.RedisUtil
+import top.threshold.aphrodite.pkg.utils.SnowflakeUtil
 import java.time.OffsetDateTime
 import java.util.*
+import java.util.concurrent.ThreadLocalRandom
 
 @Slf4j
 @RestController
@@ -49,7 +49,7 @@ class AuthController(
         if (redisUtil.hasKey(cacheKey)) {
             return R.err("A verification code has already been sent within a minute, please try again later")
         }
-        val cacheCode = RandomUtil.randomInt(1000, 9999).toString()
+        val cacheCode = ThreadLocalRandom.current().nextInt(1000, 10000).toString()
         log.debug("cache code: {}", cacheCode)
         redisUtil.setStr(cacheKey, cacheCode, 60)
         // TODO fake send
@@ -87,7 +87,7 @@ class AuthController(
         if (Objects.isNull(userDO)) {
             userDO = UserDO()
             userDO.userNo = redisUtil.nextId(CacheKey.NEXT_UNO)
-            userDO.userCode = IdUtil.getSnowflakeNextIdStr()
+            userDO.userCode = SnowflakeUtil.nextId().toString()
             userDO.clientIp = realIpAddress
             userDO.nickname = "SUGAR_" + loginRequest.phone!!.takeLast(4)
             userDO.phone = loginRequest.phone

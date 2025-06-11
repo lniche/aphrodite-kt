@@ -1,11 +1,11 @@
 package top.threshold.aphrodite.pkg.utils
 
-import cn.hutool.core.util.StrUtil
-import cn.hutool.json.JSONUtil
+import com.fasterxml.jackson.databind.ObjectMapper
 import jakarta.annotation.Resource
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.stereotype.Component
+import org.springframework.util.StringUtils
 import top.threshold.aphrodite.pkg.model.Slf4j.Companion.log
 import java.util.concurrent.TimeUnit
 
@@ -65,28 +65,29 @@ class RedisUtil {
 
     fun getInt(key: String?): Int {
         val str = stringRedisTemplate.opsForValue().get(key!!)
-        return if (StrUtil.isBlank(str)) 0 else str!!.toInt()
+        return if (!StringUtils.hasLength(str)) 0 else str!!.toInt()
 
     }
 
     fun getBool(key: String?): Boolean {
         val str = stringRedisTemplate.opsForValue().get(key!!)
-        return if (StrUtil.isBlank(str)) false else str!!.toBoolean()
+        return if (!StringUtils.hasLength(str)) false else str!!.toBoolean()
 
     }
 
     fun getLong(key: String?): Long {
         val str = stringRedisTemplate.opsForValue().get(key!!)
-        return if (StrUtil.isBlank(str)) 0 else str!!.toLong()
+        return if (!StringUtils.hasLength(str)) 0 else str!!.toLong()
 
     }
 
     fun <T> getObj(key: String?, clazz: Class<T>): T? {
         return try {
+            val objectMapper = ObjectMapper()
             val json = redisTemplate.opsForValue()[key!!] as String?
-            if (StrUtil.isBlankIfStr(json)) {
+            if (!StringUtils.hasLength(json)) {
                 null
-            } else JSONUtil.toBean(json, clazz)
+            } else objectMapper.readValue(json, clazz)
         } catch (e: Exception) {
             log.error("redis error", e)
             null

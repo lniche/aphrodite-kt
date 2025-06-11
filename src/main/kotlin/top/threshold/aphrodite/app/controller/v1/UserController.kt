@@ -1,8 +1,5 @@
 package top.threshold.aphrodite.app.controller.v1;
 
-import cn.hutool.core.bean.BeanUtil
-import cn.hutool.core.util.DesensitizedUtil
-import cn.hutool.core.util.StrUtil
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.Parameters
@@ -11,6 +8,8 @@ import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 import io.swagger.v3.oas.annotations.tags.Tag
 import lombok.Data
+import org.springframework.beans.BeanUtils
+import org.springframework.util.StringUtils
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import top.threshold.aphrodite.app.controller.BaseController
@@ -55,7 +54,7 @@ class UserController(
     )
     @GetMapping("/{userCode}")
     fun getUser(@PathVariable userCode: String): R<GetUserResponse?> {
-        val actualUserCode = if (StrUtil.isBlank(userCode)) {
+        val actualUserCode = if (!StringUtils.hasLength(userCode)) {
             loginUid()
         } else {
             userCode
@@ -66,12 +65,8 @@ class UserController(
             val userDO = userRepository.getByCode(actualUserCode)
             userDO?.let {
                 redisUtil[redisKey, it] = 60
-                return R.ok(GetUserResponse().apply { BeanUtil.copyProperties(it, this) })
+                return R.ok(GetUserResponse().apply { BeanUtils.copyProperties(it, this) })
             }
-        }
-        getUserResponse?.apply {
-            email = DesensitizedUtil.email(email)
-            phone = DesensitizedUtil.mobilePhone(phone)
         }
         return R.ok(getUserResponse)
     }
@@ -92,7 +87,7 @@ class UserController(
     @PutMapping("")
     fun updateUser(@Validated @RequestBody updateUserRequest: UpdateUserRequest): R<Void> {
         val userDO = userRepository.getByCode(loginUid()) ?: return R.err("User does not exist")
-        BeanUtil.copyProperties(updateUserRequest, userDO, "userCode")
+        BeanUtils.copyProperties(updateUserRequest, userDO, "userCode")
         userRepository.updateById(userDO)
         return R.ok()
     }

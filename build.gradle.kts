@@ -5,6 +5,7 @@ plugins {
     id("io.spring.dependency-management") version "1.1.6"
     kotlin("plugin.lombok") version "2.0.20"
     id("io.freefair.lombok") version "8.10"
+    kotlin("plugin.serialization") version "1.9.22"
 }
 
 group = "top.threshold"
@@ -38,10 +39,10 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
 
     implementation("org.redisson:redisson-spring-boot-starter:3.36.0")
     implementation("com.alibaba:transmittable-thread-local:2.14.5")
-    implementation("cn.hutool:hutool-all:5.8.32")
     implementation("org.apache.commons:commons-pool2")
     implementation("com.baomidou:mybatis-plus-spring-boot3-starter:3.5.7")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")

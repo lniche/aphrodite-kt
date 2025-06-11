@@ -1,14 +1,14 @@
 package top.threshold.aphrodite.pkg.utils
 
-import cn.hutool.core.util.IdUtil
 import org.slf4j.MDC
 import top.threshold.aphrodite.pkg.constant.Const
+import java.util.*
 import java.util.concurrent.Callable
 
 object ThreadMdcUtil {
     private fun setTraceIdIfAbsent() {
         if (MDC.get(Const.TRACE_ID) == null) {
-            MDC.put(Const.TRACE_ID, IdUtil.fastSimpleUUID())
+            MDC.put(Const.TRACE_ID, UUID.randomUUID().toString().replace("-", ""))
         }
     }
 

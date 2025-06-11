@@ -28,7 +28,6 @@ Aphrodite는 Spring Boot 3를 기반으로 한 템플릿 프로젝트로, 개발
 | [knife4j-openapi3-jakarta-spring-boot-starter](https://knife4j.github.io/knife4j/)                                                               | OpenAPI 3 지원 문서 생성 도구       |
 | [redisson-spring-boot-starter](https://github.com/redisson/redisson)                                                                             | Redis용 Spring Boot 스타터      |
 | [transmittable-thread-local](https://github.com/alibaba/transmittable-thread-local)                                                              | 스레드 간 전달 가능한 스레드 로컬 변수 지원   |
-| [hutool-all](https://github.com/dromara/hutool)                                                                                                  | Java 툴 라이브러리, 다양한 공통 기능 제공  |
 | [commons-pool2](https://commons.apache.org/proper/commons-pool/)                                                                                 | Apache Commons 커넥션 풀        |
 | [mybatis-plus-spring-boot3-starter](https://mp.baomidou.com/)                                                                                    | MyBatis 향상된 Spring Boot 스타터 |
 | [mybatis-plus-generator](https://mp.baomidou.com/guide/generator.html)                                                                           | MyBatis-Plus 코드 생성기         |
